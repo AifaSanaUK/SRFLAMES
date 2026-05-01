@@ -170,14 +170,13 @@ Hello SR Flames! I want to know about this precision appliance:
             ))}
           </div>
 
-          {/* View All Button */}
           <div className="mt-16 text-center">
-            <a 
-              href="/products" 
-              className="inline-flex items-center gap-2 text-primary hover:text-primary-light font-bold text-xs uppercase tracking-[0.3em] transition-all border-b border-primary/20 pb-1 hover:border-primary-light"
+            <button 
+              onClick={() => navigate('/products')}
+              className="inline-flex items-center gap-2 text-primary hover:text-primary-light font-black text-xs uppercase tracking-[0.3em] transition-all border-b border-primary/20 pb-1 hover:border-primary-light"
             >
               View Full Collection <ChevronRight size={16} />
-            </a>
+            </button>
           </div>
         </div>
       </section>
