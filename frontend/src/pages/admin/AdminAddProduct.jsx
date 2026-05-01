@@ -64,6 +64,8 @@ const AdminAddProduct = () => {
       }
 
       const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5001';
+      console.log('Sending product to:', API_URL);
+
       const res = await fetch(`${API_URL}/api/products/add`, {
         method: 'POST',
         body: data,
@@ -72,15 +74,15 @@ const AdminAddProduct = () => {
       const result = await res.json();
 
       if (!res.ok) {
-        throw new Error(result.message || 'Failed to add product');
+        throw new Error(result.message || result.error || 'Failed to add product');
       }
 
-      alert('Product added successfully!');
+      alert('SUCCESS: Appliance registered in SR Showroom!');
       navigate('/admin/products');
 
     } catch (err) {
-      console.error(err);
-      setError(err.message);
+      console.error('Registration Error:', err);
+      setError(err.message || 'An unexpected error occurred during registration.');
     } finally {
       setLoading(false);
     }
