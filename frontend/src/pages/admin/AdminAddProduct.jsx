@@ -26,10 +26,22 @@ const AdminAddProduct = () => {
           fetch(`${API_URL}/api/categories`),
           fetch(`${API_URL}/api/brands`)
         ]);
-        setCategories(await catRes.json());
-        setBrands(await brandRes.json());
+        const cats = await catRes.json();
+        const brs = await brandRes.json();
+        
+        setCategories(cats);
+        setBrands(brs);
+
+        // Auto-set first category and brand as defaults
+        if (cats.length > 0) {
+          setFormData(prev => ({ ...prev, category: cats[0].name }));
+        }
+        if (brs.length > 0) {
+          setFormData(prev => ({ ...prev, brand: brs[0].name }));
+        }
+
       } catch (err) {
-        console.error(err);
+        console.error('Data Fetch Error:', err);
       }
     };
     fetchData();
