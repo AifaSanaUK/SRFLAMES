@@ -30,7 +30,7 @@ const Layout = ({ children }) => {
   return (
     <div className="flex flex-col min-h-screen">
       <Navbar />
-      <main className="flex-grow pt-32">
+      <main className="flex-grow pt-32 animate-in fade-in duration-700">
         {children}
       </main>
       <Footer />

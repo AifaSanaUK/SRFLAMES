@@ -1,11 +1,27 @@
 import React, { useState, useEffect } from 'react';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { Phone, Mail, Search, X } from 'lucide-react';
 
 const Navbar = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
+
+  const handleNavClick = (e, path) => {
+    if (path.startsWith('/#') && location.pathname === '/') {
+      e.preventDefault();
+      const id = path.replace('/#', '');
+      const element = document.getElementById(id);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  };
+
+  // ... (rest of search logic remains the same)
 
   // Fetch products when search opens
   useEffect(() => {
@@ -80,12 +96,12 @@ Hello SR Flames! I want to know about this precision appliance:
 
             {/* Desktop Menu */}
             <div className="hidden md:flex items-center space-x-10">
-              <a href="/#home" className="text-secondary-light hover:text-primary transition-all font-semibold text-sm uppercase tracking-widest">Home</a>
-              <a href="/#about" className="text-secondary-light hover:text-primary transition-all font-semibold text-sm uppercase tracking-widest">About Us</a>
-              <a href="/#products" className="text-secondary-light hover:text-primary transition-all font-semibold text-sm uppercase tracking-widest">Products</a>
-              <a href="/#services" className="text-secondary-light hover:text-primary transition-all font-semibold text-sm uppercase tracking-widest">Services</a>
-              <a href="/#blogs" className="text-secondary-light hover:text-primary transition-all font-semibold text-sm uppercase tracking-widest">Blog</a>
-              <a href="/#contact" className="text-secondary-light hover:text-primary transition-all font-semibold text-sm uppercase tracking-widest">Contact</a>
+              <Link to="/" onClick={(e) => handleNavClick(e, '/#home')} className="text-secondary-light hover:text-primary transition-all font-semibold text-sm uppercase tracking-widest">Home</Link>
+              <Link to="/" onClick={(e) => handleNavClick(e, '/#about')} className="text-secondary-light hover:text-primary transition-all font-semibold text-sm uppercase tracking-widest">About Us</Link>
+              <Link to="/" onClick={(e) => handleNavClick(e, '/#products')} className="text-secondary-light hover:text-primary transition-all font-semibold text-sm uppercase tracking-widest">Products</Link>
+              <Link to="/" onClick={(e) => handleNavClick(e, '/#services')} className="text-secondary-light hover:text-primary transition-all font-semibold text-sm uppercase tracking-widest">Services</Link>
+              <Link to="/blogs" className="text-secondary-light hover:text-primary transition-all font-semibold text-sm uppercase tracking-widest">Blog</Link>
+              <Link to="/" onClick={(e) => handleNavClick(e, '/#contact')} className="text-secondary-light hover:text-primary transition-all font-semibold text-sm uppercase tracking-widest">Contact</Link>
 
               {/* Search Icon */}
               <button

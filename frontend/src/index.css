@@ -27,7 +27,7 @@
 
 html {
   font-size: 15px;
-  /* Compact, professional base font size */
+  scroll-behavior: smooth;
 }
 
 body {
@@ -38,6 +38,47 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   line-height: 1.5;
+  overflow-x: hidden;
+}
+
+/* --- MOTION SYSTEM --- */
+
+/* Reveal Animations */
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(40px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes scale-in {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.reveal-fade-up {
+  animation: fade-up 1s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+.reveal-scale-in {
+  animation: scale-in 1s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+/* Click Effects */
+.btn-active-effect:active {
+  transform: scale(0.96);
+  transition: transform 0.1s;
+}
+
+/* Image Hover Zoom */
+.img-hover-zoom {
+  overflow: hidden;
+}
+
+.img-hover-zoom img {
+  transition: transform 1.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.img-hover-zoom:hover img {
+  transform: scale(1.1);
 }
 
 h1,

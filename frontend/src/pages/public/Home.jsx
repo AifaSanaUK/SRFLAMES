@@ -13,13 +13,25 @@ const Home = () => {
         const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5001';
         const res = await fetch(`${API_URL}/api/products`);
         const data = await res.json();
-        // Show up to 4 latest products
         setProducts(data.slice(0, 4));
       } catch (err) {
         console.error('Failed to fetch products:', err);
       }
     };
     fetchProducts();
+
+    // Intersection Observer for Reveal Effects
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('reveal-fade-up');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.reveal-section').forEach(el => observer.observe(el));
+    return () => observer.disconnect();
   }, []);
 
   const handleWhatsApp = (product = null) => {
@@ -47,32 +59,41 @@ Hello SR Flames! I want to know about this precision appliance:
     <div className="font-sans overflow-x-hidden bg-bg-light">
       
       {/* 1. HERO SECTION */}
-      <section id="home" className="relative h-[85vh] min-h-[600px] w-full flex items-center bg-secondary">
-        {/* Background Image */}
-        <div className="absolute inset-0 w-full h-full">
+      <section id="home" className="relative h-[90vh] min-h-[650px] w-full flex items-center bg-secondary overflow-hidden">
+        {/* Background Image with Zoom Effect */}
+        <div className="absolute inset-0 w-full h-full scale-110 animate-[hero-zoom_20s_infinite_alternate]">
           <img 
             src="https://images.unsplash.com/photo-1556911220-e15b29be8c8f?q=80&w=2070&auto=format&fit=crop" 
             alt="Modern Kitchen Chimney" 
-            className="w-full h-full object-cover opacity-50"
+            className="w-full h-full object-cover opacity-60"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-secondary/80 to-transparent"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-secondary via-secondary/70 to-transparent"></div>
         </div>
 
+        <style dangerouslySetInnerHTML={{ __html: `
+          @keyframes hero-zoom {
+            from { transform: scale(1); }
+            to { transform: scale(1.1); }
+          }
+        `}} />
+
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-          <div className="max-w-2xl">
-            <h1 className="text-5xl md:text-7xl font-extrabold text-white leading-tight mb-6 tracking-tight">
-              Smart Kitchens.<br />
-              <span className="text-primary">SR Flames.</span>
+          <div className="max-w-2xl reveal-fade-up">
+            <div className="inline-block px-4 py-2 bg-primary/20 backdrop-blur-md rounded-full text-primary font-black text-[10px] uppercase tracking-[0.4em] mb-6 border border-primary/20">
+              Future of Cooking
+            </div>
+            <h1 className="text-6xl md:text-8xl font-black text-white leading-[0.9] mb-8 tracking-tighter uppercase">
+              Smart <br /> <span className="text-primary italic">Kitchens.</span>
             </h1>
-            <p className="text-lg md:text-xl text-gray-300 mb-10 font-light max-w-lg">
+            <p className="text-lg md:text-xl text-gray-400 mb-12 font-medium max-w-lg leading-relaxed">
               Premium Chimneys & Stoves designed for modern living. Elevate your culinary space with elegance and industrial-grade efficiency.
             </p>
             
-            <div className="flex flex-wrap gap-4">
-              <a href="#products" className="bg-primary hover:bg-primary/90 text-white font-semibold py-4 px-10 rounded-full transition-all shadow-lg hover:shadow-primary/30">
+            <div className="flex flex-wrap gap-6">
+              <a href="#products" className="bg-primary hover:bg-primary-light text-white font-black py-5 px-12 rounded-2xl transition-all shadow-2xl shadow-primary/20 btn-active-effect uppercase tracking-widest text-xs">
                 Explore Products
               </a>
-              <a href="#about" className="bg-white/10 hover:bg-white/20 backdrop-blur-md text-white border border-white/30 font-semibold py-4 px-10 rounded-full transition-all">
+              <a href="#about" className="bg-white/5 hover:bg-white/10 backdrop-blur-md text-white border border-white/20 font-black py-5 px-12 rounded-2xl transition-all btn-active-effect uppercase tracking-widest text-xs">
                 Our Story
               </a>
             </div>
@@ -101,7 +122,7 @@ Hello SR Flames! I want to know about this precision appliance:
       </section>
 
       {/* 2. ABOUT US SECTION */}
-      <section id="about" className="py-40 bg-white overflow-hidden">
+      <section id="about" className="py-40 bg-white overflow-hidden reveal-section opacity-0">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
             <div className="relative">
@@ -182,7 +203,7 @@ Hello SR Flames! I want to know about this precision appliance:
       </section>
 
       {/* 3. PRODUCTS SECTION */}
-      <section id="products" className="py-32 bg-bg-light">
+      <section id="products" className="py-32 bg-bg-light reveal-section opacity-0">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-2xl mx-auto mb-20">
             <span className="text-primary font-bold tracking-widest uppercase text-sm mb-3 block">Premium Collection</span>
@@ -231,7 +252,7 @@ Hello SR Flames! I want to know about this precision appliance:
       </section>
 
       {/* 4. SERVICES SECTION */}
-      <section id="services" className="py-32 bg-white">
+      <section id="services" className="py-32 bg-white reveal-section opacity-0">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row justify-between items-end mb-20 gap-8">
             <div className="max-w-xl">
@@ -259,7 +280,7 @@ Hello SR Flames! I want to know about this precision appliance:
       </section>
 
       {/* 5. CONTACT & MAP SECTION */}
-      <section id="contact" className="py-32 bg-white">
+      <section id="contact" className="py-32 bg-white reveal-section opacity-0">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
             <div>
