@@ -235,10 +235,9 @@ Hello SR Flames! I want to know about this precision appliance:
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row justify-between items-end mb-20 gap-8">
             <div className="max-w-xl">
-              <span className="text-primary font-bold tracking-widest uppercase text-sm mb-3 block">Experience Service</span>
-              <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900 leading-tight">Beyond the Sale. Professional Care.</h2>
+              <span className="text-primary font-black tracking-[0.4em] uppercase text-[10px] mb-4 block">Experience Service</span>
+              <h2 className="text-3xl md:text-4xl font-black text-secondary leading-tight uppercase tracking-tighter">Beyond the Sale. Professional Care.</h2>
             </div>
-            <a href="#contact" className="text-primary font-bold flex items-center gap-2 hover:gap-4 transition-all">View All Services <ChevronRight /></a>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
@@ -246,57 +245,59 @@ Hello SR Flames! I want to know about this precision appliance:
               { icon: Wrench, title: 'Expert Installation', desc: 'Precision fitting by certified SR Flames engineers.' },
               { icon: Shield, title: 'Yearly Maintenance', desc: 'Stay worry-free with our comprehensive AMC plans.' },
               { icon: ThumbsUp, title: 'Authentic Support', desc: 'Only genuine spare parts and factory-grade service.' }
-            ].map((service, i) => (
-              <div key={i} className="group p-10 rounded-3xl bg-bg-light border border-transparent hover:border-primary/20 hover:bg-white hover:shadow-2xl transition-all duration-500">
-                <div className="w-16 h-16 bg-white shadow-lg rounded-2xl flex items-center justify-center text-primary mb-8 group-hover:scale-110 transition-transform">
-                  <service.icon size={32} />
+            ].map((service, index) => (
+              <div key={index} className="group p-10 bg-[#fbf9f7] rounded-[2.5rem] border border-gray-100 hover:border-primary/20 transition-all duration-500 hover:shadow-2xl hover:shadow-primary/5">
+                <div className="w-16 h-16 bg-primary text-white rounded-2xl flex items-center justify-center mb-8 transform group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-lg shadow-primary/20">
+                  <service.icon size={28} />
                 </div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-4">{service.title}</h3>
-                <p className="text-gray-500 leading-relaxed">{service.desc}</p>
+                <h3 className="text-xl font-black text-secondary mb-4 uppercase tracking-tight">{service.title}</h3>
+                <p className="text-gray-500 leading-relaxed text-sm font-medium">{service.desc}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* 5. CONTACT SECTION */}
-      <section id="contact" className="py-32 bg-bg-light">
+      {/* 5. CONTACT & MAP SECTION */}
+      <section id="contact" className="py-32 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-24 items-start">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
             <div>
-              <span className="bg-primary/10 text-primary font-bold text-xs uppercase tracking-widest px-4 py-2 rounded-full mb-8 inline-block">Visit Our Showroom</span>
-              <h2 className="text-5xl font-extrabold text-gray-900 mb-8 leading-tight">We're Here to Assist You</h2>
-              <p className="text-gray-500 text-lg mb-12 leading-relaxed">
+              <span className="text-primary font-black tracking-[0.4em] uppercase text-[10px] mb-4 block">Visit Our Showroom</span>
+              <h2 className="text-3xl md:text-4xl font-black text-secondary mb-10 leading-tight uppercase tracking-tighter">We're Here to Assist You</h2>
+              <p className="text-gray-500 text-lg mb-14 leading-relaxed font-medium">
                 Step into our experience center and feel the quality. Our consultants are ready to help you pick the perfect fit for your home.
               </p>
-              
-              <div className="grid gap-10">
+
+              <div className="space-y-10">
                 {[
                   { icon: MapPin, label: 'Showroom Address', value: '123 Industrial Area, Kerala, India' },
                   { icon: Phone, label: 'Prime Hotline', value: '+91 97453 07450' },
                   { icon: Mail, label: 'Email Enquiries', value: 'info@srflames.com' }
-                ].map((item, i) => (
-                  <div key={i} className="flex items-start gap-6 group">
-                    <div className="w-16 h-16 bg-white shadow-sm border border-gray-100 rounded-2xl flex items-center justify-center shrink-0 text-primary group-hover:bg-primary group-hover:text-white transition-all duration-300">
-                      <item.icon size={26} />
+                ].map((item, index) => (
+                  <div key={index} className="flex items-center gap-6 group">
+                    <div className="w-14 h-14 bg-primary text-white shadow-lg shadow-primary/20 rounded-2xl flex items-center justify-center shrink-0 group-hover:scale-110 transition-all duration-300">
+                      <item.icon size={24} />
                     </div>
                     <div>
-                      <h5 className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1">{item.label}</h5>
-                      <p className="text-gray-900 font-bold text-xl">{item.value}</p>
+                      <h5 className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1">{item.label}</h5>
+                      <p className="text-secondary font-black text-lg tracking-tight">{item.value}</p>
                     </div>
                   </div>
                 ))}
               </div>
             </div>
 
-            <div className="relative w-full h-[600px] rounded-[40px] overflow-hidden shadow-2xl border-8 border-white">
-              <a href="#" className="absolute top-6 left-6 z-10 bg-white/90 backdrop-blur-md text-gray-900 font-bold px-6 py-3 rounded-2xl shadow-xl flex items-center gap-3 hover:bg-primary hover:text-white transition-all">
-                Get Directions <ChevronRight size={18} />
-              </a>
+            <div className="relative w-full h-[600px] rounded-[40px] overflow-hidden shadow-[0_50px_100px_-20px_rgba(0,0,0,0.1)] border border-gray-100">
+              <div className="absolute top-8 left-8 z-10">
+                 <a href="#" className="bg-white/95 backdrop-blur-md text-secondary font-black text-[10px] uppercase tracking-widest px-8 py-4 rounded-2xl shadow-2xl flex items-center gap-3 hover:bg-primary hover:text-white transition-all border border-white/20">
+                   Get Directions <ChevronRight size={16} />
+                 </a>
+              </div>
               <iframe 
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3913.3108620242253!2d75.8361!3d11.2396!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTHCsDE0JzIyLjYiTiA3NcKwNTAnMTAuMCJF!5e0!3m2!1sen!2sin!4v1625641234567!5m2!1sen!2sin" 
                 width="100%" height="100%" style={{ border: 0 }} allowFullScreen="" loading="lazy" referrerPolicy="no-referrer-when-downgrade"
-                className="grayscale-[0.5] hover:grayscale-0 transition-all duration-700"
+                className="grayscale-[0.2] hover:grayscale-0 transition-all duration-1000"
               ></iframe>
             </div>
           </div>
@@ -338,15 +339,6 @@ Hello SR Flames! I want to know about this precision appliance:
           </div>
         </div>
       )}
-
-      {/* Floating WhatsApp Button */}
-      <button 
-        onClick={() => handleWhatsApp()}
-        className="fixed bottom-10 right-10 bg-primary hover:bg-primary-light text-white p-5 rounded-full shadow-2xl z-50 transition-all hover:scale-110 active:scale-95 group"
-      >
-        <MessageCircle size={36} />
-        <span className="absolute right-full mr-4 bg-white text-gray-900 px-4 py-2 rounded-xl shadow-lg opacity-0 group-hover:opacity-100 transition-all whitespace-nowrap font-bold text-sm border border-gray-100">Contact Us</span>
-      </button>
 
     </div>
   );
