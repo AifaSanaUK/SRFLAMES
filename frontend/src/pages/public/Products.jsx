@@ -1,15 +1,26 @@
 import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import { MessageCircle, ChevronRight, X, Search, Filter } from 'lucide-react';
 
 const Products = () => {
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const initialSearch = queryParams.get('search') || '';
+
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedProduct, setSelectedProduct] = useState(null);
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState(initialSearch);
   const [categoryFilter, setCategoryFilter] = useState('ALL CATEGORIES');
   const [brandFilter, setBrandFilter] = useState('SELECT BRAND');
   const [categories, setCategories] = useState([]);
   const [brands, setBrands] = useState([]);
+
+  useEffect(() => {
+    // Update search query if URL parameter changes
+    const currentSearch = new URLSearchParams(location.search).get('search') || '';
+    setSearchQuery(currentSearch);
+  }, [location.search]);
 
   useEffect(() => {
     const fetchProducts = async () => {
