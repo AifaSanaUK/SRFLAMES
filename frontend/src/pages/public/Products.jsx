@@ -93,49 +93,52 @@ Hello SR Flames! I want to know about this precision appliance:
   }
 
   return (
-    <div className="bg-[#111] min-h-screen font-sans pb-20">
+    <div className="bg-[#111] min-h-screen font-sans pb-20 pt-[80px] sm:pt-[100px]">
       {/* Header / Filter Bar */}
-      <div className="bg-[#1a1a1a] border-b border-white/5 pt-10 pb-10 px-4 mb-12">
+      <div className="bg-[#1a1a1a] border-b border-white/5 py-6 sm:py-10 px-4 mb-8 sm:mb-12">
         <div className="max-w-7xl mx-auto">
-          <div className="flex flex-col lg:flex-row gap-4 items-center">
+          <div className="flex flex-col lg:flex-row gap-3 sm:gap-4 items-center">
             {/* Search Input */}
             <div className="relative flex-grow w-full">
-              <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500" size={18} />
+              <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500" size={16} />
               <input
                 type="text"
                 placeholder="SEARCH PRECISION APPLIANCES..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full bg-[#0a0a0a] border border-white/10 text-white text-xs font-bold tracking-widest pl-12 pr-4 py-4 focus:outline-none focus:border-primary transition-colors"
+                className="w-full bg-[#0a0a0a] border border-white/10 text-white text-[9px] sm:text-xs font-bold tracking-widest pl-12 pr-4 py-3 sm:py-4 focus:outline-none focus:border-primary transition-colors uppercase"
               />
             </div>
 
-            {/* Category Dropdown */}
-            <div className="w-full lg:w-64">
-              <select
-                value={categoryFilter}
-                onChange={(e) => setCategoryFilter(e.target.value)}
-                className="w-full bg-[#0a0a0a] border border-white/10 text-white text-[10px] font-black tracking-widest px-4 py-4 focus:outline-none focus:border-primary appearance-none cursor-pointer uppercase"
-              >
-                {categories.map(cat => <option key={cat} value={cat}>{cat}</option>)}
-              </select>
-            </div>
+            {/* Filters Row for Mobile */}
+            <div className="flex flex-col sm:flex-row gap-3 w-full lg:w-auto">
+              {/* Category Dropdown */}
+              <div className="w-full sm:w-48 lg:w-64">
+                <select
+                  value={categoryFilter}
+                  onChange={(e) => setCategoryFilter(e.target.value)}
+                  className="w-full bg-[#0a0a0a] border border-white/10 text-white text-[9px] font-black tracking-widest px-4 py-3 sm:py-4 focus:outline-none focus:border-primary appearance-none cursor-pointer uppercase"
+                >
+                  {categories.map(cat => <option key={cat} value={cat}>{cat}</option>)}
+                </select>
+              </div>
 
-            {/* Brand Dropdown */}
-            <div className="w-full lg:w-64">
-              <select 
-                value={brandFilter}
-                onChange={(e) => setBrandFilter(e.target.value)}
-                className="w-full bg-[#0a0a0a] border border-white/10 text-white text-[10px] font-black tracking-widest px-4 py-4 focus:outline-none focus:border-primary appearance-none cursor-pointer uppercase"
-              >
-                {brands.map(brand => <option key={brand} value={brand}>{brand}</option>)}
-              </select>
-            </div>
+              {/* Brand Dropdown */}
+              <div className="w-full sm:w-48 lg:w-64">
+                <select 
+                  value={brandFilter}
+                  onChange={(e) => setBrandFilter(e.target.value)}
+                  className="w-full bg-[#0a0a0a] border border-white/10 text-white text-[9px] font-black tracking-widest px-4 py-3 sm:py-4 focus:outline-none focus:border-primary appearance-none cursor-pointer uppercase"
+                >
+                  {brands.map(brand => <option key={brand} value={brand}>{brand}</option>)}
+                </select>
+              </div>
 
-            {/* Filter Button (Reduced Size) */}
-            <button className="bg-primary hover:bg-primary/90 text-white p-3.5 transition-colors">
-              <Filter size={16} />
-            </button>
+              {/* Filter Button */}
+              <button className="bg-primary hover:bg-primary/90 text-white p-3 sm:p-3.5 transition-colors hidden sm:block">
+                <Filter size={16} />
+              </button>
+            </div>
           </div>
         </div>
       </div>

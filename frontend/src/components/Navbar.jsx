@@ -22,7 +22,13 @@ const Navbar = () => {
       const id = path.replace('/#', '');
       const element = document.getElementById(id);
       if (element) {
-        element.scrollIntoView({ behavior: 'smooth' });
+        const navbarHeight = 120;
+        const offsetTop = element.offsetTop - navbarHeight;
+
+        window.scrollTo({
+          top: offsetTop,
+          behavior: 'smooth',
+        });
       }
     } else if (path.startsWith('/#')) {
       navigate('/' + path);
@@ -45,17 +51,17 @@ const Navbar = () => {
       <nav className="fixed top-0 left-0 w-full z-[80] transition-all duration-500 bg-white shadow-sm font-sans">
         {/* Top Mini Bar */}
         <div className="bg-[#8F5B34] text-white py-2 px-4 hidden sm:block">
-           <div className="max-w-7xl mx-auto flex justify-between items-center text-[10px] font-bold tracking-[0.2em] uppercase">
-              <div className="flex gap-6">
-                 <a href="tel:+919745307450" className="hover:text-primary transition-colors flex items-center gap-2">
-                    <Phone size={10} /> +91 97453 07450
-                 </a>
-                 <a href="mailto:info@srflames.com" className="hover:text-primary transition-colors flex items-center gap-2">
-                    <Mail size={10} /> info@srflames.com
-                 </a>
-              </div>
-              <div className="tracking-[0.3em]">SR Flames Premium Appliances</div>
-           </div>
+          <div className="max-w-7xl mx-auto flex justify-between items-center text-[10px] font-bold tracking-[0.2em] uppercase">
+            <div className="flex gap-6">
+              <a href="tel:+919745307450" className="hover:text-primary transition-colors flex items-center gap-2">
+                <Phone size={10} /> +91 97453 07450
+              </a>
+              <a href="mailto:info@srflames.com" className="hover:text-primary transition-colors flex items-center gap-2">
+                <Mail size={10} /> info@srflames.com
+              </a>
+            </div>
+            <div className="tracking-[0.3em]">SR Flames Premium Appliances</div>
+          </div>
         </div>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -73,7 +79,7 @@ const Navbar = () => {
                     className="w-full bg-transparent border-none focus:ring-0 text-[#2C1810] text-[10px] font-black tracking-widest placeholder:text-gray-400 uppercase"
                   />
                 </form>
-                <button 
+                <button
                   onClick={() => { setIsSearchOpen(false); setSearchQuery(''); }}
                   className="text-gray-400 hover:text-primary transition-colors p-1"
                 >
@@ -101,8 +107,8 @@ const Navbar = () => {
                       <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#8F5B34] transition-all duration-300 group-hover:w-full"></span>
                     </button>
                   ))}
-                  
-                  <button 
+
+                  <button
                     onClick={() => setIsSearchOpen(true)}
                     className="p-2 hover:bg-gray-100 rounded-full transition-all text-[#2C1810] hover:text-[#8F5B34]"
                   >

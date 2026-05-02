@@ -71,18 +71,18 @@ const Home = () => {
 
   const handleWhatsApp = (product = null) => {
     let text = 'Hello SR Flames! I would like to know more about SR Flames products.';
-    
+
     if (product && typeof product === 'object') {
       const productUrl = `${window.location.origin}/product/${product._id}`;
       text = `${product.imageUrl}
-${productUrl}
+  ${productUrl}
 
-Hello SR Flames! I want to know about this precision appliance:
-      
-- Product: ${product.name}
-- Brand: ${product.brand || 'SR Signature'}
-- Category: ${product.category}
-- Product ID: ${product._id}`;
+  Hello SR Flames! I want to know about this precision appliance:
+        
+  - Product: ${product.name}
+  - Brand: ${product.brand || 'SR Signature'}
+  - Category: ${product.category}
+  - Product ID: ${product._id}`;
     } else if (product && typeof product === 'string') {
       text = `Hello, I want to order: ${product}`;
     }
@@ -90,44 +90,69 @@ Hello SR Flames! I want to know about this precision appliance:
     window.open(`https://wa.me/919745307450?text=${encodeURIComponent(text)}`, '_blank');
   };
 
+  const [currentImage, setCurrentImage] = useState(0);
+  const heroImages = [
+    'https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&q=80',
+    'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?auto=format&fit=crop&q=80',
+    'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&q=80'
+  ];
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentImage((prev) => (prev + 1) % heroImages.length);
+    }, 5000);
+    return () => clearInterval(interval);
+  }, [heroImages.length]);
+
   return (
-    <div className="font-sans overflow-x-hidden bg-bg-light">
-      
-      {/* 1. HERO SECTION */}
-      <section 
-        id="home" 
-        className="relative h-[90vh] min-h-[650px] w-full flex items-center bg-secondary overflow-hidden"
-        style={{ 
-          backgroundImage: 'linear-gradient(to right, rgba(44, 24, 16, 0.9), rgba(44, 24, 16, 0.4)), url("https://images.unsplash.com/photo-1556911220-e15b29be8c8f?q=80&w=2070&auto=format&fit=crop")',
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          backgroundAttachment: 'fixed'
-        }}
+    <div className="font-sans overflow-x-hidden bg-bg-light animate-in fade-in duration-1000">
+
+      {/* 1. HERO SECTION - SUNBIRD STYLE SLIDESHOW */}
+      <section
+        id="home"
+        className="relative h-screen min-h-[700px] flex items-center overflow-hidden bg-black"
       >
+        {/* Slideshow Layers */}
+        {heroImages.map((img, index) => (
+          <div
+            key={img}
+            className="absolute inset-0 transition-opacity duration-[1500ms] ease-in-out"
+            style={{
+              backgroundImage: `linear-gradient(rgba(44, 24, 16, 0.7), rgba(44, 24, 16, 0.5)), url('${img}')`,
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+              backgroundAttachment: window.innerWidth > 768 ? 'fixed' : 'scroll',
+              opacity: currentImage === index ? 1 : 0,
+              zIndex: 1
+            }}
+          />
+        ))}
 
-
-
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-          <div className="max-w-2xl reveal-fade-up">
-            <div className="inline-block px-3 py-1 bg-primary/20 backdrop-blur-md rounded-full text-primary font-black text-[9px] uppercase tracking-[0.3em] mb-4 border border-primary/20">
-              Future of Cooking
-            </div>
-            <h1 className="text-5xl md:text-6xl font-black text-white leading-[0.95] mb-6 tracking-tighter uppercase">
-              Smart <br /> <span className="text-primary">Kitchens.</span>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full pt-[60px] sm:pt-[80px]">
+          <div className="max-w-4xl animate-in fade-in slide-in-from-left duration-1000">
+            <span className="text-primary font-black uppercase tracking-[0.5em] text-[8px] sm:text-[10px] mb-4 sm:mb-6 block reveal-fade-up">Precision Engineering</span>
+            <h1 className="text-white font-black leading-[1.1] tracking-tighter mb-6 sm:mb-8 uppercase" style={{ fontSize: 'clamp(2rem, 6vw, 5rem)' }}>
+              Smart Kitchens.<br />
+              <span className="text-primary">Always Elite.</span>
             </h1>
-            <p className="text-base md:text-lg text-gray-400 mb-10 font-medium max-w-md leading-relaxed">
-              Premium Chimneys & Stoves designed for modern living. Elevate your culinary space with elegance and efficiency.
+            <p className="text-white/90 text-sm sm:text-base mb-10 sm:mb-12 max-w-xl leading-relaxed font-medium" style={{ textShadow: '0 1px 10px rgba(0,0,0,0.5)' }}>
+              Experience the intersection of aesthetic brilliance and technical perfection. Premium Chimneys & Stoves designed for modern living.
             </p>
-            
-            <div className="flex flex-wrap gap-4">
-              <a href="#products" className="bg-primary hover:bg-primary-light text-white font-black py-4 px-10 rounded-xl transition-all shadow-xl shadow-primary/20 btn-active-effect uppercase tracking-widest text-[10px]">
-                Explore Products
-              </a>
-              <a href="#about" className="bg-white/5 hover:bg-white/10 backdrop-blur-md text-white border border-white/20 font-black py-4 px-10 rounded-xl transition-all btn-active-effect uppercase tracking-widest text-[10px]">
-                Our Story
-              </a>
-            </div>
 
+            <div className="flex flex-wrap gap-4 sm:gap-6 mb-16 sm:mb-20">
+              <button
+                onClick={() => handleNavClick('#products')}
+                className="bg-primary hover:bg-primary-light text-white font-black py-4 sm:py-5 px-10 sm:px-14 transition-all text-[10px] sm:text-xs uppercase tracking-[0.3em] shadow-2xl shadow-primary/20 transform hover:-translate-y-1 active:scale-95"
+              >
+                Get Started
+              </button>
+              <button
+                onClick={() => handleNavClick('#about')}
+                className="bg-white/5 hover:bg-white/10 text-white font-black py-4 sm:py-5 px-10 sm:px-14 transition-all border border-white/20 backdrop-blur-md text-[10px] sm:text-xs uppercase tracking-[0.3em] transform hover:-translate-y-1 active:scale-95"
+              >
+                Our Story
+              </button>
+            </div>
             {/* Compact Stats below Buttons */}
             <div className="mt-16 flex flex-wrap items-center gap-x-8 gap-y-4 text-white">
               <div className="flex flex-col">
@@ -157,19 +182,19 @@ Hello SR Flames! I want to know about this precision appliance:
               {/* Decorative Background Elements */}
               <div className="absolute -top-12 -left-12 w-64 h-64 bg-primary/5 rounded-full blur-3xl"></div>
               <div className="absolute -bottom-12 -right-12 w-64 h-64 bg-secondary/5 rounded-full blur-3xl"></div>
-              
+
               <div className="relative z-10">
                 <div className="absolute -right-8 top-1/2 -translate-y-1/2 w-px h-32 bg-primary/20 hidden lg:block"></div>
                 <div className="absolute -left-8 top-1/2 -translate-y-1/2 w-px h-32 bg-primary/20 hidden lg:block"></div>
-                
-                  <div className="relative group overflow-hidden rounded-[2rem] shadow-2xl transform transition-all duration-700 hover:scale-[1.01]">
-                  <img 
-                    src="/kitchen-about.png" 
-                    alt="Luxury SR Flames Kitchen" 
-                    className="w-full object-cover h-[550px] transform transition-transform duration-[2s] group-hover:scale-110" 
+
+                <div className="relative group overflow-hidden rounded-[2rem] shadow-2xl transform transition-all duration-700 hover:scale-[1.01]">
+                  <img
+                    src="/kitchen-about.png"
+                    alt="Luxury SR Flames Kitchen"
+                    className="w-full object-cover h-[550px] transform transition-transform duration-[2s] group-hover:scale-110"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
-                  
+
                   {/* Floating Experience Badge - SHRUNK */}
                   <div className="absolute bottom-6 left-6 right-6 bg-white/95 backdrop-blur-md p-4 rounded-xl shadow-2xl transform translate-y-2 group-hover:translate-y-0 transition-all duration-700">
                     <div className="flex items-center gap-3">
@@ -191,38 +216,38 @@ Hello SR Flames! I want to know about this precision appliance:
                 <div className="w-10 h-[1px] bg-primary"></div>
                 <span className="text-primary font-black tracking-[0.4em] uppercase text-[10px]">Since 2014</span>
               </div>
-              
+
               <h2 className="text-5xl md:text-6xl font-black text-secondary mb-10 leading-[1.1] tracking-tighter uppercase">
                 Mastering the Art of <span className="text-primary">Modern</span> Cooking
               </h2>
-              
+
               <p className="text-gray-500 text-xl mb-12 leading-relaxed font-medium">
                 SR Flames stands at the intersection of aesthetic brilliance and technical perfection. We provide kitchen solutions that aren't just appliances, but integral parts of your home's character.
               </p>
-              
+
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-10 mb-14">
-                 <div className="flex items-start gap-4 group">
-                    <div className="w-14 h-14 bg-primary/10 rounded-2xl flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all duration-500">
-                       <CheckCircle2 size={28} />
-                    </div>
-                    <div>
-                       <span className="font-black text-secondary uppercase tracking-widest text-xs block mb-1">ISO Certified</span>
-                       <p className="text-gray-400 text-[11px] leading-tight">Global standards in precision engineering.</p>
-                    </div>
-                 </div>
-                 <div className="flex items-start gap-4 group">
-                    <div className="w-14 h-14 bg-primary/10 rounded-2xl flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all duration-500">
-                       <Shield size={28} />
-                    </div>
-                    <div>
-                       <span className="font-black text-secondary uppercase tracking-widest text-xs block mb-1">5 Year Warranty</span>
-                       <p className="text-gray-400 text-[11px] leading-tight">Unmatched reliability and lifelong support.</p>
-                    </div>
-                 </div>
+                <div className="flex items-start gap-4 group">
+                  <div className="w-14 h-14 bg-primary/10 rounded-2xl flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all duration-500">
+                    <CheckCircle2 size={28} />
+                  </div>
+                  <div>
+                    <span className="font-black text-secondary uppercase tracking-widest text-xs block mb-1">ISO Certified</span>
+                    <p className="text-gray-400 text-[11px] leading-tight">Global standards in precision engineering.</p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-4 group">
+                  <div className="w-14 h-14 bg-primary/10 rounded-2xl flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all duration-500">
+                    <Shield size={28} />
+                  </div>
+                  <div>
+                    <span className="font-black text-secondary uppercase tracking-widest text-xs block mb-1">5 Year Warranty</span>
+                    <p className="text-gray-400 text-[11px] leading-tight">Unmatched reliability and lifelong support.</p>
+                  </div>
+                </div>
               </div>
-              
-              <a 
-                href="#contact" 
+
+              <a
+                href="#contact"
                 className="inline-flex items-center gap-4 bg-secondary text-white font-black py-5 px-12 rounded-2xl transition-all hover:bg-primary hover:shadow-[0_20px_40px_-10px_rgba(143,91,52,0.4)] transform hover:-translate-y-1 uppercase tracking-widest text-xs"
               >
                 Get a Consultation <ChevronRight size={18} />
@@ -240,30 +265,30 @@ Hello SR Flames! I want to know about this precision appliance:
             <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900 mb-6">Our Best Sellers</h2>
             <p className="text-gray-500 text-lg">Meticulously crafted chimneys and stoves for those who demand the best.</p>
           </div>
-          
+
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-10">
             {products.map((product) => (
-              <div key={product._id} className="bg-[#0a0a0a] border border-white/5 overflow-hidden flex flex-col group p-2 shadow-xl rounded-[1.5rem] hover:-translate-y-2 transition-all duration-500">
-                <div className="relative aspect-square overflow-hidden rounded-xl bg-[#111]">
-                  <img 
-                    src={product.imageUrl} 
-                    alt={product.name} 
+              <div key={product._id} className="bg-[#0a0a0a] border border-white/5 overflow-hidden flex flex-col group p-2 shadow-xl transition-all duration-500">
+                <div className="relative aspect-square overflow-hidden bg-[#111]">
+                  <img
+                    src={product.imageUrl}
+                    alt={product.name}
                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                   />
                   {product.badge && (
-                    <div className="absolute top-4 right-4 bg-primary text-white text-[8px] font-black px-3 py-1 uppercase tracking-[0.2em] rounded-md">
+                    <div className="absolute top-4 right-4 bg-primary text-white text-[7px] font-black px-2 py-1 uppercase tracking-[0.2em]">
                       {product.badge}
                     </div>
                   )}
                 </div>
-                <div className="p-4 sm:p-6 flex flex-col flex-grow">
-                  <span className="text-gray-500 text-[8px] font-bold uppercase tracking-[0.2em] mb-1">{product.category}</span>
-                  <h3 className="text-lg font-bold text-white mb-6 leading-tight group-hover:text-primary-light transition-colors uppercase tracking-tighter">{product.name}</h3>
-                  <button 
+                <div className="p-3 sm:p-6 flex flex-col flex-grow">
+                  <span className="text-gray-500 text-[7px] font-bold uppercase tracking-[0.2em] mb-1">{product.category}</span>
+                  <h3 className="text-sm sm:text-lg font-bold text-white mb-4 leading-tight group-hover:text-primary-light transition-colors uppercase tracking-tighter">{product.name}</h3>
+                  <button
                     onClick={() => setSelectedProduct(product)}
-                    className="mt-auto w-full bg-white/5 hover:bg-white/10 text-white font-black py-3 px-4 transition-all border border-white/10 flex justify-center items-center gap-2 text-[10px] uppercase tracking-widest group/btn"
+                    className="mt-auto w-full bg-white/5 hover:bg-white/10 text-white font-black py-2.5 px-2 transition-all border border-white/10 flex justify-center items-center gap-1 text-[8px] uppercase tracking-widest group/btn whitespace-nowrap"
                   >
-                    View Details <ChevronRight size={14} className="group-hover/btn:translate-x-1 transition-transform" />
+                    View Details <ChevronRight size={12} className="group-hover/btn:translate-x-1 transition-transform" />
                   </button>
                 </div>
               </div>
@@ -271,7 +296,7 @@ Hello SR Flames! I want to know about this precision appliance:
           </div>
 
           <div className="mt-16 text-center">
-            <button 
+            <button
               onClick={() => navigate('/products')}
               className="inline-flex items-center gap-2 text-primary hover:text-primary-light font-black text-xs uppercase tracking-[0.3em] transition-all border-b border-primary/20 pb-1 hover:border-primary-light"
             >
@@ -341,12 +366,12 @@ Hello SR Flames! I want to know about this precision appliance:
 
             <div className="relative w-full h-[600px] rounded-[40px] overflow-hidden shadow-[0_50px_100px_-20px_rgba(0,0,0,0.1)] border border-gray-100">
               <div className="absolute top-8 left-8 z-10">
-                 <a href="#" className="bg-white/95 backdrop-blur-md text-secondary font-black text-[10px] uppercase tracking-widest px-8 py-4 rounded-2xl shadow-2xl flex items-center gap-3 hover:bg-primary hover:text-white transition-all border border-white/20">
-                   Get Directions <ChevronRight size={16} />
-                 </a>
+                <a href="#" className="bg-white/95 backdrop-blur-md text-secondary font-black text-[10px] uppercase tracking-widest px-8 py-4 rounded-2xl shadow-2xl flex items-center gap-3 hover:bg-primary hover:text-white transition-all border border-white/20">
+                  Get Directions <ChevronRight size={16} />
+                </a>
               </div>
-              <iframe 
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3913.3108620242253!2d75.8361!3d11.2396!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTHCsDE0JzIyLjYiTiA3NcKwNTAnMTAuMCJF!5e0!3m2!1sen!2sin!4v1625641234567!5m2!1sen!2sin" 
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3913.3108620242253!2d75.8361!3d11.2396!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTHCsDE0JzIyLjYiTiA3NcKwNTAnMTAuMCJF!5e0!3m2!1sen!2sin!4v1625641234567!5m2!1sen!2sin"
                 width="100%" height="100%" style={{ border: 0 }} allowFullScreen="" loading="lazy" referrerPolicy="no-referrer-when-downgrade"
                 className="grayscale-[0.2] hover:grayscale-0 transition-all duration-1000"
               ></iframe>
@@ -363,7 +388,7 @@ Hello SR Flames! I want to know about this precision appliance:
             <button onClick={() => setSelectedProduct(null)} className="absolute top-6 right-6 z-20 w-10 h-10 bg-white/5 hover:bg-primary text-white rounded-full flex items-center justify-center transition-all backdrop-blur-md">
               <X size={20} />
             </button>
-            
+
             <div className="flex flex-col md:flex-row">
               <div className="w-full md:w-1/2 h-[350px] md:h-[550px] overflow-hidden bg-black flex items-center justify-center p-4">
                 <img src={selectedProduct.imageUrl} alt={selectedProduct.name} className="w-full h-full object-contain" />
@@ -372,14 +397,14 @@ Hello SR Flames! I want to know about this precision appliance:
                 <span className="text-primary font-black uppercase tracking-[0.4em] text-[9px] mb-3 block">{selectedProduct.category}</span>
                 <h2 className="text-3xl sm:text-5xl font-black text-white mb-2 uppercase leading-[0.9] tracking-tighter italic">{selectedProduct.name}</h2>
                 <p className="text-gray-500 font-bold uppercase tracking-[0.2em] text-[9px] mb-8">{selectedProduct.brand || 'SR SIGNATURE'}</p>
-                
+
                 <div className="bg-[#151515] p-6 rounded-[1.5rem] mb-10 border border-white/5">
-                   <h4 className="font-bold text-gray-500 mb-3 text-[8px] uppercase tracking-widest">Specifications</h4>
-                   <p className="text-gray-400 leading-relaxed text-xs md:text-sm font-medium line-clamp-6">
-                     {selectedProduct.description || "Designed for high-performance culinary environments. This unit features industrial-grade suction power, fingerprint-resistant finishes, and intelligent heat-sync technology."}
-                   </p>
+                  <h4 className="font-bold text-gray-500 mb-3 text-[8px] uppercase tracking-widest">Specifications</h4>
+                  <p className="text-gray-400 leading-relaxed text-xs md:text-sm font-medium line-clamp-6">
+                    {selectedProduct.description || "Designed for high-performance culinary environments. This unit features industrial-grade suction power, fingerprint-resistant finishes, and intelligent heat-sync technology."}
+                  </p>
                 </div>
-                <button 
+                <button
                   onClick={() => handleWhatsApp(selectedProduct)}
                   className="w-full bg-primary hover:bg-primary-light text-white font-black py-5 rounded-xl transition-all flex justify-center items-center gap-3 text-[11px] uppercase tracking-[0.3em] shadow-2xl shadow-primary/20 transform hover:-translate-y-1 active:scale-95"
                 >

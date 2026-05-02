@@ -19,27 +19,38 @@
   --color-accent-light: #F3E5D8;
   /* Soft Cream Background */
 
-  --color-bg-light: #FAF7F2;
-  /* Very Light Warm Cream Background */
+  --color-bg-light: #FFFFFF;
+  /* Pure White Background */
   --color-text-dark: #2C1810;
   /* Dark Coffee Text */
 }
 
 html {
-  font-size: 15px;
+  font-size: 14px;
   scroll-behavior: smooth;
 }
 
 body {
   margin: 0;
   font-family: var(--font-sans);
-  background-color: var(--color-bg-light);
+  background-color: #111;
   color: var(--color-text-dark);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   line-height: 1.5;
   overflow-x: hidden;
 }
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+section {
+  position: relative;
+  overflow: hidden;
+}
+
 
 /* --- MOTION SYSTEM --- */
 
@@ -54,19 +65,38 @@ body {
 }
 
 @keyframes fade-in {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
 
 /* Reveal Animations */
 @keyframes fade-up {
-  from { opacity: 0; transform: translateY(40px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @keyframes scale-in {
-  from { opacity: 0; transform: scale(0.95); }
-  to { opacity: 1; transform: scale(1); }
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
 .reveal-fade-up {
