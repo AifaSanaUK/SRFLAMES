@@ -43,6 +43,21 @@ body {
 
 /* --- MOTION SYSTEM --- */
 
+.animate-in {
+  animation-duration: 700ms;
+  animation-fill-mode: forwards;
+  animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.fade-in {
+  animation-name: fade-in;
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
 /* Reveal Animations */
 @keyframes fade-up {
   from { opacity: 0; transform: translateY(40px); }

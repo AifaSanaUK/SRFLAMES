@@ -2,6 +2,41 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { MessageCircle, CheckCircle2, ChevronRight, Wrench, Shield, ThumbsUp, Send, Phone, Mail, MapPin, X } from 'lucide-react';
 
+const CountUp = ({ end, duration = 2000 }) => {
+  const [count, setCount] = useState(0);
+  const [hasStarted, setHasStarted] = useState(false);
+  const elementRef = React.useRef(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting && !hasStarted) {
+        setHasStarted(true);
+      }
+    }, { threshold: 0.1 });
+
+    if (elementRef.current) observer.observe(elementRef.current);
+    return () => observer.disconnect();
+  }, [hasStarted]);
+
+  useEffect(() => {
+    if (!hasStarted) return;
+    let start = 0;
+    const increment = end / (duration / 16);
+    const timer = setInterval(() => {
+      start += increment;
+      if (start >= end) {
+        setCount(end);
+        clearInterval(timer);
+      } else {
+        setCount(Math.floor(start));
+      }
+    }, 16);
+    return () => clearInterval(timer);
+  }, [hasStarted, end, duration]);
+
+  return <span ref={elementRef}>{count}</span>;
+};
+
 const Home = () => {
   const navigate = useNavigate();
   const [products, setProducts] = useState([]);
@@ -59,16 +94,16 @@ Hello SR Flames! I want to know about this precision appliance:
     <div className="font-sans overflow-x-hidden bg-bg-light">
       
       {/* 1. HERO SECTION */}
-      <section id="home" className="relative h-[90vh] min-h-[650px] w-full flex items-center bg-secondary overflow-hidden">
-        {/* Fixed Background Image for Parallax */}
-        <div className="absolute inset-0 w-full h-full">
-          <img 
-            src="https://images.unsplash.com/photo-1556911220-e15b29be8c8f?q=80&w=2070&auto=format&fit=crop" 
-            alt="Modern Kitchen Chimney" 
-            className="w-full h-full object-cover opacity-60 fixed"
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-secondary via-secondary/70 to-transparent"></div>
-        </div>
+      <section 
+        id="home" 
+        className="relative h-[90vh] min-h-[650px] w-full flex items-center bg-secondary overflow-hidden"
+        style={{ 
+          backgroundImage: 'linear-gradient(to right, rgba(44, 24, 16, 0.9), rgba(44, 24, 16, 0.4)), url("https://images.unsplash.com/photo-1556911220-e15b29be8c8f?q=80&w=2070&auto=format&fit=crop")',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundAttachment: 'fixed'
+        }}
+      >
 
 
 
@@ -92,32 +127,30 @@ Hello SR Flames! I want to know about this precision appliance:
                 Our Story
               </a>
             </div>
-          </div>
-        </div>
 
-        {/* Stats Section */}
-        <div className="absolute bottom-0 left-0 w-full bg-white/5 backdrop-blur-sm border-t border-white/10 py-6 hidden md:block">
-           <div className="max-w-7xl mx-auto px-8 flex justify-between items-center text-white">
-              <div className="flex items-center gap-4">
-                 <span className="text-4xl font-bold">10+</span>
-                 <span className="text-sm text-gray-400 uppercase tracking-widest">Years Experience</span>
+            {/* Compact Stats below Buttons */}
+            <div className="mt-16 flex flex-wrap items-center gap-x-8 gap-y-4 text-white">
+              <div className="flex flex-col">
+                <span className="text-2xl font-bold leading-none"><CountUp end={10} />+</span>
+                <span className="text-[8px] text-gray-400 uppercase tracking-widest font-black mt-1">Years Experience</span>
               </div>
-              <div className="h-8 w-px bg-white/20"></div>
-              <div className="flex items-center gap-4">
-                 <span className="text-4xl font-bold">500+</span>
-                 <span className="text-sm text-gray-400 uppercase tracking-widest">Happy Homes</span>
+              <div className="w-px h-8 bg-white/10 hidden sm:block"></div>
+              <div className="flex flex-col">
+                <span className="text-2xl font-bold leading-none"><CountUp end={500} />+</span>
+                <span className="text-[8px] text-gray-400 uppercase tracking-widest font-black mt-1">Happy Homes</span>
               </div>
-              <div className="h-8 w-px bg-white/20"></div>
-              <div className="flex items-center gap-4">
-                 <span className="text-4xl font-bold">100%</span>
-                 <span className="text-sm text-gray-400 uppercase tracking-widest">Quality Assurance</span>
+              <div className="w-px h-8 bg-white/10 hidden sm:block"></div>
+              <div className="flex flex-col">
+                <span className="text-2xl font-bold leading-none"><CountUp end={100} />%</span>
+                <span className="text-[8px] text-gray-400 uppercase tracking-widest font-black mt-1">Quality Assurance</span>
               </div>
-           </div>
+            </div>
+          </div>
         </div>
       </section>
 
       {/* 2. ABOUT US SECTION */}
-      <section id="about" className="py-40 bg-white overflow-hidden reveal-section opacity-0">
+      <section id="about" className="py-40 bg-white overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
             <div className="relative">
@@ -140,7 +173,9 @@ Hello SR Flames! I want to know about this precision appliance:
                   {/* Floating Experience Badge - SHRUNK */}
                   <div className="absolute bottom-6 left-6 right-6 bg-white/95 backdrop-blur-md p-4 rounded-xl shadow-2xl transform translate-y-2 group-hover:translate-y-0 transition-all duration-700">
                     <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center text-white font-black text-sm">10+</div>
+                      <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center text-white font-black text-sm">
+                        <CountUp end={10} />+
+                      </div>
                       <div>
                         <p className="text-[8px] font-black uppercase tracking-widest text-primary">Years Experience</p>
                         <p className="text-xs font-bold text-secondary uppercase tracking-tight">Premium Solutions</p>
@@ -198,7 +233,7 @@ Hello SR Flames! I want to know about this precision appliance:
       </section>
 
       {/* 3. PRODUCTS SECTION */}
-      <section id="products" className="py-32 bg-bg-light reveal-section opacity-0">
+      <section id="products" className="py-32 bg-bg-light">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-2xl mx-auto mb-20">
             <span className="text-primary font-bold tracking-widest uppercase text-sm mb-3 block">Premium Collection</span>
@@ -206,23 +241,23 @@ Hello SR Flames! I want to know about this precision appliance:
             <p className="text-gray-500 text-lg">Meticulously crafted chimneys and stoves for those who demand the best.</p>
           </div>
           
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-10">
             {products.map((product) => (
-              <div key={product._id} className="bg-[#0a0a0a] border border-white/5 overflow-hidden flex flex-col group p-2 shadow-xl">
-                <div className="relative h-64 overflow-hidden rounded-xl bg-[#111]">
+              <div key={product._id} className="bg-[#0a0a0a] border border-white/5 overflow-hidden flex flex-col group p-2 shadow-xl rounded-[1.5rem] hover:-translate-y-2 transition-all duration-500">
+                <div className="relative aspect-square overflow-hidden rounded-xl bg-[#111]">
                   <img 
                     src={product.imageUrl} 
                     alt={product.name} 
                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                   />
                   {product.badge && (
-                    <div className="absolute top-4 right-4 bg-primary text-white text-[9px] font-black px-3 py-1 uppercase tracking-[0.2em]">
+                    <div className="absolute top-4 right-4 bg-primary text-white text-[8px] font-black px-3 py-1 uppercase tracking-[0.2em] rounded-md">
                       {product.badge}
                     </div>
                   )}
                 </div>
-                <div className="p-6 flex flex-col flex-grow">
-                  <span className="text-gray-500 text-[9px] font-bold uppercase tracking-[0.2em] mb-1">{product.category}</span>
+                <div className="p-4 sm:p-6 flex flex-col flex-grow">
+                  <span className="text-gray-500 text-[8px] font-bold uppercase tracking-[0.2em] mb-1">{product.category}</span>
                   <h3 className="text-lg font-bold text-white mb-6 leading-tight group-hover:text-primary-light transition-colors uppercase tracking-tighter">{product.name}</h3>
                   <button 
                     onClick={() => setSelectedProduct(product)}
@@ -247,7 +282,7 @@ Hello SR Flames! I want to know about this precision appliance:
       </section>
 
       {/* 4. SERVICES SECTION */}
-      <section id="services" className="py-32 bg-white reveal-section opacity-0">
+      <section id="services" className="py-32 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row justify-between items-end mb-20 gap-8">
             <div className="max-w-xl">
@@ -275,7 +310,7 @@ Hello SR Flames! I want to know about this precision appliance:
       </section>
 
       {/* 5. CONTACT & MAP SECTION */}
-      <section id="contact" className="py-32 bg-white reveal-section opacity-0">
+      <section id="contact" className="py-32 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
             <div>

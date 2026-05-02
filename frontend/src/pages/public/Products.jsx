@@ -7,6 +7,9 @@ const Products = () => {
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
   const [categoryFilter, setCategoryFilter] = useState('ALL CATEGORIES');
+  const [brandFilter, setBrandFilter] = useState('SELECT BRAND');
+  const [categories, setCategories] = useState([]);
+  const [brands, setBrands] = useState([]);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -15,6 +18,12 @@ const Products = () => {
         const res = await fetch(`${API_URL}/api/products`);
         const data = await res.json();
         setProducts(data);
+        
+        // Extract unique categories and brands from data
+        const uniqueCats = ['ALL CATEGORIES', ...new Set(data.map(p => p.category.toUpperCase()))];
+        const uniqueBrands = ['SELECT BRAND', ...new Set(data.map(p => (p.brand || 'SR Signature').toUpperCase()))];
+        setCategories(uniqueCats);
+        setBrands(uniqueBrands);
       } catch (err) {
         console.error('Failed to fetch products:', err);
       } finally {
@@ -42,7 +51,8 @@ Hello SR Flames! I want to know about this precision appliance:
   const filteredProducts = products.filter(p => {
     const matchesSearch = p.name.toLowerCase().includes(searchQuery.toLowerCase());
     const matchesCategory = categoryFilter === 'ALL CATEGORIES' || p.category.toUpperCase() === categoryFilter.toUpperCase();
-    return matchesSearch && matchesCategory;
+    const matchesBrand = brandFilter === 'SELECT BRAND' || (p.brand || 'SR Signature').toUpperCase() === brandFilter.toUpperCase();
+    return matchesSearch && matchesCategory && matchesBrand;
   });
 
   if (loading) {
@@ -94,27 +104,26 @@ Hello SR Flames! I want to know about this precision appliance:
               <select
                 value={categoryFilter}
                 onChange={(e) => setCategoryFilter(e.target.value)}
-                className="w-full bg-[#0a0a0a] border border-white/10 text-white text-xs font-bold tracking-widest px-4 py-4 focus:outline-none focus:border-primary appearance-none cursor-pointer"
+                className="w-full bg-[#0a0a0a] border border-white/10 text-white text-[10px] font-black tracking-widest px-4 py-4 focus:outline-none focus:border-primary appearance-none cursor-pointer uppercase"
               >
-                <option>ALL CATEGORIES</option>
-                <option>CHIMNEYS</option>
-                <option>HOBS</option>
-                <option>STOVES</option>
+                {categories.map(cat => <option key={cat} value={cat}>{cat}</option>)}
               </select>
             </div>
 
-            {/* Brand Dropdown (Placeholder as per screenshot) */}
+            {/* Brand Dropdown */}
             <div className="w-full lg:w-64">
-              <select className="w-full bg-[#0a0a0a] border border-white/10 text-white text-xs font-bold tracking-widest px-4 py-4 focus:outline-none focus:border-primary appearance-none cursor-pointer">
-                <option>SELECT BRAND</option>
-                <option>SR SIGNATURE</option>
-                <option>INFERNO PRO</option>
+              <select 
+                value={brandFilter}
+                onChange={(e) => setBrandFilter(e.target.value)}
+                className="w-full bg-[#0a0a0a] border border-white/10 text-white text-[10px] font-black tracking-widest px-4 py-4 focus:outline-none focus:border-primary appearance-none cursor-pointer uppercase"
+              >
+                {brands.map(brand => <option key={brand} value={brand}>{brand}</option>)}
               </select>
             </div>
 
-            {/* Filter Button */}
-            <button className="bg-primary hover:bg-primary/90 text-white p-4 transition-colors">
-              <Filter size={20} />
+            {/* Filter Button (Reduced Size) */}
+            <button className="bg-primary hover:bg-primary/90 text-white p-3.5 transition-colors">
+              <Filter size={16} />
             </button>
           </div>
         </div>
@@ -122,11 +131,11 @@ Hello SR Flames! I want to know about this precision appliance:
 
       {/* Product Grid */}
       <div className="max-w-7xl mx-auto px-4">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8">
           {filteredProducts.map((product, i) => (
-            <div key={product._id} className="bg-[#0a0a0a] border border-white/5 overflow-hidden flex flex-col group">
+            <div key={product._id} className="bg-[#0a0a0a] border border-white/5 overflow-hidden flex flex-col group rounded-xl">
               {/* Product Image */}
-              <div className="relative aspect-[4/3] overflow-hidden bg-[#111]">
+              <div className="relative aspect-square overflow-hidden bg-[#111]">
                 <img
                   src={product.imageUrl}
                   alt={product.name}
@@ -134,33 +143,33 @@ Hello SR Flames! I want to know about this precision appliance:
                 />
                 {/* Badge */}
                 {product.badge && (
-                  <div className="absolute top-4 left-4 bg-primary-light text-secondary text-[9px] font-black px-3 py-1 uppercase tracking-widest">
+                  <div className="absolute top-2 left-2 sm:top-4 sm:left-4 bg-primary text-white text-[7px] sm:text-[9px] font-black px-2 py-0.5 sm:px-3 sm:py-1 uppercase tracking-widest rounded-md">
                     {product.badge}
                   </div>
                 )}
               </div>
 
               {/* Product Details Area */}
-              <div className="p-6">
+              <div className="p-3 sm:p-6">
                 <div className="mb-1">
-                  <span className="text-gray-500 text-[9px] font-bold uppercase tracking-[0.2em]">{product.category}</span>
-                  <h3 className="text-white text-lg font-bold uppercase mt-0.5 tracking-tight leading-tight line-clamp-1">{product.name}</h3>
-                  <p className="text-gray-600 text-[8px] font-bold uppercase tracking-widest mt-0.5">{product.brand || 'SR SIGNATURE SERIES'}</p>
+                  <span className="text-gray-500 text-[7px] sm:text-[9px] font-bold uppercase tracking-[0.2em]">{product.category}</span>
+                  <h3 className="text-white text-[10px] sm:text-lg font-bold uppercase mt-0.5 tracking-tight leading-tight line-clamp-1">{product.name}</h3>
+                  <p className="text-gray-600 text-[6px] sm:text-[8px] font-bold uppercase tracking-widest mt-0.5">{product.brand || 'SR SIGNATURE'}</p>
                 </div>
 
                 {/* Buttons Container */}
-                <div className="grid grid-cols-1 gap-2 mt-6">
+                <div className="grid grid-cols-1 gap-1.5 sm:gap-2 mt-4 sm:mt-6">
                   <button
                     onClick={() => handleWhatsApp(product)}
-                    className="w-full bg-primary hover:bg-primary-light text-white font-black py-3 px-4 transition-all flex justify-center items-center gap-2 text-[10px] uppercase tracking-widest shadow-lg shadow-primary/10"
+                    className="w-full bg-primary hover:bg-primary-light text-white font-black py-2 sm:py-3 px-2 transition-all flex justify-center items-center gap-1 sm:gap-2 text-[7px] sm:text-[10px] uppercase tracking-widest shadow-lg shadow-primary/10"
                   >
-                    <MessageCircle size={14} /> WhatsApp Order
+                    <MessageCircle size={10} className="sm:w-[14px] sm:h-[14px]" /> WhatsApp
                   </button>
                   <button
                     onClick={() => setSelectedProduct(product)}
-                    className="w-full bg-white/5 hover:bg-white/10 text-white font-black py-3 px-4 transition-all border border-white/10 flex justify-center items-center gap-2 text-[10px] uppercase tracking-widest"
+                    className="w-full bg-white/5 hover:bg-white/10 text-white font-black py-2 sm:py-3 px-2 transition-all border border-white/10 flex justify-center items-center gap-1 sm:gap-2 text-[7px] sm:text-[10px] uppercase tracking-widest"
                   >
-                    View Details
+                    Details
                   </button>
                 </div>
               </div>
@@ -177,33 +186,33 @@ Hello SR Flames! I want to know about this precision appliance:
 
       {/* PRODUCT DETAILS MODAL */}
       {selectedProduct && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 backdrop-blur-xl">
-          <div className="absolute inset-0 bg-black/60" onClick={() => setSelectedProduct(null)}></div>
-          <div className="bg-[#0d0d0d] w-full max-w-4xl rounded-[2.5rem] overflow-hidden relative z-10 animate-in fade-in zoom-in duration-300 border border-white/5 shadow-[0_0_50px_rgba(0,0,0,0.5)]">
-            <button onClick={() => setSelectedProduct(null)} className="absolute top-6 right-6 z-20 w-10 h-10 bg-white/5 hover:bg-primary text-white rounded-full flex items-center justify-center transition-all backdrop-blur-md">
-              <X size={20} />
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-2 sm:p-6 backdrop-blur-xl">
+          <div className="absolute inset-0 bg-black/80" onClick={() => setSelectedProduct(null)}></div>
+          <div className="bg-[#0d0d0d] w-full max-w-4xl rounded-3xl sm:rounded-[2.5rem] overflow-hidden relative z-10 animate-in fade-in zoom-in duration-300 border border-white/5 shadow-2xl">
+            <button onClick={() => setSelectedProduct(null)} className="absolute top-4 right-4 sm:top-6 sm:right-6 z-20 w-8 h-8 sm:w-10 sm:h-10 bg-white/5 hover:bg-primary text-white rounded-full flex items-center justify-center transition-all backdrop-blur-md">
+              <X size={16} />
             </button>
             
-            <div className="flex flex-col md:flex-row">
-              <div className="w-full md:w-1/2 h-[350px] md:h-[550px] overflow-hidden bg-black flex items-center justify-center p-4">
+            <div className="flex flex-col md:flex-row max-h-[90vh] overflow-y-auto md:overflow-visible">
+              <div className="w-full md:w-1/2 h-[250px] sm:h-[350px] md:h-[550px] overflow-hidden bg-black flex items-center justify-center p-4">
                 <img src={selectedProduct.imageUrl} alt={selectedProduct.name} className="w-full h-full object-contain" />
               </div>
-              <div className="w-full md:w-1/2 p-8 sm:p-12 flex flex-col justify-center">
-                <span className="text-primary-light font-black uppercase tracking-[0.4em] text-[9px] mb-3 block">{selectedProduct.category}</span>
-                <h2 className="text-3xl sm:text-5xl font-black text-white mb-2 uppercase leading-[0.9] tracking-tighter italic">{selectedProduct.name}</h2>
-                <p className="text-gray-500 font-bold uppercase tracking-[0.2em] text-[9px] mb-8">{selectedProduct.brand || 'SR SIGNATURE'}</p>
+              <div className="w-full md:w-1/2 p-6 sm:p-12 flex flex-col justify-center">
+                <span className="text-primary font-black uppercase tracking-[0.4em] text-[8px] sm:text-[9px] mb-2 sm:mb-3 block">{selectedProduct.category}</span>
+                <h2 className="text-2xl sm:text-5xl font-black text-white mb-1 sm:mb-2 uppercase leading-none tracking-tighter">{selectedProduct.name}</h2>
+                <p className="text-gray-500 font-bold uppercase tracking-[0.2em] text-[8px] sm:text-[9px] mb-6 sm:mb-8">{selectedProduct.brand || 'SR SIGNATURE'}</p>
                 
-                <div className="bg-[#151515] p-6 rounded-[1.5rem] mb-10 border border-white/5">
-                   <h4 className="font-bold text-gray-500 mb-3 text-[8px] uppercase tracking-widest">Specifications</h4>
-                   <p className="text-gray-400 leading-relaxed text-xs md:text-sm font-medium line-clamp-6">
+                <div className="bg-[#151515] p-4 sm:p-6 rounded-2xl sm:rounded-[1.5rem] mb-6 sm:mb-10 border border-white/5">
+                   <h4 className="font-bold text-gray-500 mb-2 sm:mb-3 text-[8px] uppercase tracking-widest">Specifications</h4>
+                   <p className="text-gray-400 leading-relaxed text-[10px] sm:text-sm font-medium line-clamp-4 sm:line-clamp-6">
                      {selectedProduct.description || "Designed for high-performance culinary environments. This unit features industrial-grade suction power, fingerprint-resistant finishes, and intelligent heat-sync technology."}
                    </p>
                 </div>
                 <button 
                   onClick={() => handleWhatsApp(selectedProduct)}
-                  className="w-full bg-primary hover:bg-primary-light text-white font-black py-5 rounded-xl transition-all flex justify-center items-center gap-3 text-[11px] uppercase tracking-[0.3em] shadow-2xl shadow-primary/20 transform hover:-translate-y-1 active:scale-95"
+                  className="w-full bg-primary hover:bg-primary-light text-white font-black py-4 sm:py-5 rounded-xl transition-all flex justify-center items-center gap-2 sm:gap-3 text-[10px] sm:text-[11px] uppercase tracking-[0.2em] sm:tracking-[0.3em] shadow-2xl shadow-primary/20 transform active:scale-95"
                 >
-                  <MessageCircle size={18} /> Order via WhatsApp
+                  <MessageCircle size={16} /> Order via WhatsApp
                 </button>
               </div>
             </div>
