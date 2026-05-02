@@ -47,9 +47,26 @@ Hello SR Flames! I want to know about this precision appliance:
 
   if (loading) {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center bg-bg-light gap-4">
-        <div className="w-12 h-12 border-4 border-primary border-t-transparent rounded-full animate-spin"></div>
-        <p className="font-bold text-primary font-sans uppercase tracking-widest text-xs">Loading Catalog...</p>
+      <div className="min-h-screen bg-[#050505] flex flex-col items-center justify-center gap-8 text-white">
+        <div className="relative">
+          <div className="w-16 h-16 border-2 border-primary/20 rounded-full"></div>
+          <div className="absolute top-0 left-0 w-16 h-16 border-t-2 border-primary rounded-full animate-spin"></div>
+          <div className="absolute inset-0 flex items-center justify-center">
+             <div className="w-1 h-1 bg-primary rounded-full animate-pulse"></div>
+          </div>
+        </div>
+        <div className="flex flex-col items-center gap-2">
+          <p className="text-primary font-black uppercase tracking-[0.5em] text-[10px] animate-pulse">Loading Catalog</p>
+          <div className="w-32 h-[1px] bg-white/5 overflow-hidden">
+             <div className="w-full h-full bg-primary/40 -translate-x-full animate-[progress_2s_infinite]"></div>
+          </div>
+        </div>
+        <style dangerouslySetInnerHTML={{ __html: `
+          @keyframes progress {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+          }
+        `}} />
       </div>
     );
   }
