@@ -62,7 +62,7 @@ const AdminBrands = () => {
       <div className="flex-1 p-10 overflow-y-auto">
         <div className="max-w-4xl mx-auto">
           <div className="mb-10">
-            <h1 className="text-4xl font-black text-secondary tracking-tighter uppercase italic leading-none mb-2">Brand Portfolio</h1>
+            <h1 className="text-4xl font-black text-secondary tracking-tighter uppercase  leading-none mb-2">Brand Portfolio</h1>
             <p className="text-gray-500 font-medium tracking-wide">Manage your precision appliance series and brands.</p>
           </div>
 
@@ -72,9 +72,9 @@ const AdminBrands = () => {
               <div className="bg-white p-8 rounded-[2rem] shadow-xl border border-gray-100">
                 <h3 className="text-xs font-black text-gray-400 uppercase tracking-widest mb-6">Register New</h3>
                 <form onSubmit={handleAdd} className="space-y-4">
-                  <input 
-                    type="text" 
-                    placeholder="e.g. SR SIGNATURE" 
+                  <input
+                    type="text"
+                    placeholder="e.g. SR SIGNATURE"
                     value={newBrand}
                     onChange={(e) => setNewBrand(e.target.value)}
                     className="w-full bg-gray-50 border-none rounded-xl px-4 py-3 font-bold placeholder:text-gray-300 focus:ring-2 focus:ring-primary/20"
@@ -94,13 +94,13 @@ const AdminBrands = () => {
                 ) : (
                   <div className="divide-y divide-gray-50">
                     <div className="p-6 bg-gray-50/50 flex items-center gap-3">
-                       <Tag size={14} className="text-primary" />
-                       <span className="text-[10px] font-black text-gray-400 uppercase tracking-widest">Active Series ({brands.length})</span>
+                      <Tag size={14} className="text-primary" />
+                      <span className="text-[10px] font-black text-gray-400 uppercase tracking-widest">Active Series ({brands.length})</span>
                     </div>
                     {brands.map((brand) => (
                       <div key={brand._id} className="p-6 flex justify-between items-center group hover:bg-gray-50 transition-colors">
                         <span className="font-black text-secondary uppercase tracking-tight">{brand.name}</span>
-                        <button 
+                        <button
                           onClick={() => handleDelete(brand._id)}
                           className="p-2 text-gray-300 hover:text-red-500 hover:bg-red-50 rounded-lg transition-all opacity-0 group-hover:opacity-100"
                         >

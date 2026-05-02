@@ -28,7 +28,7 @@ const AdminAddProduct = () => {
         ]);
         const cats = await catRes.json();
         const brs = await brandRes.json();
-        
+
         setCategories(cats);
         setBrands(brs);
 
@@ -110,7 +110,7 @@ const AdminAddProduct = () => {
             <Link to="/admin/products" className="text-gray-400 hover:text-primary transition-colors font-bold text-xs uppercase tracking-widest flex items-center gap-2 mb-4">
               &larr; Back to Inventory
             </Link>
-            <h1 className="text-4xl font-black text-secondary tracking-tighter uppercase italic leading-none mb-2">Add New Appliance</h1>
+            <h1 className="text-4xl font-black text-secondary tracking-tighter uppercase  leading-none mb-2">Add New Appliance</h1>
             <p className="text-gray-500 font-medium">Add a precision product to the SR collection.</p>
           </div>
 

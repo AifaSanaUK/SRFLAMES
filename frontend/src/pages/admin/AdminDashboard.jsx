@@ -37,10 +37,10 @@ const AdminDashboard = () => {
       <div className="flex-1 p-10 overflow-y-auto">
         <div className="max-w-7xl mx-auto">
           <div className="mb-12">
-            <h1 className="text-4xl font-black text-secondary tracking-tighter uppercase italic leading-none mb-2">Showroom Pulse</h1>
+            <h1 className="text-4xl font-black text-secondary tracking-tighter uppercase  leading-none mb-2">Showroom Pulse</h1>
             <p className="text-gray-500 font-medium tracking-wide">Real-time overview of your precision appliance ecosystem.</p>
           </div>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
             <div className="bg-white p-8 rounded-[2rem] shadow-xl shadow-gray-200/40 border border-gray-100 flex items-center gap-6 group hover:border-primary/20 transition-all">
               <div className="p-4 bg-primary/10 text-primary rounded-2xl group-hover:bg-primary group-hover:text-white transition-all">
@@ -79,7 +79,7 @@ const AdminDashboard = () => {
               <h2 className="text-xl font-black text-secondary uppercase tracking-tight">System Status</h2>
             </div>
             <div className="py-20 text-center border-2 border-dashed border-gray-50 rounded-[2rem]">
-               <p className="text-gray-400 font-bold uppercase tracking-widest text-xs">Awaiting further inventory activity...</p>
+              <p className="text-gray-400 font-bold uppercase tracking-widest text-xs">Awaiting further inventory activity...</p>
             </div>
           </div>
         </div>

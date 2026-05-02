@@ -63,7 +63,7 @@ const AdminProducts = () => {
         <div className="max-w-7xl mx-auto">
           <div className="flex justify-between items-end mb-10">
             <div>
-              <h1 className="text-4xl font-black text-secondary tracking-tighter uppercase italic leading-none mb-2">Showroom Inventory</h1>
+              <h1 className="text-4xl font-black text-secondary tracking-tighter uppercase  leading-none mb-2">Showroom Inventory</h1>
               <p className="text-gray-500 font-medium">Manage and refine your precision appliances collection.</p>
             </div>
             <Link
@@ -116,8 +116,8 @@ const AdminProducts = () => {
                             value={p.badge || ""}
                             onChange={(e) => handleUpdateBadge(p._id, e.target.value)}
                             className={`text-[10px] font-black px-4 py-2.5 rounded-xl border focus:outline-none transition-all cursor-pointer uppercase tracking-widest shadow-sm ${p.badge === 'NEW ARRIVAL' ? 'bg-orange-50 text-orange-600 border-orange-100' :
-                                p.badge === 'BEST SELLER' ? 'bg-primary/5 text-primary border-primary/10' :
-                                  'bg-gray-50 text-gray-400 border-gray-100'
+                              p.badge === 'BEST SELLER' ? 'bg-primary/5 text-primary border-primary/10' :
+                                'bg-gray-50 text-gray-400 border-gray-100'
                               }`}
                           >
                             <option value="">NO BADGE</option>

@@ -101,31 +101,80 @@ Hello SR Flames! I want to know about this precision appliance:
       </section>
 
       {/* 2. ABOUT US SECTION */}
-      <section id="about" className="py-32 bg-white">
+      <section id="about" className="py-40 bg-white overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
-            <div className="relative group">
-              <div className="absolute -inset-4 bg-primary/10 rounded-3xl group-hover:bg-primary/15 transition-all"></div>
-              <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?q=80&w=800&auto=format&fit=crop" alt="Kitchen Setup" className="rounded-2xl shadow-2xl w-full object-cover h-[550px] relative z-10" />
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
+            <div className="relative">
+              {/* Decorative Background Elements */}
+              <div className="absolute -top-12 -left-12 w-64 h-64 bg-primary/5 rounded-full blur-3xl"></div>
+              <div className="absolute -bottom-12 -right-12 w-64 h-64 bg-secondary/5 rounded-full blur-3xl"></div>
+              
+              <div className="relative z-10">
+                <div className="absolute -right-8 top-1/2 -translate-y-1/2 w-px h-32 bg-primary/20 hidden lg:block"></div>
+                <div className="absolute -left-8 top-1/2 -translate-y-1/2 w-px h-32 bg-primary/20 hidden lg:block"></div>
+                
+                <div className="relative group overflow-hidden rounded-[2.5rem] shadow-[0_50px_100px_-20px_rgba(0,0,0,0.15)] transform transition-all duration-700 hover:scale-[1.02]">
+                  <img 
+                    src="/kitchen-about.png" 
+                    alt="Luxury SR Flames Kitchen" 
+                    className="w-full object-cover h-[650px] transform transition-transform duration-[2s] group-hover:scale-110" 
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+                  
+                  {/* Floating Experience Badge */}
+                  <div className="absolute bottom-8 left-8 right-8 bg-white/90 backdrop-blur-md p-6 rounded-2xl shadow-2xl transform translate-y-4 group-hover:translate-y-0 transition-all duration-700">
+                    <div className="flex items-center gap-4">
+                      <div className="w-12 h-12 bg-primary rounded-full flex items-center justify-center text-white font-black">10+</div>
+                      <div>
+                        <p className="text-[10px] font-black uppercase tracking-widest text-primary">Years of Excellence</p>
+                        <p className="text-sm font-bold text-secondary">Premium Culinary Solutions</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div>
-              <span className="text-primary font-bold tracking-widest uppercase text-sm mb-4 block">Since 2014</span>
-              <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900 mb-8 leading-tight">Mastering the Art of Modern Cooking</h2>
-              <p className="text-gray-500 text-lg mb-8 leading-relaxed">
+
+            <div className="relative z-10">
+              <div className="inline-flex items-center gap-3 mb-6">
+                <div className="w-10 h-[1px] bg-primary"></div>
+                <span className="text-primary font-black tracking-[0.4em] uppercase text-[10px]">Since 2014</span>
+              </div>
+              
+              <h2 className="text-5xl md:text-6xl font-black text-secondary mb-10 leading-[1.1] tracking-tighter uppercase">
+                Mastering the Art of <span className="text-primary">Modern</span> Cooking
+              </h2>
+              
+              <p className="text-gray-500 text-xl mb-12 leading-relaxed font-medium">
                 SR Flames stands at the intersection of aesthetic brilliance and technical perfection. We provide kitchen solutions that aren't just appliances, but integral parts of your home's character.
               </p>
-              <div className="grid grid-cols-2 gap-6 mb-10">
-                 <div className="flex flex-col gap-2">
-                    <CheckCircle2 className="text-primary" size={28} />
-                    <span className="font-bold text-gray-800">ISO Certified</span>
+              
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-10 mb-14">
+                 <div className="flex items-start gap-4 group">
+                    <div className="w-14 h-14 bg-primary/10 rounded-2xl flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all duration-500">
+                       <CheckCircle2 size={28} />
+                    </div>
+                    <div>
+                       <span className="font-black text-secondary uppercase tracking-widest text-xs block mb-1">ISO Certified</span>
+                       <p className="text-gray-400 text-[11px] leading-tight">Global standards in precision engineering.</p>
+                    </div>
                  </div>
-                 <div className="flex flex-col gap-2">
-                    <Shield className="text-primary" size={28} />
-                    <span className="font-bold text-gray-800">5 Year Warranty</span>
+                 <div className="flex items-start gap-4 group">
+                    <div className="w-14 h-14 bg-primary/10 rounded-2xl flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all duration-500">
+                       <Shield size={28} />
+                    </div>
+                    <div>
+                       <span className="font-black text-secondary uppercase tracking-widest text-xs block mb-1">5 Year Warranty</span>
+                       <p className="text-gray-400 text-[11px] leading-tight">Unmatched reliability and lifelong support.</p>
+                    </div>
                  </div>
               </div>
-              <a href="#contact" className="inline-block bg-secondary text-white font-bold py-4 px-10 rounded-xl transition-all hover:bg-secondary/90 shadow-xl">
-                Get a Consultation
+              
+              <a 
+                href="#contact" 
+                className="inline-flex items-center gap-4 bg-secondary text-white font-black py-5 px-12 rounded-2xl transition-all hover:bg-primary hover:shadow-[0_20px_40px_-10px_rgba(143,91,52,0.4)] transform hover:-translate-y-1 uppercase tracking-widest text-xs"
+              >
+                Get a Consultation <ChevronRight size={18} />
               </a>
             </div>
           </div>
