@@ -60,40 +60,35 @@ Hello SR Flames! I want to know about this precision appliance:
       
       {/* 1. HERO SECTION */}
       <section id="home" className="relative h-[90vh] min-h-[650px] w-full flex items-center bg-secondary overflow-hidden">
-        {/* Background Image with Zoom Effect */}
-        <div className="absolute inset-0 w-full h-full scale-110 animate-[hero-zoom_20s_infinite_alternate]">
+        {/* Fixed Background Image for Parallax */}
+        <div className="absolute inset-0 w-full h-full">
           <img 
             src="https://images.unsplash.com/photo-1556911220-e15b29be8c8f?q=80&w=2070&auto=format&fit=crop" 
             alt="Modern Kitchen Chimney" 
-            className="w-full h-full object-cover opacity-60"
+            className="w-full h-full object-cover opacity-60 fixed"
           />
           <div className="absolute inset-0 bg-gradient-to-r from-secondary via-secondary/70 to-transparent"></div>
         </div>
 
-        <style dangerouslySetInnerHTML={{ __html: `
-          @keyframes hero-zoom {
-            from { transform: scale(1); }
-            to { transform: scale(1.1); }
-          }
-        `}} />
+
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
           <div className="max-w-2xl reveal-fade-up">
-            <div className="inline-block px-4 py-2 bg-primary/20 backdrop-blur-md rounded-full text-primary font-black text-[10px] uppercase tracking-[0.4em] mb-6 border border-primary/20">
+            <div className="inline-block px-3 py-1 bg-primary/20 backdrop-blur-md rounded-full text-primary font-black text-[9px] uppercase tracking-[0.3em] mb-4 border border-primary/20">
               Future of Cooking
             </div>
-            <h1 className="text-6xl md:text-8xl font-black text-white leading-[0.9] mb-8 tracking-tighter uppercase">
-              Smart <br /> <span className="text-primary italic">Kitchens.</span>
+            <h1 className="text-5xl md:text-6xl font-black text-white leading-[0.95] mb-6 tracking-tighter uppercase">
+              Smart <br /> <span className="text-primary">Kitchens.</span>
             </h1>
-            <p className="text-lg md:text-xl text-gray-400 mb-12 font-medium max-w-lg leading-relaxed">
-              Premium Chimneys & Stoves designed for modern living. Elevate your culinary space with elegance and industrial-grade efficiency.
+            <p className="text-base md:text-lg text-gray-400 mb-10 font-medium max-w-md leading-relaxed">
+              Premium Chimneys & Stoves designed for modern living. Elevate your culinary space with elegance and efficiency.
             </p>
             
-            <div className="flex flex-wrap gap-6">
-              <a href="#products" className="bg-primary hover:bg-primary-light text-white font-black py-5 px-12 rounded-2xl transition-all shadow-2xl shadow-primary/20 btn-active-effect uppercase tracking-widest text-xs">
+            <div className="flex flex-wrap gap-4">
+              <a href="#products" className="bg-primary hover:bg-primary-light text-white font-black py-4 px-10 rounded-xl transition-all shadow-xl shadow-primary/20 btn-active-effect uppercase tracking-widest text-[10px]">
                 Explore Products
               </a>
-              <a href="#about" className="bg-white/5 hover:bg-white/10 backdrop-blur-md text-white border border-white/20 font-black py-5 px-12 rounded-2xl transition-all btn-active-effect uppercase tracking-widest text-xs">
+              <a href="#about" className="bg-white/5 hover:bg-white/10 backdrop-blur-md text-white border border-white/20 font-black py-4 px-10 rounded-xl transition-all btn-active-effect uppercase tracking-widest text-[10px]">
                 Our Story
               </a>
             </div>
@@ -134,21 +129,21 @@ Hello SR Flames! I want to know about this precision appliance:
                 <div className="absolute -right-8 top-1/2 -translate-y-1/2 w-px h-32 bg-primary/20 hidden lg:block"></div>
                 <div className="absolute -left-8 top-1/2 -translate-y-1/2 w-px h-32 bg-primary/20 hidden lg:block"></div>
                 
-                <div className="relative group overflow-hidden rounded-[2.5rem] shadow-[0_50px_100px_-20px_rgba(0,0,0,0.15)] transform transition-all duration-700 hover:scale-[1.02]">
+                  <div className="relative group overflow-hidden rounded-[2rem] shadow-2xl transform transition-all duration-700 hover:scale-[1.01]">
                   <img 
                     src="/kitchen-about.png" 
                     alt="Luxury SR Flames Kitchen" 
-                    className="w-full object-cover h-[650px] transform transition-transform duration-[2s] group-hover:scale-110" 
+                    className="w-full object-cover h-[550px] transform transition-transform duration-[2s] group-hover:scale-110" 
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
                   
-                  {/* Floating Experience Badge */}
-                  <div className="absolute bottom-8 left-8 right-8 bg-white/90 backdrop-blur-md p-6 rounded-2xl shadow-2xl transform translate-y-4 group-hover:translate-y-0 transition-all duration-700">
-                    <div className="flex items-center gap-4">
-                      <div className="w-12 h-12 bg-primary rounded-full flex items-center justify-center text-white font-black">10+</div>
+                  {/* Floating Experience Badge - SHRUNK */}
+                  <div className="absolute bottom-6 left-6 right-6 bg-white/95 backdrop-blur-md p-4 rounded-xl shadow-2xl transform translate-y-2 group-hover:translate-y-0 transition-all duration-700">
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center text-white font-black text-sm">10+</div>
                       <div>
-                        <p className="text-[10px] font-black uppercase tracking-widest text-primary">Years of Excellence</p>
-                        <p className="text-sm font-bold text-secondary">Premium Culinary Solutions</p>
+                        <p className="text-[8px] font-black uppercase tracking-widest text-primary">Years Experience</p>
+                        <p className="text-xs font-bold text-secondary uppercase tracking-tight">Premium Solutions</p>
                       </div>
                     </div>
                   </div>
