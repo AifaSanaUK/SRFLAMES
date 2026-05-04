@@ -207,20 +207,20 @@ Hello SR Flames! I want to know about this precision appliance:
               <X size={16} />
             </button>
             
-            <div className="flex flex-col md:flex-row max-h-[90vh] overflow-y-auto md:overflow-visible">
-              <div className="w-full md:w-1/2 h-[250px] sm:h-[350px] md:h-[550px] overflow-hidden bg-black flex items-center justify-center p-4">
+            <div className="flex flex-row max-h-[90vh] overflow-y-auto md:overflow-visible">
+              <div className="w-1/2 md:w-1/2 h-auto md:h-[550px] overflow-hidden bg-black flex items-center justify-center p-2 sm:p-4 border-r border-white/5">
                 <img src={selectedProduct.imageUrl} alt={selectedProduct.name} className="w-full h-full object-contain" />
               </div>
-              <div className="w-full md:w-1/2 p-6 sm:p-12 flex flex-col justify-center">
+              <div className="w-1/2 md:w-1/2 p-4 sm:p-12 flex flex-col justify-center">
                 <span className="text-primary font-black uppercase tracking-[0.4em] text-[8px] sm:text-[9px] mb-2 sm:mb-3 block">{selectedProduct.category}</span>
                 <h2 className="text-2xl sm:text-5xl font-black text-white mb-1 sm:mb-2 uppercase leading-none tracking-tighter">{selectedProduct.name}</h2>
-                <p className="text-gray-500 font-bold uppercase tracking-[0.2em] text-[8px] sm:text-[9px] mb-6 sm:mb-8">{selectedProduct.brand || 'SR SIGNATURE'}</p>
+                <p className="text-gray-500 font-bold uppercase tracking-[0.2em] text-[7px] sm:text-[9px] mb-6 sm:mb-8">{selectedProduct.brand || 'SR SIGNATURE'}</p>
                 
-                <div className="bg-[#151515] p-4 sm:p-6 rounded-2xl sm:rounded-[1.5rem] mb-6 sm:mb-10 border border-white/5">
-                   <h4 className="font-bold text-gray-500 mb-2 sm:mb-3 text-[8px] uppercase tracking-widest">Specifications</h4>
-                   <p className="text-gray-400 leading-relaxed text-[10px] sm:text-sm font-medium line-clamp-4 sm:line-clamp-6">
-                     {selectedProduct.description || "Designed for high-performance culinary environments. This unit features industrial-grade suction power, fingerprint-resistant finishes, and intelligent heat-sync technology."}
-                   </p>
+                <div className="bg-[#151515] p-5 sm:p-8 rounded-2xl sm:rounded-[1.5rem] mb-6 sm:mb-10 border border-white/5">
+                  <h4 className="font-bold text-gray-500 mb-3 text-[8px] uppercase tracking-widest">Specifications</h4>
+                  <p className="text-gray-400 leading-relaxed text-[10px] sm:text-sm font-medium line-clamp-6">
+                    {selectedProduct.description || "Designed for high-performance culinary environments. This unit features industrial-grade suction power, fingerprint-resistant finishes, and intelligent heat-sync technology."}
+                  </p>
                 </div>
                 <button 
                   onClick={() => handleWhatsApp(selectedProduct)}

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { MessageCircle, CheckCircle2, ChevronRight, Wrench, Shield, ThumbsUp, Send, Phone, Mail, MapPin, X, Zap } from 'lucide-react';
+import { MessageCircle, CheckCircle2, ChevronRight, Wrench, Shield, ThumbsUp, Send, Phone, Mail, MapPin, X } from 'lucide-react';
 
 const CountUp = ({ end, duration = 2000 }) => {
   const [count, setCount] = useState(0);
@@ -40,6 +40,16 @@ const CountUp = ({ end, duration = 2000 }) => {
 const Home = () => {
   const navigate = useNavigate();
   const [products, setProducts] = useState([]);
+
+  const handleNavClick = (hash) => {
+    const id = hash.replace('#', '');
+    const element = document.getElementById(id);
+    if (element) {
+      const navbarHeight = 120;
+      const offsetTop = element.offsetTop - navbarHeight;
+      window.scrollTo({ top: offsetTop, behavior: 'smooth' });
+    }
+  };
   const [selectedProduct, setSelectedProduct] = useState(null);
 
   useEffect(() => {
@@ -121,7 +131,6 @@ const Home = () => {
               backgroundImage: `linear-gradient(rgba(44, 24, 16, 0.7), rgba(44, 24, 16, 0.5)), url('${img}')`,
               backgroundSize: 'cover',
               backgroundPosition: 'center',
-              backgroundAttachment: window.innerWidth > 768 ? 'fixed' : 'scroll',
               opacity: currentImage === index ? 1 : 0,
               zIndex: 1
             }}
@@ -175,7 +184,7 @@ const Home = () => {
       </section>
 
       {/* 2. ABOUT US SECTION */}
-      <section id="about" className="py-40 bg-white overflow-hidden">
+      <section id="about" className="py-20 sm:py-32 bg-white overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
             <div className="relative">
@@ -211,13 +220,13 @@ const Home = () => {
               </div>
             </div>
 
-            <div className="relative z-10 flex flex-col items-center lg:items-start text-center lg:text-left">
+            <div className="relative z-10">
               <div className="inline-flex items-center gap-3 mb-6">
                 <div className="w-10 h-[1px] bg-primary"></div>
                 <span className="text-primary font-black tracking-[0.4em] uppercase text-[10px]">Since 2014</span>
               </div>
 
-              <h2 className="text-5xl md:text-4xl font-black text-secondary mb-10 leading-[1.1] tracking-tighter uppercase">
+              <h2 className="text-3xl md:text-5xl font-black text-secondary mb-10 leading-[1.1] tracking-tighter uppercase">
                 Mastering the Art of <span className="text-primary">Modern</span> Cooking
               </h2>
 
@@ -225,44 +234,46 @@ const Home = () => {
                 SR Flames stands at the intersection of aesthetic brilliance and technical perfection. We provide kitchen solutions that aren't just appliances, but integral parts of your home's character.
               </p>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-10 mb-14">
-                <div className="flex items-start gap-4 group">
-                  <div className="w-14 h-14 bg-primary/10 rounded-2xl flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all duration-500">
-                    <CheckCircle2 size={28} />
+              <div className="grid grid-cols-2 sm:grid-cols-2 gap-6 sm:gap-10 mb-14">
+                <div className="flex flex-col sm:flex-row items-center sm:items-start gap-3 sm:gap-4 group text-center sm:text-left">
+                  <div className="w-10 h-10 sm:w-14 sm:h-14 bg-primary/10 rounded-xl sm:rounded-2xl flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all duration-500">
+                    <CheckCircle2 size={20} className="sm:w-7 sm:h-7" />
                   </div>
                   <div>
-                    <span className="font-black text-secondary uppercase tracking-widest text-xs block mb-1">ISO Certified</span>
-                    <p className="text-gray-400 text-[11px] leading-tight">Global standards in precision engineering.</p>
+                    <span className="font-black text-secondary uppercase tracking-widest text-[8px] sm:text-xs block mb-1">ISO Certified</span>
+                    <p className="text-gray-400 text-[9px] sm:text-[11px] leading-tight">Global standards in precision engineering.</p>
                   </div>
                 </div>
-                <div className="flex items-start gap-4 group">
-                  <div className="w-14 h-14 bg-primary/10 rounded-2xl flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all duration-500">
-                    <Shield size={28} />
+                <div className="flex flex-col sm:flex-row items-center sm:items-start gap-3 sm:gap-4 group text-center sm:text-left">
+                  <div className="w-10 h-10 sm:w-14 sm:h-14 bg-primary/10 rounded-xl sm:rounded-2xl flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all duration-500">
+                    <Shield size={20} className="sm:w-7 sm:h-7" />
                   </div>
                   <div>
-                    <span className="font-black text-secondary uppercase tracking-widest text-xs block mb-1">5 Year Warranty</span>
-                    <p className="text-gray-400 text-[11px] leading-tight">Unmatched reliability and lifelong support.</p>
+                    <span className="font-black text-secondary uppercase tracking-widest text-[8px] sm:text-xs block mb-1">5 Year Warranty</span>
+                    <p className="text-gray-400 text-[9px] sm:text-[11px] leading-tight">Unmatched reliability and support.</p>
                   </div>
                 </div>
               </div>
 
-              <a
-                href="#contact"
-                className="inline-flex items-center gap-4 bg-secondary text-white font-black py-5 px-12 rounded-2xl transition-all hover:bg-primary hover:shadow-[0_20px_40px_-10px_rgba(143,91,52,0.4)] transform hover:-translate-y-1 uppercase tracking-widest text-xs"
-              >
-                Get a Consultation <ChevronRight size={18} />
-              </a>
+              <div className="flex justify-center lg:justify-start">
+                <a
+                  href="#contact"
+                  className="inline-flex items-center gap-4 bg-secondary text-white font-black py-5 px-12 rounded-2xl transition-all hover:bg-primary hover:shadow-[0_20px_40px_-10px_rgba(143,91,52,0.4)] transform hover:-translate-y-1 uppercase tracking-widest text-xs"
+                >
+                  Get a Consultation <ChevronRight size={18} />
+                </a>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
       {/* 3. PRODUCTS SECTION */}
-      <section id="products" className="py-32 bg-bg-light">
+      <section id="products" className="py-20 sm:py-24 bg-bg-light">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-2xl mx-auto mb-20">
             <span className="text-primary font-bold tracking-widest uppercase text-sm mb-3 block">Premium Collection</span>
-            <h2 className="text-4xl md:text-4xl font-extrabold text-gray-900 mb-6">Our Best Sellers</h2>
+            <h2 className="text-3xl md:text-3xl font-extrabold text-gray-900 mb-6">OUR BEST SELLERS</h2>
             <p className="text-gray-500 text-lg">Meticulously crafted chimneys and stoves for those who demand the best.</p>
           </div>
 
@@ -307,27 +318,27 @@ const Home = () => {
       </section>
 
       {/* 4. SERVICES SECTION */}
-      <section id="services" className="py-32 bg-white">
+      <section id="services" className="py-20 sm:py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col md:flex-row justify-between items-center md:items-end mb-20 gap-8 text-center md:text-left">
+          <div className="flex flex-col md:flex-row justify-between items-end mb-20 gap-8">
             <div className="max-w-xl">
               <span className="text-primary font-black tracking-[0.4em] uppercase text-[10px] mb-4 block">Experience Service</span>
               <h2 className="text-3xl md:text-4xl font-black text-secondary leading-tight uppercase tracking-tighter">Beyond the Sale. Professional Care.</h2>
             </div>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-12">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-12">
             {[
-              { icon: Wrench, title: 'Expert Installation', desc: 'Precision fitting by certified SR Flames engineers.' },
-              { icon: Shield, title: 'Yearly Maintenance', desc: 'Stay worry-free with our comprehensive AMC plans.' },
-              { icon: ThumbsUp, title: 'Authentic Support', desc: 'Only genuine spare parts and factory-grade service.' },
-              { icon: Zap, title: 'Lifelong Care', desc: 'Continuous performance optimization for your appliances.' }
+              { icon: Wrench, title: 'Expert Installation', desc: 'Precision fitting by certified engineers.' },
+              { icon: Shield, title: 'Yearly Maintenance', desc: 'Stay worry-free with our AMC plans.' },
+              { icon: ThumbsUp, title: 'Authentic Support', desc: 'Only genuine spare parts used.' },
+              { icon: MessageCircle, title: 'Rapid Support', desc: 'Technical assistance within 24 hours.' }
             ].map((service, index) => (
-              <div key={index} className="group p-6 sm:p-10 bg-[#fbf9f7] rounded-[2rem] sm:rounded-[2.5rem] border border-gray-100 hover:border-primary/20 transition-all duration-500 hover:shadow-2xl hover:shadow-primary/5 flex flex-col items-center text-center">
-                <div className="w-12 h-12 sm:w-16 sm:h-16 bg-[#8F5B34] text-white rounded-xl sm:rounded-2xl flex items-center justify-center mb-6 sm:mb-8 transform group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-lg shadow-primary/20">
-                  <service.icon size={24} className="sm:w-7 sm:h-7" />
+              <div key={index} className="group p-5 sm:p-10 bg-[#fbf9f7] rounded-[1.5rem] sm:rounded-[2.5rem] border border-gray-100 hover:border-primary/20 transition-all duration-500 hover:shadow-2xl hover:shadow-primary/5">
+                <div className="w-10 h-10 sm:w-16 sm:h-16 bg-primary text-white rounded-xl sm:rounded-2xl flex items-center justify-center mb-4 sm:mb-8 transform group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-lg shadow-primary/20">
+                  <service.icon size={20} className="sm:w-7 sm:h-7" />
                 </div>
-                <h3 className="text-xs sm:text-xl font-black text-secondary mb-3 sm:mb-4 uppercase tracking-tight leading-none">{service.title}</h3>
+                <h3 className="text-xs sm:text-xl font-black text-secondary mb-2 sm:mb-4 uppercase tracking-tight">{service.title}</h3>
                 <p className="text-gray-500 leading-relaxed text-[10px] sm:text-sm font-medium">{service.desc}</p>
               </div>
             ))}
@@ -336,36 +347,36 @@ const Home = () => {
       </section>
 
       {/* 5. CONTACT & MAP SECTION */}
-      <section id="contact" className="py-32 bg-white">
+      <section id="contact" className="py-20 sm:py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center mb-24">
-            <div className="flex flex-col items-center lg:items-start text-center lg:text-left">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
+            <div>
               <span className="text-primary font-black tracking-[0.4em] uppercase text-[10px] mb-4 block">Visit Our Showroom</span>
-              <h2 className="text-3xl md:text-4xl font-black text-secondary mb-10 leading-tight uppercase tracking-tighter">We're Here to Assist You</h2>
+              <h2 className="text-2xl md:text-4xl font-black text-secondary mb-10 leading-tight uppercase tracking-tighter">We're Here to Assist You</h2>
               <p className="text-gray-500 text-lg mb-14 leading-relaxed font-medium">
                 Step into our experience center and feel the quality. Our consultants are ready to help you pick the perfect fit for your home.
               </p>
 
-              <div className="space-y-10 w-full">
+              <div className="grid grid-cols-3 sm:grid-cols-1 gap-2 sm:gap-10">
                 {[
-                  { icon: MapPin, label: 'Showroom Address', value: '123 Industrial Area, Kerala, India' },
-                  { icon: Phone, label: 'Prime Hotline', value: '+91 97453 07450' },
-                  { icon: Mail, label: 'Email Enquiries', value: 'info@srflames.com' }
+                  { icon: MapPin, label: 'Address', value: '123 Industrial Area' },
+                  { icon: Phone, label: 'Hotline', value: '+91 97453 07450' },
+                  { icon: Mail, label: 'Email', value: 'info@srflames.com' }
                 ].map((item, index) => (
-                  <div key={index} className="flex flex-col items-center lg:flex-row lg:items-center gap-6 group text-center lg:text-left">
-                    <div className="w-14 h-14 bg-primary text-white shadow-lg shadow-primary/20 rounded-2xl flex items-center justify-center shrink-0 group-hover:scale-110 transition-all duration-300">
-                      <item.icon size={24} />
+                  <div key={index} className="flex flex-col items-center gap-2 sm:gap-6 group text-center">
+                    <div className="w-8 h-8 md:w-14 md:h-14 bg-primary text-white shadow-lg shadow-primary/20 rounded-lg md:rounded-2xl flex items-center justify-center shrink-0 group-hover:scale-110 transition-all duration-300">
+                      <item.icon size={14} className="md:w-6 md:h-6" />
                     </div>
                     <div>
-                      <h5 className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1">{item.label}</h5>
-                      <p className="text-secondary font-black text-lg tracking-tight">{item.value}</p>
+                      <h5 className="text-[6px] md:text-[10px] font-black text-gray-400 uppercase tracking-widest mb-0.5 md:mb-1">{item.label}</h5>
+                      <p className="text-secondary font-black text-[7px] md:text-lg tracking-tight leading-tight break-all">{item.value}</p>
                     </div>
                   </div>
                 ))}
               </div>
             </div>
 
-            <div className="relative w-full h-[500px] lg:h-[600px] rounded-[40px] overflow-hidden shadow-[0_50px_100px_-20px_rgba(0,0,0,0.1)] border border-gray-100">
+            <div className="relative w-full h-[600px] rounded-[40px] overflow-hidden shadow-[0_50px_100px_-20px_rgba(0,0,0,0.1)] border border-gray-100">
               <div className="absolute top-8 left-8 z-10">
                 <a href="#" className="bg-white/95 backdrop-blur-md text-secondary font-black text-[10px] uppercase tracking-widest px-8 py-4 rounded-2xl shadow-2xl flex items-center gap-3 hover:bg-primary hover:text-white transition-all border border-white/20">
                   Get Directions <ChevronRight size={16} />
@@ -376,32 +387,6 @@ const Home = () => {
                 width="100%" height="100%" style={{ border: 0 }} allowFullScreen="" loading="lazy" referrerPolicy="no-referrer-when-downgrade"
                 className="grayscale-[0.2] hover:grayscale-0 transition-all duration-1000"
               ></iframe>
-            </div>
-          </div>
-
-          {/* Centered Consultation Form */}
-          <div className="max-w-3xl mx-auto">
-            <div className="bg-white rounded-[3rem] shadow-2xl shadow-gray-200/40 border border-gray-50 p-10 sm:p-16">
-              <h3 className="text-2xl font-black text-secondary mb-10 uppercase tracking-tight text-center">Direct <span className="text-primary">Consultation</span></h3>
-              <form className="space-y-8" onSubmit={(e) => e.preventDefault()}>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                  <div>
-                    <label className="block text-[10px] font-black text-gray-400 uppercase tracking-widest mb-3">Full Name</label>
-                    <input type="text" className="w-full bg-bg-light border-none rounded-2xl px-6 py-4 font-bold text-secondary focus:ring-2 focus:ring-primary/20 transition-all placeholder:text-gray-300" placeholder="e.g. John Doe" />
-                  </div>
-                  <div>
-                    <label className="block text-[10px] font-black text-gray-400 uppercase tracking-widest mb-3">Email Address</label>
-                    <input type="email" className="w-full bg-bg-light border-none rounded-2xl px-6 py-4 font-bold text-secondary focus:ring-2 focus:ring-primary/20 transition-all placeholder:text-gray-300" placeholder="e.g. john@email.com" />
-                  </div>
-                </div>
-                <div>
-                  <label className="block text-[10px] font-black text-gray-400 uppercase tracking-widest mb-3">Your Message</label>
-                  <textarea rows={4} className="w-full bg-bg-light border-none rounded-2xl px-6 py-4 font-bold text-secondary focus:ring-2 focus:ring-primary/20 transition-all placeholder:text-gray-300" placeholder="Tell us about your dream kitchen..."></textarea>
-                </div>
-                <button type="submit" className="w-full bg-secondary hover:bg-primary text-white font-black py-5 rounded-2xl transition-all shadow-xl hover:shadow-primary/20 flex items-center justify-center gap-3 uppercase tracking-widest text-xs btn-active-effect">
-                  <Send size={18} /> Send Inquiry
-                </button>
-              </form>
             </div>
           </div>
         </div>
@@ -416,14 +401,14 @@ const Home = () => {
               <X size={20} />
             </button>
 
-            <div className="flex flex-col md:flex-row">
-              <div className="w-full md:w-1/2 h-[350px] md:h-[550px] overflow-hidden bg-black flex items-center justify-center p-4">
+            <div className="flex flex-row">
+              <div className="w-1/2 h-auto sm:h-[550px] overflow-hidden bg-black flex items-center justify-center p-2 sm:p-4 border-r border-white/5">
                 <img src={selectedProduct.imageUrl} alt={selectedProduct.name} className="w-full h-full object-contain" />
               </div>
-              <div className="w-full md:w-1/2 p-8 sm:p-12 flex flex-col justify-center">
+              <div className="w-1/2 p-4 sm:p-12 flex flex-col justify-center">
                 <span className="text-primary font-black uppercase tracking-[0.4em] text-[9px] mb-3 block">{selectedProduct.category}</span>
-                <h2 className="text-3xl sm:text-5xl font-black text-white mb-2 uppercase leading-[0.9] tracking-tighter italic">{selectedProduct.name}</h2>
-                <p className="text-gray-500 font-bold uppercase tracking-[0.2em] text-[9px] mb-8">{selectedProduct.brand || 'SR SIGNATURE'}</p>
+                <h2 className="text-2xl sm:text-5xl font-black text-white mb-2 uppercase leading-[0.9] tracking-tighter">{selectedProduct.name}</h2>
+                <p className="text-gray-500 font-bold uppercase tracking-[0.2em] text-[8px] sm:text-[9px] mb-8">{selectedProduct.brand || 'SR SIGNATURE'}</p>
 
                 <div className="bg-[#151515] p-6 rounded-[1.5rem] mb-10 border border-white/5">
                   <h4 className="font-bold text-gray-500 mb-3 text-[8px] uppercase tracking-widest">Specifications</h4>
@@ -433,9 +418,9 @@ const Home = () => {
                 </div>
                 <button
                   onClick={() => handleWhatsApp(selectedProduct)}
-                  className="w-full bg-primary hover:bg-primary-light text-white font-black py-5 rounded-xl transition-all flex justify-center items-center gap-3 text-[11px] uppercase tracking-[0.3em] shadow-2xl shadow-primary/20 transform hover:-translate-y-1 active:scale-95"
+                  className="w-full bg-primary hover:bg-primary-light text-white font-black py-4 rounded-xl transition-all flex justify-center items-center gap-2 text-[10px] uppercase tracking-[0.3em] shadow-2xl shadow-primary/20 transform hover:-translate-y-1 active:scale-95"
                 >
-                  <MessageCircle size={18} /> Order via WhatsApp
+                  <MessageCircle size={16} /> Order via WhatsApp
                 </button>
               </div>
             </div>

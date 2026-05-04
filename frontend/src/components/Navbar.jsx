@@ -18,20 +18,25 @@ const Navbar = () => {
 
   const handleNavClick = (path) => {
     setIsMenuOpen(false);
-    if (path.startsWith('/#') && location.pathname === '/') {
+    if (path === '/') {
+      if (location.pathname === '/') {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else {
+        navigate('/');
+      }
+    } else if (path.startsWith('/#') && location.pathname === '/') {
       const id = path.replace('/#', '');
       const element = document.getElementById(id);
       if (element) {
         const navbarHeight = 120;
         const offsetTop = element.offsetTop - navbarHeight;
-
         window.scrollTo({
           top: offsetTop,
           behavior: 'smooth',
         });
       }
     } else if (path.startsWith('/#')) {
-      navigate('/' + path);
+      navigate(path);
     } else {
       navigate(path);
     }
@@ -50,17 +55,17 @@ const Navbar = () => {
     <>
       <nav className="fixed top-0 left-0 w-full z-[80] transition-all duration-500 bg-white shadow-sm font-sans">
         {/* Top Mini Bar */}
-        <div className="bg-[#8F5B34] text-white py-2 px-4 hidden sm:block">
-          <div className="max-w-7xl mx-auto flex justify-between items-center text-[10px] font-bold tracking-[0.2em] uppercase">
+        <div className="bg-[#8F5B34] text-white py-2 px-4">
+          <div className="max-w-7xl mx-auto flex flex-col sm:flex-row justify-center items-center gap-3 sm:gap-10 text-[9px] sm:text-[10px] font-bold tracking-[0.2em] uppercase text-center">
             <div className="flex gap-6">
-              <a href="tel:+919745307450" className="hover:text-primary transition-colors flex items-center gap-2">
+              <a href="tel:+919745307450" className="hover:text-white/80 transition-colors flex items-center gap-2">
                 <Phone size={10} /> +91 97453 07450
               </a>
-              <a href="mailto:info@srflames.com" className="hover:text-primary transition-colors flex items-center gap-2">
+              <a href="mailto:info@srflames.com" className="hover:text-white/80 transition-colors flex items-center gap-2">
                 <Mail size={10} /> info@srflames.com
               </a>
             </div>
-            <div className="tracking-[0.3em]">SR Flames Premium Appliances</div>
+            <div className="tracking-[0.3em] hidden sm:block">SR Flames Premium Appliances</div>
           </div>
         </div>
 
@@ -134,7 +139,7 @@ const Navbar = () => {
         {isMenuOpen && (
           <div className="md:hidden bg-white border-t border-gray-100 animate-in slide-in-from-top duration-300 shadow-2xl">
             <div className="px-4 pt-4 pb-8 space-y-2">
-              {['Home', 'About Us', 'Products', 'Services', 'Contact'].map((item) => (
+              {['Home', 'Products', 'Services', 'Contact'].map((item) => (
                 <button
                   key={item}
                   onClick={() => handleNavClick(item === 'Home' ? '/' : `/#${item.toLowerCase().replace(' ', '')}`)}
