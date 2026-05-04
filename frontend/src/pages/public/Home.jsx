@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { MessageCircle, CheckCircle2, ChevronRight, Wrench, Shield, ThumbsUp, Send, Phone, Mail, MapPin, X } from 'lucide-react';
+import { MessageCircle, CheckCircle2, ChevronRight, Wrench, Shield, ThumbsUp, Send, Phone, Mail, MapPin, X, Zap } from 'lucide-react';
 
 const CountUp = ({ end, duration = 2000 }) => {
   const [count, setCount] = useState(0);
@@ -211,17 +211,17 @@ const Home = () => {
               </div>
             </div>
 
-            <div className="relative z-10">
+            <div className="relative z-10 flex flex-col items-center lg:items-start text-center lg:text-left">
               <div className="inline-flex items-center gap-3 mb-6">
                 <div className="w-10 h-[1px] bg-primary"></div>
                 <span className="text-primary font-black tracking-[0.4em] uppercase text-[10px]">Since 2014</span>
               </div>
 
-              <h2 className="text-5xl md:text-6xl font-black text-secondary mb-10 leading-[1.1] tracking-tighter uppercase">
+              <h2 className="text-5xl md:text-4xl font-black text-secondary mb-10 leading-[1.1] tracking-tighter uppercase">
                 Mastering the Art of <span className="text-primary">Modern</span> Cooking
               </h2>
 
-              <p className="text-gray-500 text-xl mb-12 leading-relaxed font-medium">
+              <p className="text-gray-500 text-md mb-12 leading-relaxed font-medium">
                 SR Flames stands at the intersection of aesthetic brilliance and technical perfection. We provide kitchen solutions that aren't just appliances, but integral parts of your home's character.
               </p>
 
@@ -262,7 +262,7 @@ const Home = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-2xl mx-auto mb-20">
             <span className="text-primary font-bold tracking-widest uppercase text-sm mb-3 block">Premium Collection</span>
-            <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900 mb-6">Our Best Sellers</h2>
+            <h2 className="text-4xl md:text-4xl font-extrabold text-gray-900 mb-6">Our Best Sellers</h2>
             <p className="text-gray-500 text-lg">Meticulously crafted chimneys and stoves for those who demand the best.</p>
           </div>
 
@@ -309,25 +309,26 @@ const Home = () => {
       {/* 4. SERVICES SECTION */}
       <section id="services" className="py-32 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col md:flex-row justify-between items-end mb-20 gap-8">
+          <div className="flex flex-col md:flex-row justify-between items-center md:items-end mb-20 gap-8 text-center md:text-left">
             <div className="max-w-xl">
               <span className="text-primary font-black tracking-[0.4em] uppercase text-[10px] mb-4 block">Experience Service</span>
               <h2 className="text-3xl md:text-4xl font-black text-secondary leading-tight uppercase tracking-tighter">Beyond the Sale. Professional Care.</h2>
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+          <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-12">
             {[
               { icon: Wrench, title: 'Expert Installation', desc: 'Precision fitting by certified SR Flames engineers.' },
               { icon: Shield, title: 'Yearly Maintenance', desc: 'Stay worry-free with our comprehensive AMC plans.' },
-              { icon: ThumbsUp, title: 'Authentic Support', desc: 'Only genuine spare parts and factory-grade service.' }
+              { icon: ThumbsUp, title: 'Authentic Support', desc: 'Only genuine spare parts and factory-grade service.' },
+              { icon: Zap, title: 'Lifelong Care', desc: 'Continuous performance optimization for your appliances.' }
             ].map((service, index) => (
-              <div key={index} className="group p-10 bg-[#fbf9f7] rounded-[2.5rem] border border-gray-100 hover:border-primary/20 transition-all duration-500 hover:shadow-2xl hover:shadow-primary/5">
-                <div className="w-16 h-16 bg-primary text-white rounded-2xl flex items-center justify-center mb-8 transform group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-lg shadow-primary/20">
-                  <service.icon size={28} />
+              <div key={index} className="group p-6 sm:p-10 bg-[#fbf9f7] rounded-[2rem] sm:rounded-[2.5rem] border border-gray-100 hover:border-primary/20 transition-all duration-500 hover:shadow-2xl hover:shadow-primary/5 flex flex-col items-center text-center">
+                <div className="w-12 h-12 sm:w-16 sm:h-16 bg-[#8F5B34] text-white rounded-xl sm:rounded-2xl flex items-center justify-center mb-6 sm:mb-8 transform group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-lg shadow-primary/20">
+                  <service.icon size={24} className="sm:w-7 sm:h-7" />
                 </div>
-                <h3 className="text-xl font-black text-secondary mb-4 uppercase tracking-tight">{service.title}</h3>
-                <p className="text-gray-500 leading-relaxed text-sm font-medium">{service.desc}</p>
+                <h3 className="text-xs sm:text-xl font-black text-secondary mb-3 sm:mb-4 uppercase tracking-tight leading-none">{service.title}</h3>
+                <p className="text-gray-500 leading-relaxed text-[10px] sm:text-sm font-medium">{service.desc}</p>
               </div>
             ))}
           </div>
@@ -337,21 +338,21 @@ const Home = () => {
       {/* 5. CONTACT & MAP SECTION */}
       <section id="contact" className="py-32 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
-            <div>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center mb-24">
+            <div className="flex flex-col items-center lg:items-start text-center lg:text-left">
               <span className="text-primary font-black tracking-[0.4em] uppercase text-[10px] mb-4 block">Visit Our Showroom</span>
               <h2 className="text-3xl md:text-4xl font-black text-secondary mb-10 leading-tight uppercase tracking-tighter">We're Here to Assist You</h2>
               <p className="text-gray-500 text-lg mb-14 leading-relaxed font-medium">
                 Step into our experience center and feel the quality. Our consultants are ready to help you pick the perfect fit for your home.
               </p>
 
-              <div className="space-y-10">
+              <div className="space-y-10 w-full">
                 {[
                   { icon: MapPin, label: 'Showroom Address', value: '123 Industrial Area, Kerala, India' },
                   { icon: Phone, label: 'Prime Hotline', value: '+91 97453 07450' },
                   { icon: Mail, label: 'Email Enquiries', value: 'info@srflames.com' }
                 ].map((item, index) => (
-                  <div key={index} className="flex items-center gap-6 group">
+                  <div key={index} className="flex flex-col items-center lg:flex-row lg:items-center gap-6 group text-center lg:text-left">
                     <div className="w-14 h-14 bg-primary text-white shadow-lg shadow-primary/20 rounded-2xl flex items-center justify-center shrink-0 group-hover:scale-110 transition-all duration-300">
                       <item.icon size={24} />
                     </div>
@@ -364,7 +365,7 @@ const Home = () => {
               </div>
             </div>
 
-            <div className="relative w-full h-[600px] rounded-[40px] overflow-hidden shadow-[0_50px_100px_-20px_rgba(0,0,0,0.1)] border border-gray-100">
+            <div className="relative w-full h-[500px] lg:h-[600px] rounded-[40px] overflow-hidden shadow-[0_50px_100px_-20px_rgba(0,0,0,0.1)] border border-gray-100">
               <div className="absolute top-8 left-8 z-10">
                 <a href="#" className="bg-white/95 backdrop-blur-md text-secondary font-black text-[10px] uppercase tracking-widest px-8 py-4 rounded-2xl shadow-2xl flex items-center gap-3 hover:bg-primary hover:text-white transition-all border border-white/20">
                   Get Directions <ChevronRight size={16} />
@@ -375,6 +376,32 @@ const Home = () => {
                 width="100%" height="100%" style={{ border: 0 }} allowFullScreen="" loading="lazy" referrerPolicy="no-referrer-when-downgrade"
                 className="grayscale-[0.2] hover:grayscale-0 transition-all duration-1000"
               ></iframe>
+            </div>
+          </div>
+
+          {/* Centered Consultation Form */}
+          <div className="max-w-3xl mx-auto">
+            <div className="bg-white rounded-[3rem] shadow-2xl shadow-gray-200/40 border border-gray-50 p-10 sm:p-16">
+              <h3 className="text-2xl font-black text-secondary mb-10 uppercase tracking-tight text-center">Direct <span className="text-primary">Consultation</span></h3>
+              <form className="space-y-8" onSubmit={(e) => e.preventDefault()}>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                  <div>
+                    <label className="block text-[10px] font-black text-gray-400 uppercase tracking-widest mb-3">Full Name</label>
+                    <input type="text" className="w-full bg-bg-light border-none rounded-2xl px-6 py-4 font-bold text-secondary focus:ring-2 focus:ring-primary/20 transition-all placeholder:text-gray-300" placeholder="e.g. John Doe" />
+                  </div>
+                  <div>
+                    <label className="block text-[10px] font-black text-gray-400 uppercase tracking-widest mb-3">Email Address</label>
+                    <input type="email" className="w-full bg-bg-light border-none rounded-2xl px-6 py-4 font-bold text-secondary focus:ring-2 focus:ring-primary/20 transition-all placeholder:text-gray-300" placeholder="e.g. john@email.com" />
+                  </div>
+                </div>
+                <div>
+                  <label className="block text-[10px] font-black text-gray-400 uppercase tracking-widest mb-3">Your Message</label>
+                  <textarea rows={4} className="w-full bg-bg-light border-none rounded-2xl px-6 py-4 font-bold text-secondary focus:ring-2 focus:ring-primary/20 transition-all placeholder:text-gray-300" placeholder="Tell us about your dream kitchen..."></textarea>
+                </div>
+                <button type="submit" className="w-full bg-secondary hover:bg-primary text-white font-black py-5 rounded-2xl transition-all shadow-xl hover:shadow-primary/20 flex items-center justify-center gap-3 uppercase tracking-widest text-xs btn-active-effect">
+                  <Send size={18} /> Send Inquiry
+                </button>
+              </form>
             </div>
           </div>
         </div>

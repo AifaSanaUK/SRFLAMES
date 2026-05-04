@@ -97,7 +97,7 @@ const Navbar = () => {
 
                 {/* Desktop Navigation */}
                 <div className="hidden md:flex items-center gap-10">
-                  {['Home', 'About Us', 'Products', 'Services', 'Contact'].map((item) => (
+                  {['Home', 'Products', 'Services', 'Contact'].map((item) => (
                     <button
                       key={item}
                       onClick={() => handleNavClick(item === 'Home' ? '/' : `/#${item.toLowerCase().replace(' ', '')}`)}
