@@ -418,9 +418,9 @@ const Home = () => {
                 </div>
                 <button
                   onClick={() => handleWhatsApp(selectedProduct)}
-                  className="w-full bg-primary hover:bg-primary-light text-white font-black py-4 rounded-xl transition-all flex justify-center items-center gap-2 text-[10px] uppercase tracking-[0.3em] shadow-2xl shadow-primary/20 transform hover:-translate-y-1 active:scale-95"
+                  className="w-full bg-primary hover:bg-primary-light text-white font-black py-2.5 sm:py-4 rounded-xl transition-all flex justify-center items-center gap-2 text-[9px] sm:text-[10px] uppercase tracking-[0.3em] shadow-2xl shadow-primary/20 transform hover:-translate-y-1 active:scale-95"
                 >
-                  <MessageCircle size={16} /> Order via WhatsApp
+                  <MessageCircle size={14} className="sm:w-4 sm:h-4" /> Order via WhatsApp
                 </button>
               </div>
             </div>

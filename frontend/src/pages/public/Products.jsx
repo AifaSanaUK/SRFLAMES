@@ -224,9 +224,9 @@ Hello SR Flames! I want to know about this precision appliance:
                 </div>
                 <button 
                   onClick={() => handleWhatsApp(selectedProduct)}
-                  className="w-full bg-primary hover:bg-primary-light text-white font-black py-4 sm:py-5 rounded-xl transition-all flex justify-center items-center gap-2 sm:gap-3 text-[10px] sm:text-[11px] uppercase tracking-[0.2em] sm:tracking-[0.3em] shadow-2xl shadow-primary/20 transform active:scale-95"
+                  className="w-full bg-primary hover:bg-primary-light text-white font-black py-2.5 sm:py-5 rounded-xl transition-all flex justify-center items-center gap-2 sm:gap-3 text-[9px] sm:text-[11px] uppercase tracking-[0.2em] sm:tracking-[0.3em] shadow-2xl shadow-primary/20 transform active:scale-95"
                 >
-                  <MessageCircle size={16} /> Order via WhatsApp
+                  <MessageCircle size={14} className="sm:w-4 sm:h-4" /> Order via WhatsApp
                 </button>
               </div>
             </div>

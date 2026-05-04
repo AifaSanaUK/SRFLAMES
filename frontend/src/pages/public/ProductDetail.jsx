@@ -113,10 +113,10 @@ Hello SR Flames! I am interested in this precision appliance from your showroom:
 
             {/* Order Button */}
             <button
-              onClick={handleWhatsApp}
-              className="w-full bg-primary hover:bg-primary-light text-white font-black py-5 rounded-xl transition-all flex justify-center items-center gap-3 text-[11px] uppercase tracking-[0.3em] shadow-2xl shadow-primary/20 transform hover:-translate-y-1 active:scale-95"
+              onClick={() => handleWhatsApp(product)}
+              className="w-full bg-primary hover:bg-primary-light text-white font-black py-2.5 sm:py-5 rounded-xl transition-all flex justify-center items-center gap-2 sm:gap-3 text-[9px] sm:text-[11px] uppercase tracking-[0.2em] sm:tracking-[0.3em] shadow-2xl shadow-primary/20 transform active:scale-95"
             >
-              <MessageCircle size={20} /> Order via WhatsApp
+              <MessageCircle size={14} className="sm:w-[18px] sm:h-[18px]" /> Order via WhatsApp
             </button>
           </div>
         </div>
