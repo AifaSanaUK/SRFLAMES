@@ -96,7 +96,7 @@ const Navbar = () => {
                 {/* Logo */}
                 <Link to="/" className="flex-shrink-0 flex items-center group">
                   <div className="relative">
-                    <img className="h-10 sm:h-12 w-auto transition-transform duration-500 group-hover:scale-105" src="/Srlogonavbar.webp" alt="SR Flames" />
+                    <img className="h-14 sm:h-20 w-auto transition-transform duration-500 group-hover:scale-105" src="/Srlogonavbar.webp" alt="SR Flames" />
                   </div>
                 </Link>
 

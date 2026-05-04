@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { MessageCircle, CheckCircle2, ChevronRight, Wrench, Shield, ThumbsUp, Send, Phone, Mail, MapPin, X } from 'lucide-react';
+import herobg from '../../assets/herobg.webp';
+import herobgg from '../../assets/herobgg.jpg';
 
 const CountUp = ({ end, duration = 2000 }) => {
   const [count, setCount] = useState(0);
@@ -103,8 +105,8 @@ const Home = () => {
   const [currentImage, setCurrentImage] = useState(0);
   const heroImages = [
     'https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&q=80',
-    'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?auto=format&fit=crop&q=80',
-    'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&q=80'
+    herobg,
+    herobgg
   ];
 
   useEffect(() => {
@@ -128,7 +130,7 @@ const Home = () => {
             key={img}
             className="absolute inset-0 transition-opacity duration-[1500ms] ease-in-out"
             style={{
-              backgroundImage: `linear-gradient(rgba(44, 24, 16, 0.7), rgba(44, 24, 16, 0.5)), url('${img}')`,
+              backgroundImage: `linear-gradient(to right, rgba(20, 10, 5, 0.85) 0%, rgba(143, 91, 52, 0.25) 50%, rgba(20, 10, 5, 0.85) 100%), url('${img}')`,
               backgroundSize: 'cover',
               backgroundPosition: 'center',
               opacity: currentImage === index ? 1 : 0,
@@ -184,7 +186,7 @@ const Home = () => {
       </section>
 
       {/* 2. ABOUT US SECTION */}
-      <section id="about" className="py-20 sm:py-32 bg-white overflow-hidden">
+      <section id="about" className="py-10 sm:py-16 bg-white overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
             <div className="relative">
@@ -269,7 +271,7 @@ const Home = () => {
       </section>
 
       {/* 3. PRODUCTS SECTION */}
-      <section id="products" className="py-20 sm:py-24 bg-bg-light">
+      <section id="products" className="py-10 sm:py-16 bg-bg-light">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-2xl mx-auto mb-20">
             <span className="text-primary font-bold tracking-widest uppercase text-sm mb-3 block">Premium Collection</span>
@@ -318,13 +320,11 @@ const Home = () => {
       </section>
 
       {/* 4. SERVICES SECTION */}
-      <section id="services" className="py-20 sm:py-24 bg-white">
+      <section id="services" className="py-10 sm:py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col md:flex-row justify-between items-end mb-20 gap-8">
-            <div className="max-w-xl">
-              <span className="text-primary font-black tracking-[0.4em] uppercase text-[10px] mb-4 block">Experience Service</span>
-              <h2 className="text-3xl md:text-4xl font-black text-secondary leading-tight uppercase tracking-tighter">Beyond the Sale. Professional Care.</h2>
-            </div>
+          <div className="text-center max-w-3xl mx-auto mb-16 sm:mb-20">
+            <span className="text-primary font-black tracking-[0.4em] uppercase text-[10px] mb-4 block">Experience Service</span>
+            <h2 className="text-3xl md:text-4xl font-black text-secondary leading-tight uppercase tracking-tighter">Beyond the Sale. Professional Care.</h2>
           </div>
 
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-12">
@@ -334,7 +334,7 @@ const Home = () => {
               { icon: ThumbsUp, title: 'Authentic Support', desc: 'Only genuine spare parts used.' },
               { icon: MessageCircle, title: 'Rapid Support', desc: 'Technical assistance within 24 hours.' }
             ].map((service, index) => (
-              <div key={index} className="group p-5 sm:p-10 bg-[#fbf9f7] rounded-[1.5rem] sm:rounded-[2.5rem] border border-gray-100 hover:border-primary/20 transition-all duration-500 hover:shadow-2xl hover:shadow-primary/5">
+              <div key={index} className="group p-5 sm:p-10 bg-[#fbf9f7] rounded-[1.5rem] sm:rounded-[2.5rem] border border-gray-100 hover:border-primary/20 transition-all duration-500 hover:shadow-2xl hover:shadow-primary/5 flex flex-col items-center text-center">
                 <div className="w-10 h-10 sm:w-16 sm:h-16 bg-primary text-white rounded-xl sm:rounded-2xl flex items-center justify-center mb-4 sm:mb-8 transform group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-lg shadow-primary/20">
                   <service.icon size={20} className="sm:w-7 sm:h-7" />
                 </div>
@@ -347,7 +347,7 @@ const Home = () => {
       </section>
 
       {/* 5. CONTACT & MAP SECTION */}
-      <section id="contact" className="py-20 sm:py-24 bg-white">
+      <section id="contact" className="py-10 sm:py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
             <div>
