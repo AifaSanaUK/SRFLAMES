@@ -99,7 +99,7 @@ const Home = () => {
       text = `Hello, I want to order: ${product}`;
     }
 
-    window.open(`https://wa.me/919745307450?text=${encodeURIComponent(text)}`, '_blank');
+    window.open(`https://wa.me/919847814033?text=${encodeURIComponent(text)}`, '_blank');
   };
 
   const [currentImage, setCurrentImage] = useState(0);
@@ -141,7 +141,7 @@ const Home = () => {
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full pt-[60px] sm:pt-[80px]">
           <div className="max-w-4xl animate-in fade-in slide-in-from-left duration-1000">
-            <span className="text-primary font-black uppercase tracking-[0.5em] text-[8px] sm:text-[10px] mb-4 sm:mb-6 block reveal-fade-up">Precision Engineering</span>
+
             <h1 className="text-white font-black leading-[1.1] tracking-tighter mb-6 sm:mb-8 uppercase" style={{ fontSize: 'clamp(2rem, 6vw, 5rem)' }}>
               Smart Kitchens.<br />
               <span className="text-primary">Always Elite.</span>
@@ -359,9 +359,9 @@ const Home = () => {
 
               <div className="grid grid-cols-3 sm:grid-cols-1 gap-2 sm:gap-10">
                 {[
-                  { icon: MapPin, label: 'Address', value: '123 Industrial Area' },
-                  { icon: Phone, label: 'Hotline', value: '+91 97453 07450' },
-                  { icon: Mail, label: 'Email', value: 'info@srflames.com' }
+                  { icon: MapPin, label: 'Address', value: 'Koottanad, Palakkad' },
+                  { icon: Phone, label: 'Hotline', value: '+91 98478 14033, +91 86065 17947' },
+                  { icon: Mail, label: 'Email', value: 'aquap0334@gmail.com' }
                 ].map((item, index) => (
                   <div key={index} className="flex flex-col items-center gap-2 sm:gap-6 group text-center">
                     <div className="w-8 h-8 md:w-14 md:h-14 bg-primary text-white shadow-lg shadow-primary/20 rounded-lg md:rounded-2xl flex items-center justify-center shrink-0 group-hover:scale-110 transition-all duration-300">
@@ -383,7 +383,7 @@ const Home = () => {
                 </a>
               </div>
               <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3913.3108620242253!2d75.8361!3d11.2396!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTHCsDE0JzIyLjYiTiA3NcKwNTAnMTAuMCJF!5e0!3m2!1sen!2sin!4v1625641234567!5m2!1sen!2sin"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d31357.25638827601!2d76.09838930895307!3d10.760892270747739!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ba7c72e02a24785%3A0x854099e11a8e7ed7!2sKoottanad%2C%20Kerala!5e0!3m2!1sen!2sin!4v1777963900018!5m2!1sen!2sin"
                 width="100%" height="100%" style={{ border: 0 }} allowFullScreen="" loading="lazy" referrerPolicy="no-referrer-when-downgrade"
                 className="grayscale-[0.2] hover:grayscale-0 transition-all duration-1000"
               ></iframe>

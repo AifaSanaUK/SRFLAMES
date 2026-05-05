@@ -56,7 +56,7 @@ Hello SR Flames! I want to know about this precision appliance:
 - Category: ${product.category}
 - Product ID: ${product._id}`;
 
-    window.open(`https://wa.me/919745307450?text=${encodeURIComponent(text)}`, '_blank');
+    window.open(`https://wa.me/919847814033?text=${encodeURIComponent(text)}`, '_blank');
   };
 
   const filteredProducts = products.filter(p => {

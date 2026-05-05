@@ -18,7 +18,7 @@ const Footer = () => {
             </p>
             {/* Social Media Icons */}
             <div className="flex space-x-4">
-              <a href="#" className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-primary hover:text-white transition-all duration-300">
+              <a href="https://www.facebook.com/share/1DhPepFUq4/" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-primary hover:text-white transition-all duration-300">
                 <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c5.05-.5 9-4.76 9-9.95z" /></svg>
               </a>
               <a href="#" className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-primary hover:text-white transition-all duration-300">
@@ -64,19 +64,22 @@ const Footer = () => {
                 <div className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center shrink-0">
                   <MapPin className="text-primary" size={18} />
                 </div>
-                <span className="leading-relaxed">123 Industrial Area, Kerala, India</span>
+                <span className="leading-relaxed">Koottanad, Palakkad</span>
               </li>
-              <li className="flex items-center gap-4">
+              <li className="flex items-start gap-4">
                 <div className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center shrink-0">
                   <Phone className="text-primary" size={18} />
                 </div>
-                <span>+91 97479 00014</span>
+                <div className="flex flex-col gap-1">
+                  <span>+91 98478 14033</span>
+                  <span>+91 86065 17947</span>
+                </div>
               </li>
               <li className="flex items-center gap-4">
                 <div className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center shrink-0">
                   <Mail className="text-primary" size={18} />
                 </div>
-                <span>info@srflames.com</span>
+                <span>aquap0334@gmail.com</span>
               </li>
             </ul>
           </div>
@@ -89,7 +92,7 @@ const Footer = () => {
           <div className="flex gap-6">
             <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>
             <a href="#" className="hover:text-white transition-colors">Terms of Service</a>
-            <Link to="/admin/login" className="hover:text-primary transition-colors border-l border-white/10 pl-6">Admin Login</Link>
+
           </div>
         </div>
       </div>

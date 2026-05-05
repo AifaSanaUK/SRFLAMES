@@ -39,7 +39,7 @@ Hello SR Flames! I am interested in this precision appliance from your showroom:
 - Category: ${product.category}
 - Product ID: ${product._id}`;
 
-    window.open(`https://wa.me/919745307450?text=${encodeURIComponent(text)}`, '_blank');
+    window.open(`https://wa.me/919847814033?text=${encodeURIComponent(text)}`, '_blank');
   };
 
   if (loading) {

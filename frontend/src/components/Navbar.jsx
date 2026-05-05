@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { Phone, Mail, Search, X, Menu } from 'lucide-react';
+import { Phone, Mail, Search, X, Menu, MapPin } from 'lucide-react';
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -56,16 +56,18 @@ const Navbar = () => {
       <nav className="fixed top-0 left-0 w-full z-[80] transition-all duration-500 bg-white shadow-sm font-sans">
         {/* Top Mini Bar */}
         <div className="bg-[#8F5B34] text-white py-2 px-4">
-          <div className="max-w-7xl mx-auto flex flex-col sm:flex-row justify-center items-center gap-3 sm:gap-10 text-[9px] sm:text-[10px] font-bold tracking-[0.2em] uppercase text-center">
+          <div className="max-w-7xl mx-auto flex flex-col sm:flex-row justify-center items-center gap-3 sm:gap-10 text-[9px] sm:text-[10px] font-bold tracking-[0.2em] text-center">
             <div className="flex gap-6">
-              <a href="tel:+919745307450" className="hover:text-white/80 transition-colors flex items-center gap-2">
-                <Phone size={10} /> +91 97453 07450
+              <a href="tel:+919847814033" className="hover:text-white/80 transition-colors flex items-center gap-2">
+                <Phone size={10} /> +91 98478 14033
               </a>
-              <a href="mailto:info@srflames.com" className="hover:text-white/80 transition-colors flex items-center gap-2">
-                <Mail size={10} /> info@srflames.com
+              <a href="mailto:aquap0334@gmail.com" className="hover:text-white/80 transition-colors flex items-center gap-2">
+                <Mail size={10} /> aquap0334@gmail.com
               </a>
             </div>
-            <div className="tracking-[0.3em] hidden sm:block">SR Flames Premium Appliances</div>
+            <div className="tracking-[0.3em] hidden sm:flex items-center gap-2">
+              <MapPin size={10} /> Koottanad, Palakkad
+            </div>
           </div>
         </div>
 
