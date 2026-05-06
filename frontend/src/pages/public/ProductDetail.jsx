@@ -6,7 +6,6 @@ const ProductDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [product, setProduct] = useState(null);
-  const [allProducts, setAllProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [imageTransitioning, setImageTransitioning] = useState(false);
@@ -17,7 +16,6 @@ const ProductDetail = () => {
         const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5001';
         const res = await fetch(`${API_URL}/api/products`);
         const data = await res.json();
-        setAllProducts(data);
         const found = data.find(p => p._id === id);
         setProduct(found);
       } catch (err) {
@@ -93,9 +91,6 @@ Hello SR Flames! I am interested in this precision appliance from your showroom:
   }
 
   const images = getImages();
-  const relatedProducts = allProducts
-    .filter(p => p._id !== id && p.category === product.category)
-    .slice(0, 3);
 
   return (
     <div className="min-h-screen bg-[#f4f1ea] font-sans pt-[120px] sm:pt-[160px] pb-20 animate-in fade-in duration-700">
@@ -207,31 +202,6 @@ Hello SR Flames! I am interested in this precision appliance from your showroom:
           </div>
         </div>
 
-        {/* Related Products Section */}
-        {relatedProducts.length > 0 && (
-          <div className="mt-24 animate-in fade-in slide-in-from-bottom-10 duration-1000 delay-300">
-            <div className="flex items-center gap-6 mb-12">
-              <h2 className="text-2xl font-black text-secondary uppercase tracking-tighter shrink-0">Similar Appliances</h2>
-              <div className="h-px w-full bg-[#e5e1d5]"></div>
-            </div>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-8">
-              {relatedProducts.map((p) => (
-                <div 
-                  key={p._id} 
-                  onClick={() => navigate(`/product/${p._id}`)}
-                  className="bg-[#fcfaf2] p-4 rounded-[2rem] border border-[#e5e1d5] group cursor-pointer hover:shadow-xl transition-all"
-                >
-                  <div className="aspect-square bg-white rounded-[1.5rem] overflow-hidden mb-6 flex items-center justify-center p-6">
-                    <img src={p.imageUrl} alt={p.name} className="w-full h-full object-contain group-hover:scale-110 transition-transform duration-700" />
-                  </div>
-                  <span className="text-[8px] font-black text-primary uppercase tracking-widest mb-1 block">{p.category}</span>
-                  <h3 className="font-black text-secondary uppercase tracking-tight group-hover:text-primary transition-colors">{p.name}</h3>
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
-      </div>
     </div>
   );
 };
