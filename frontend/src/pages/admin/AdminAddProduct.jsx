@@ -15,6 +15,8 @@ const AdminAddProduct = () => {
   const [categories, setCategories] = useState([]);
   const [brands, setBrands] = useState([]);
   const [image, setImage] = useState(null);
+  const [image2, setImage2] = useState(null);
+  const [image3, setImage3] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
@@ -51,8 +53,8 @@ const AdminAddProduct = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleImageChange = (e) => {
-    setImage(e.target.files[0]);
+  const handleImageChange = (e, setter) => {
+    setter(e.target.files[0]);
   };
 
   const handleSubmit = async (e) => {
@@ -72,8 +74,10 @@ const AdminAddProduct = () => {
       if (image) {
         data.append('image', image);
       } else {
-        throw new Error("Please select an image");
+        throw new Error("Please select a main image");
       }
+      if (image2) data.append('image2', image2);
+      if (image3) data.append('image3', image3);
 
       const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5001';
       console.log('Sending product to:', API_URL);
@@ -104,7 +108,7 @@ const AdminAddProduct = () => {
     <div className="min-h-screen flex bg-[#f8f9fa] font-sans">
       <AdminSidebar />
 
-      <div className="flex-1 p-10 overflow-y-auto">
+      <div className="flex-1 ml-64 p-10 overflow-y-auto">
         <div className="max-w-4xl mx-auto">
           <div className="mb-10">
             <Link to="/admin/products" className="text-gray-400 hover:text-primary transition-colors font-bold text-xs uppercase tracking-widest flex items-center gap-2 mb-4">
@@ -193,17 +197,58 @@ const AdminAddProduct = () => {
                 ></textarea>
               </div>
 
-              <div className="space-y-2">
-                <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-1">Product Media (Auto-optimizes to WebP)</label>
-                <div className="relative group">
-                  <input
-                    type="file"
-                    accept="image/*"
-                    onChange={handleImageChange}
-                    required
-                    className="w-full bg-gray-50 border-2 border-dashed border-gray-200 rounded-2xl px-6 py-10 text-center cursor-pointer group-hover:border-primary/50 transition-all font-bold text-gray-400"
-                  />
-                  {image && <p className="mt-2 text-xs text-primary font-bold">Selected: {image.name}</p>}
+              <div className="space-y-4">
+                <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-1">Product Media (Up to 3 images)</label>
+                
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  {/* Image 1 (Main) */}
+                  <div className="relative group">
+                    <p className="text-xs font-bold text-gray-500 mb-2">Main Image *</p>
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={(e) => handleImageChange(e, setImage)}
+                      required
+                      className="w-full bg-gray-50 border-2 border-dashed border-gray-200 rounded-2xl px-6 py-6 text-center cursor-pointer group-hover:border-primary/50 transition-all text-xs"
+                    />
+                    {image && (
+                      <div className="mt-2">
+                        <img src={URL.createObjectURL(image)} alt="Preview 1" className="h-20 w-20 object-cover rounded-lg border border-gray-200" />
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Image 2 */}
+                  <div className="relative group">
+                    <p className="text-xs font-bold text-gray-500 mb-2">Image 2 (Optional)</p>
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={(e) => handleImageChange(e, setImage2)}
+                      className="w-full bg-gray-50 border-2 border-dashed border-gray-200 rounded-2xl px-6 py-6 text-center cursor-pointer group-hover:border-primary/50 transition-all text-xs"
+                    />
+                    {image2 && (
+                      <div className="mt-2">
+                        <img src={URL.createObjectURL(image2)} alt="Preview 2" className="h-20 w-20 object-cover rounded-lg border border-gray-200" />
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Image 3 */}
+                  <div className="relative group">
+                    <p className="text-xs font-bold text-gray-500 mb-2">Image 3 (Optional)</p>
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={(e) => handleImageChange(e, setImage3)}
+                      className="w-full bg-gray-50 border-2 border-dashed border-gray-200 rounded-2xl px-6 py-6 text-center cursor-pointer group-hover:border-primary/50 transition-all text-xs"
+                    />
+                    {image3 && (
+                      <div className="mt-2">
+                        <img src={URL.createObjectURL(image3)} alt="Preview 3" className="h-20 w-20 object-cover rounded-lg border border-gray-200" />
+                      </div>
+                    )}
+                  </div>
                 </div>
               </div>
 

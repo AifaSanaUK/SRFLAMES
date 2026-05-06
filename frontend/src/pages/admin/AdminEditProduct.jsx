@@ -16,10 +16,14 @@ const AdminEditProduct = () => {
   const [categories, setCategories] = useState([]);
   const [brands, setBrands] = useState([]);
   const [image, setImage] = useState(null);
+  const [image2, setImage2] = useState(null);
+  const [image3, setImage3] = useState(null);
   const [loading, setLoading] = useState(true);
   const [updating, setUpdating] = useState(false);
   const [error, setError] = useState('');
   const [currentImageUrl, setCurrentImageUrl] = useState('');
+  const [currentImageUrl2, setCurrentImageUrl2] = useState('');
+  const [currentImageUrl3, setCurrentImageUrl3] = useState('');
 
   useEffect(() => {
     const fetchData = async () => {
@@ -49,6 +53,8 @@ const AdminEditProduct = () => {
             badge: product.badge || '',
           });
           setCurrentImageUrl(product.imageUrl);
+          setCurrentImageUrl2(product.imageUrl2 || '');
+          setCurrentImageUrl3(product.imageUrl3 || '');
         } else {
           setError('Product not found');
         }
@@ -66,8 +72,8 @@ const AdminEditProduct = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleImageChange = (e) => {
-    setImage(e.target.files[0]);
+  const handleImageChange = (e, setter) => {
+    setter(e.target.files[0]);
   };
 
   const handleSubmit = async (e) => {
@@ -87,6 +93,8 @@ const AdminEditProduct = () => {
       if (image) {
         data.append('image', image);
       }
+      if (image2) data.append('image2', image2);
+      if (image3) data.append('image3', image3);
 
       const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5001';
       const res = await fetch(`${API_URL}/api/products/${id}`, {
@@ -122,7 +130,7 @@ const AdminEditProduct = () => {
     <div className="min-h-screen flex bg-[#f8f9fa] font-sans">
       <AdminSidebar />
 
-      <div className="flex-1 p-10 overflow-y-auto">
+      <div className="flex-1 ml-64 p-10 overflow-y-auto">
         <div className="max-w-4xl mx-auto">
           <div className="mb-10">
             <Link to="/admin/products" className="text-gray-400 hover:text-primary transition-colors font-bold text-xs uppercase tracking-widest flex items-center gap-2 mb-4">
@@ -215,19 +223,57 @@ const AdminEditProduct = () => {
               </div>
 
               <div className="space-y-4">
-                <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-1">Change Media (Keep empty to keep current image)</label>
-                <div className="flex gap-6 items-center">
-                   <div className="w-24 h-24 rounded-2xl overflow-hidden border border-gray-100 shadow-md bg-gray-50">
-                      <img src={currentImageUrl} className="w-full h-full object-cover" alt="Current" />
-                   </div>
-                   <input 
-                    type="file" 
-                    accept="image/*" 
-                    onChange={handleImageChange} 
-                    className="flex-1 bg-gray-50 border-2 border-dashed border-gray-200 rounded-2xl px-6 py-8 text-center cursor-pointer font-bold text-gray-400 text-sm hover:border-primary/50 transition-all" 
-                  />
+                <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-1">Change Media (Keep empty to keep current images)</label>
+                
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  {/* Image 1 */}
+                  <div className="flex flex-col gap-2">
+                    <p className="text-xs font-bold text-gray-500">Main Image</p>
+                    {currentImageUrl && (
+                      <div className="w-full h-32 rounded-2xl overflow-hidden border border-gray-100 shadow-md bg-gray-50">
+                        <img src={image ? URL.createObjectURL(image) : currentImageUrl} className="w-full h-full object-cover" alt="Main" />
+                      </div>
+                    )}
+                    <input 
+                      type="file" 
+                      accept="image/*" 
+                      onChange={(e) => handleImageChange(e, setImage)} 
+                      className="w-full bg-gray-50 border-2 border-dashed border-gray-200 rounded-xl px-4 py-3 text-center cursor-pointer font-bold text-gray-400 text-xs hover:border-primary/50 transition-all" 
+                    />
+                  </div>
+
+                  {/* Image 2 */}
+                  <div className="flex flex-col gap-2">
+                    <p className="text-xs font-bold text-gray-500">Image 2</p>
+                    {(currentImageUrl2 || image2) && (
+                      <div className="w-full h-32 rounded-2xl overflow-hidden border border-gray-100 shadow-md bg-gray-50">
+                        <img src={image2 ? URL.createObjectURL(image2) : currentImageUrl2} className="w-full h-full object-cover" alt="Second" />
+                      </div>
+                    )}
+                    <input 
+                      type="file" 
+                      accept="image/*" 
+                      onChange={(e) => handleImageChange(e, setImage2)} 
+                      className="w-full bg-gray-50 border-2 border-dashed border-gray-200 rounded-xl px-4 py-3 text-center cursor-pointer font-bold text-gray-400 text-xs hover:border-primary/50 transition-all" 
+                    />
+                  </div>
+
+                  {/* Image 3 */}
+                  <div className="flex flex-col gap-2">
+                    <p className="text-xs font-bold text-gray-500">Image 3</p>
+                    {(currentImageUrl3 || image3) && (
+                      <div className="w-full h-32 rounded-2xl overflow-hidden border border-gray-100 shadow-md bg-gray-50">
+                        <img src={image3 ? URL.createObjectURL(image3) : currentImageUrl3} className="w-full h-full object-cover" alt="Third" />
+                      </div>
+                    )}
+                    <input 
+                      type="file" 
+                      accept="image/*" 
+                      onChange={(e) => handleImageChange(e, setImage3)} 
+                      className="w-full bg-gray-50 border-2 border-dashed border-gray-200 rounded-xl px-4 py-3 text-center cursor-pointer font-bold text-gray-400 text-xs hover:border-primary/50 transition-all" 
+                    />
+                  </div>
                 </div>
-                {image && <p className="text-[10px] text-primary font-bold">New file selected: {image.name}</p>}
               </div>
 
               <div className="pt-4">

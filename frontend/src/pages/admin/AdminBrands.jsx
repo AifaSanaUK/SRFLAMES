@@ -59,7 +59,7 @@ const AdminBrands = () => {
   return (
     <div className="min-h-screen flex bg-[#f8f9fa] font-sans">
       <AdminSidebar />
-      <div className="flex-1 p-10 overflow-y-auto">
+      <div className="flex-1 ml-64 p-10 overflow-y-auto">
         <div className="max-w-4xl mx-auto">
           <div className="mb-10">
             <h1 className="text-4xl font-black text-secondary tracking-tighter uppercase  leading-none mb-2">Brand Portfolio</h1>

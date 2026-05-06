@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { MessageCircle, X } from 'lucide-react';
+import { MessageCircle, X, ChevronLeft, ChevronRight } from 'lucide-react';
 
 const ProductDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [product, setProduct] = useState(null);
+  const [allProducts, setAllProducts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [imageTransitioning, setImageTransitioning] = useState(false);
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -14,6 +17,7 @@ const ProductDetail = () => {
         const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5001';
         const res = await fetch(`${API_URL}/api/products`);
         const data = await res.json();
+        setAllProducts(data);
         const found = data.find(p => p._id === id);
         setProduct(found);
       } catch (err) {
@@ -42,9 +46,35 @@ Hello SR Flames! I am interested in this precision appliance from your showroom:
     window.open(`https://wa.me/919847814033?text=${encodeURIComponent(text)}`, '_blank');
   };
 
+  const getImages = () => {
+    if (!product) return [];
+    const imgs = [product.imageUrl];
+    if (product.imageUrl2) imgs.push(product.imageUrl2);
+    if (product.imageUrl3) imgs.push(product.imageUrl3);
+    return imgs;
+  };
+
+  const handleImageChange = (newIndex) => {
+    setImageTransitioning(true);
+    setTimeout(() => {
+      setCurrentImageIndex(newIndex);
+      setImageTransitioning(false);
+    }, 200);
+  };
+
+  const nextImage = () => {
+    const images = getImages();
+    handleImageChange(currentImageIndex === images.length - 1 ? 0 : currentImageIndex + 1);
+  };
+
+  const prevImage = () => {
+    const images = getImages();
+    handleImageChange(currentImageIndex === 0 ? images.length - 1 : currentImageIndex - 1);
+  };
+
   if (loading) {
     return (
-      <div className="min-h-screen bg-[#050505] flex flex-col items-center justify-center gap-4 text-white">
+      <div className="min-h-screen bg-[#f4f1ea] flex flex-col items-center justify-center gap-4 text-gray-900">
         <div className="w-12 h-12 border-4 border-primary border-t-transparent rounded-full animate-spin"></div>
         <p className="text-primary font-black uppercase tracking-[0.3em] text-[10px]">Syncing Showroom...</p>
       </div>
@@ -53,73 +83,154 @@ Hello SR Flames! I am interested in this precision appliance from your showroom:
 
   if (!product) {
     return (
-      <div className="min-h-screen bg-[#050505] flex flex-col items-center justify-center text-center px-4 text-white">
-        <h2 className="text-4xl font-black text-white mb-6 uppercase italic tracking-tighter">Appliance Not Found</h2>
-        <button onClick={() => navigate('/products')} className="text-primary font-black uppercase tracking-widest text-xs flex items-center gap-2 hover:text-white transition-all">
+      <div className="min-h-screen bg-[#f4f1ea] flex flex-col items-center justify-center text-center px-4 text-gray-900">
+        <h2 className="text-4xl font-black mb-6 uppercase italic tracking-tighter">Appliance Not Found</h2>
+        <button onClick={() => navigate('/products')} className="text-primary font-black uppercase tracking-widest text-xs flex items-center gap-2 hover:text-primary/80 transition-all">
           Return to Showroom
         </button>
       </div>
     );
   }
 
+  const images = getImages();
+  const relatedProducts = allProducts
+    .filter(p => p._id !== id && p.category === product.category)
+    .slice(0, 3);
+
   return (
-    <div className="relative min-h-screen bg-[#050505] flex items-center justify-center p-4 md:p-10 font-sans overflow-hidden">
-      {/* Dynamic Blurred Background Background */}
-      <div className="absolute inset-0 z-0">
-        <img src={product.imageUrl} alt="bg" className="w-full h-full object-cover opacity-20 blur-[100px]" />
-        <div className="absolute inset-0 bg-black/60"></div>
-      </div>
-
-      <div className="relative z-10 max-w-4xl w-full bg-[#0d0d0d] rounded-[2.5rem] overflow-hidden shadow-[0_0_80px_rgba(0,0,0,0.8)] border border-white/5 animate-in fade-in zoom-in duration-500">
-
-        {/* Close Button (Go Back) */}
+    <div className="min-h-screen bg-[#f4f1ea] font-sans pt-[120px] sm:pt-[160px] pb-20 animate-in fade-in duration-700">
+      <div className="max-w-6xl mx-auto px-4">
+        {/* Back Button */}
         <button
-          onClick={() => navigate(-1)}
-          className="absolute top-6 right-6 z-20 w-10 h-10 bg-white/5 hover:bg-primary text-white rounded-full flex items-center justify-center transition-all shadow-xl backdrop-blur-md"
+          onClick={() => navigate('/products')}
+          className="mb-8 flex items-center gap-2 text-gray-400 hover:text-primary font-bold uppercase tracking-[0.3em] text-[10px] transition-all transform hover:-translate-x-1"
         >
-          <X size={20} />
+          <ChevronLeft size={16} /> Back to Collection
         </button>
 
-        <div className="flex flex-row">
-          {/* Left Side: Image */}
-          <div className="w-1/2 md:w-1/2 h-auto md:h-[550px] relative overflow-hidden bg-black flex items-center justify-center p-2 sm:p-8 border-r border-white/5">
-            <img
-              src={product.imageUrl}
-              alt={product.name}
-              className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-1000"
-            />
-            <div className="absolute inset-0 bg-gradient-to-r from-black/20 to-transparent"></div>
-          </div>
+        <div className="bg-[#fcfaf2] rounded-[2.5rem] overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.05)] border border-[#e5e1d5] animate-in fade-in slide-in-from-bottom-10 duration-1000">
+          <div className="flex flex-col md:flex-row">
+            {/* Left Side: Image Carousel */}
+            <div className="w-full md:w-1/2 relative bg-white/50 border-b md:border-b-0 md:border-r border-[#e5e1d5] aspect-square md:aspect-auto flex flex-col items-center justify-center p-6 sm:p-12">
+              {/* Main Image View */}
+              <div className={`relative w-full h-full max-h-[500px] flex items-center justify-center transition-all duration-300 ${imageTransitioning ? 'opacity-0 scale-95' : 'opacity-100 scale-100'}`}>
+                <img
+                  src={images[currentImageIndex]}
+                  alt={`${product.name}`}
+                  className="w-full h-full object-contain drop-shadow-2xl"
+                />
+              </div>
 
-          {/* Right Side: Content */}
-          <div className="w-1/2 md:w-1/2 p-4 md:p-12 flex flex-col justify-center">
-            <span className="text-primary font-black uppercase tracking-[0.4em] text-[9px] mb-3 block">
-              {product.category}
-            </span>
-            <h1 className="text-3xl md:text-5xl font-black text-white mb-2 uppercase leading-[0.9] tracking-tighter">
-              {product.name}
-            </h1>
-            <p className="text-gray-500 font-bold uppercase tracking-[0.2em] text-[9px] mb-8">
-              {product.brand || 'SR SIGNATURE'}
-            </p>
-
-            {/* Description Box */}
-            <div className="bg-[#151515] p-6 rounded-[1.5rem] border border-white/5 mb-10">
-              <h4 className="text-[8px] font-black text-gray-500 uppercase tracking-widest mb-3">Specifications</h4>
-              <p className="text-gray-400 text-xs md:text-sm leading-relaxed font-medium line-clamp-6">
-                {product.description || "Designed for high-performance culinary environments. This unit features industrial-grade suction power, fingerprint-resistant finishes, and intelligent heat-sync technology."}
-              </p>
+              {/* Navigation Arrows */}
+              {images.length > 1 && (
+                <>
+                  <button 
+                    onClick={prevImage}
+                    className="absolute left-6 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/90 hover:bg-white text-gray-800 rounded-full flex items-center justify-center shadow-xl transition-all z-10 hover:scale-110 active:scale-95"
+                  >
+                    <ChevronLeft size={24} />
+                  </button>
+                  <button 
+                    onClick={nextImage}
+                    className="absolute right-6 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/90 hover:bg-white text-gray-800 rounded-full flex items-center justify-center shadow-xl transition-all z-10 hover:scale-110 active:scale-95"
+                  >
+                    <ChevronRight size={24} />
+                  </button>
+                </>
+              )}
             </div>
 
-            {/* Order Button */}
-            <button
-              onClick={() => handleWhatsApp(product)}
-              className="w-full bg-primary hover:bg-primary-light text-white font-black py-2.5 sm:py-5 rounded-xl transition-all flex justify-center items-center gap-2 sm:gap-3 text-[9px] sm:text-[11px] uppercase tracking-[0.2em] sm:tracking-[0.3em] shadow-2xl shadow-primary/20 transform active:scale-95"
-            >
-              <MessageCircle size={14} className="sm:w-[18px] sm:h-[18px]" /> Order via WhatsApp
-            </button>
+            {/* Pagination Dots (Mobile) */}
+            <div className="flex justify-center gap-3 py-6 bg-[#f4f1ea]/30 md:hidden border-b border-[#e5e1d5]">
+              {images.length > 1 && images.map((_, idx) => (
+                <button
+                  key={idx}
+                  onClick={() => handleImageChange(idx)}
+                  className={`h-1.5 rounded-full transition-all duration-300 ${currentImageIndex === idx ? 'bg-primary w-8' : 'bg-gray-300 w-4'}`}
+                />
+              ))}
+            </div>
+
+            {/* Right Side: Content */}
+            <div className="w-full md:w-1/2 p-8 sm:p-12 md:p-16 flex flex-col">
+              {/* Pagination Dots (Desktop) */}
+              <div className="hidden md:flex gap-3 mb-10">
+                {images.length > 1 && images.map((_, idx) => (
+                  <button
+                    key={idx}
+                    onClick={() => handleImageChange(idx)}
+                    className={`h-1.5 rounded-full transition-all duration-300 ${currentImageIndex === idx ? 'bg-primary w-10' : 'bg-gray-300 w-4 hover:bg-gray-400'}`}
+                  />
+                ))}
+              </div>
+
+              <div className="flex items-center gap-4 mb-4">
+                <span className="text-primary font-black uppercase tracking-[0.5em] text-[10px]">
+                  {product.category}
+                </span>
+                <div className="h-px flex-grow bg-[#e5e1d5]"></div>
+              </div>
+
+              <h1 className="text-4xl sm:text-5xl md:text-6xl font-black text-secondary mb-3 uppercase leading-[0.85] tracking-tighter">
+                {product.name}
+              </h1>
+              <p className="text-gray-400 font-bold uppercase tracking-[0.3em] text-[10px] mb-10">
+                Crafted by {product.brand || 'SR Signature Series'}
+              </p>
+
+              {/* Description Box */}
+              <div className="relative mb-12">
+                <div className="absolute -left-6 top-0 bottom-0 w-1 bg-primary/10 rounded-full"></div>
+                <h4 className="text-[10px] font-black text-primary uppercase tracking-[0.2em] mb-4">Product Philosophy</h4>
+                <p className="text-gray-600 text-sm sm:text-base leading-relaxed font-medium">
+                  {product.description || "Designed for high-performance culinary environments. This unit features industrial-grade suction power, fingerprint-resistant finishes, and intelligent heat-sync technology."}
+                </p>
+              </div>
+
+              {/* Order Button */}
+              <div className="mt-auto">
+                <button
+                  onClick={() => handleWhatsApp(product)}
+                  className="w-full group relative overflow-hidden bg-secondary text-white font-black py-5 sm:py-6 rounded-2xl transition-all shadow-2xl shadow-secondary/20 hover:shadow-primary/30 transform hover:-translate-y-1 active:scale-95"
+                >
+                  <div className="absolute inset-0 bg-gradient-to-r from-primary to-secondary opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                  <span className="relative flex justify-center items-center gap-4 text-[11px] uppercase tracking-[0.4em]">
+                    <MessageCircle size={20} className="group-hover:rotate-12 transition-transform" /> 
+                    Reserve via WhatsApp
+                  </span>
+                </button>
+                <p className="text-center mt-6 text-[9px] text-gray-400 font-bold uppercase tracking-widest">
+                  Official SR Flames Showroom Warranty Included
+                </p>
+              </div>
+            </div>
           </div>
         </div>
+
+        {/* Related Products Section */}
+        {relatedProducts.length > 0 && (
+          <div className="mt-24 animate-in fade-in slide-in-from-bottom-10 duration-1000 delay-300">
+            <div className="flex items-center gap-6 mb-12">
+              <h2 className="text-2xl font-black text-secondary uppercase tracking-tighter shrink-0">Similar Appliances</h2>
+              <div className="h-px w-full bg-[#e5e1d5]"></div>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-8">
+              {relatedProducts.map((p) => (
+                <div 
+                  key={p._id} 
+                  onClick={() => navigate(`/product/${p._id}`)}
+                  className="bg-[#fcfaf2] p-4 rounded-[2rem] border border-[#e5e1d5] group cursor-pointer hover:shadow-xl transition-all"
+                >
+                  <div className="aspect-square bg-white rounded-[1.5rem] overflow-hidden mb-6 flex items-center justify-center p-6">
+                    <img src={p.imageUrl} alt={p.name} className="w-full h-full object-contain group-hover:scale-110 transition-transform duration-700" />
+                  </div>
+                  <span className="text-[8px] font-black text-primary uppercase tracking-widest mb-1 block">{p.category}</span>
+                  <h3 className="font-black text-secondary uppercase tracking-tight group-hover:text-primary transition-colors">{p.name}</h3>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

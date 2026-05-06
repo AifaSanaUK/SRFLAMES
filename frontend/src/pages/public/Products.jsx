@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
-import { MessageCircle, ChevronRight, X, Search, Filter } from 'lucide-react';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { MessageCircle, Search, Filter } from 'lucide-react';
 
 const Products = () => {
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const initialSearch = queryParams.get('search') || '';
 
+  const navigate = useNavigate();
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [selectedProduct, setSelectedProduct] = useState(null);
   const [searchQuery, setSearchQuery] = useState(initialSearch);
   const [categoryFilter, setCategoryFilter] = useState('ALL CATEGORIES');
   const [brandFilter, setBrandFilter] = useState('SELECT BRAND');
@@ -68,7 +68,7 @@ Hello SR Flames! I want to know about this precision appliance:
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-[#050505] flex flex-col items-center justify-center gap-8 text-white">
+      <div className="min-h-screen bg-[#f4f1ea] flex flex-col items-center justify-center gap-8 text-gray-900">
         <div className="relative">
           <div className="w-16 h-16 border-2 border-primary/20 rounded-full"></div>
           <div className="absolute top-0 left-0 w-16 h-16 border-t-2 border-primary rounded-full animate-spin"></div>
@@ -93,9 +93,9 @@ Hello SR Flames! I want to know about this precision appliance:
   }
 
   return (
-    <div className="bg-[#111] min-h-screen font-sans pb-20 pt-[80px] sm:pt-[100px]">
+    <div className="bg-[#f4f1ea] min-h-screen font-sans pb-20 pt-[80px] sm:pt-[100px]">
       {/* Header / Filter Bar */}
-      <div className="bg-[#1a1a1a] border-b border-white/5 py-6 sm:py-10 px-4 mb-8 sm:mb-12">
+      <div className="bg-white border-b border-gray-200 py-6 sm:py-10 px-4 mb-8 sm:mb-12 shadow-sm">
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-col lg:flex-row gap-3 sm:gap-4 items-center">
             {/* Search Input */}
@@ -106,7 +106,7 @@ Hello SR Flames! I want to know about this precision appliance:
                 placeholder="SEARCH PRECISION APPLIANCES..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full bg-[#0a0a0a] border border-white/10 text-white text-[9px] sm:text-xs font-bold tracking-widest pl-12 pr-4 py-3 sm:py-4 focus:outline-none focus:border-primary transition-colors uppercase"
+                className="w-full bg-gray-50 border border-gray-200 text-gray-900 text-[9px] sm:text-xs font-bold tracking-widest pl-12 pr-4 py-3 sm:py-4 focus:outline-none focus:border-primary transition-colors uppercase placeholder:text-gray-400"
               />
             </div>
 
@@ -117,7 +117,7 @@ Hello SR Flames! I want to know about this precision appliance:
                 <select
                   value={categoryFilter}
                   onChange={(e) => setCategoryFilter(e.target.value)}
-                  className="w-full bg-[#0a0a0a] border border-white/10 text-white text-[9px] font-black tracking-widest px-4 py-3 sm:py-4 focus:outline-none focus:border-primary appearance-none cursor-pointer uppercase"
+                  className="w-full bg-gray-50 border border-gray-200 text-gray-900 text-[9px] font-black tracking-widest px-4 py-3 sm:py-4 focus:outline-none focus:border-primary appearance-none cursor-pointer uppercase"
                 >
                   {categories.map(cat => <option key={cat} value={cat}>{cat}</option>)}
                 </select>
@@ -128,7 +128,7 @@ Hello SR Flames! I want to know about this precision appliance:
                 <select 
                   value={brandFilter}
                   onChange={(e) => setBrandFilter(e.target.value)}
-                  className="w-full bg-[#0a0a0a] border border-white/10 text-white text-[9px] font-black tracking-widest px-4 py-3 sm:py-4 focus:outline-none focus:border-primary appearance-none cursor-pointer uppercase"
+                  className="w-full bg-gray-50 border border-gray-200 text-gray-900 text-[9px] font-black tracking-widest px-4 py-3 sm:py-4 focus:outline-none focus:border-primary appearance-none cursor-pointer uppercase"
                 >
                   {brands.map(brand => <option key={brand} value={brand}>{brand}</option>)}
                 </select>
@@ -147,9 +147,9 @@ Hello SR Flames! I want to know about this precision appliance:
       <div className="max-w-7xl mx-auto px-4">
         <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8">
           {filteredProducts.map((product, i) => (
-            <div key={product._id} className="bg-[#0a0a0a] border border-white/5 overflow-hidden flex flex-col group rounded-xl">
+            <div key={product._id} className="bg-[#fcfaf2] border border-[#e5e1d5] overflow-hidden flex flex-col group rounded-xl shadow-sm hover:shadow-md transition-shadow">
               {/* Product Image */}
-              <div className="relative aspect-square overflow-hidden bg-[#111]">
+              <div className="relative aspect-square overflow-hidden bg-[#f4f1ea] p-4">
                 <img
                   src={product.imageUrl}
                   alt={product.name}
@@ -167,7 +167,7 @@ Hello SR Flames! I want to know about this precision appliance:
               <div className="p-3 sm:p-6">
                 <div className="mb-1">
                   <span className="text-gray-500 text-[7px] sm:text-[9px] font-bold uppercase tracking-[0.2em]">{product.category}</span>
-                  <h3 className="text-white text-[10px] sm:text-lg font-bold uppercase mt-0.5 tracking-tight leading-tight line-clamp-1">{product.name}</h3>
+                  <h3 className="text-gray-900 text-[10px] sm:text-lg font-bold uppercase mt-0.5 tracking-tight leading-tight line-clamp-1">{product.name}</h3>
                   <p className="text-gray-600 text-[6px] sm:text-[8px] font-bold uppercase tracking-widest mt-0.5">{product.brand || 'SR SIGNATURE'}</p>
                 </div>
 
@@ -180,8 +180,8 @@ Hello SR Flames! I want to know about this precision appliance:
                     <MessageCircle size={10} className="sm:w-[14px] sm:h-[14px]" /> WhatsApp
                   </button>
                   <button
-                    onClick={() => setSelectedProduct(product)}
-                    className="w-full bg-white/5 hover:bg-white/10 text-white font-black py-2 sm:py-3 px-2 transition-all border border-white/10 flex justify-center items-center gap-1 sm:gap-2 text-[7px] sm:text-[10px] uppercase tracking-widest"
+                    onClick={() => navigate(`/product/${product._id}`)}
+                    className="w-full bg-gray-50 hover:bg-gray-100 text-gray-900 font-black py-2 sm:py-3 px-2 transition-all border border-gray-200 flex justify-center items-center gap-1 sm:gap-2 text-[7px] sm:text-[10px] uppercase tracking-widest"
                   >
                     Details
                   </button>
@@ -192,47 +192,11 @@ Hello SR Flames! I want to know about this precision appliance:
         </div>
 
         {filteredProducts.length === 0 && (
-          <div className="text-center py-40 border border-white/5 bg-[#0a0a0a]">
+          <div className="text-center py-40 border border-gray-200 bg-white rounded-xl">
             <p className="text-gray-500 font-bold uppercase tracking-widest text-sm">No precision appliances matched your search.</p>
           </div>
         )}
       </div>
-
-      {/* PRODUCT DETAILS MODAL */}
-      {selectedProduct && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center p-2 sm:p-6 backdrop-blur-xl">
-          <div className="absolute inset-0 bg-black/80" onClick={() => setSelectedProduct(null)}></div>
-          <div className="bg-[#0d0d0d] w-full max-w-4xl rounded-3xl sm:rounded-[2.5rem] overflow-hidden relative z-10 animate-in fade-in zoom-in duration-300 border border-white/5 shadow-2xl">
-            <button onClick={() => setSelectedProduct(null)} className="absolute top-4 right-4 sm:top-6 sm:right-6 z-20 w-8 h-8 sm:w-10 sm:h-10 bg-white/5 hover:bg-primary text-white rounded-full flex items-center justify-center transition-all backdrop-blur-md">
-              <X size={16} />
-            </button>
-            
-            <div className="flex flex-row max-h-[90vh] overflow-y-auto md:overflow-visible">
-              <div className="w-1/2 md:w-1/2 h-auto md:h-[550px] overflow-hidden bg-black flex items-center justify-center p-2 sm:p-4 border-r border-white/5">
-                <img src={selectedProduct.imageUrl} alt={selectedProduct.name} className="w-full h-full object-contain" />
-              </div>
-              <div className="w-1/2 md:w-1/2 p-4 sm:p-12 flex flex-col justify-center">
-                <span className="text-primary font-black uppercase tracking-[0.4em] text-[8px] sm:text-[9px] mb-2 sm:mb-3 block">{selectedProduct.category}</span>
-                <h2 className="text-2xl sm:text-5xl font-black text-white mb-1 sm:mb-2 uppercase leading-none tracking-tighter">{selectedProduct.name}</h2>
-                <p className="text-gray-500 font-bold uppercase tracking-[0.2em] text-[7px] sm:text-[9px] mb-6 sm:mb-8">{selectedProduct.brand || 'SR SIGNATURE'}</p>
-                
-                <div className="bg-[#151515] p-5 sm:p-8 rounded-2xl sm:rounded-[1.5rem] mb-6 sm:mb-10 border border-white/5">
-                  <h4 className="font-bold text-gray-500 mb-3 text-[8px] uppercase tracking-widest">Specifications</h4>
-                  <p className="text-gray-400 leading-relaxed text-[10px] sm:text-sm font-medium line-clamp-6">
-                    {selectedProduct.description || "Designed for high-performance culinary environments. This unit features industrial-grade suction power, fingerprint-resistant finishes, and intelligent heat-sync technology."}
-                  </p>
-                </div>
-                <button 
-                  onClick={() => handleWhatsApp(selectedProduct)}
-                  className="w-full bg-primary hover:bg-primary-light text-white font-black py-2.5 sm:py-5 rounded-xl transition-all flex justify-center items-center gap-2 sm:gap-3 text-[9px] sm:text-[11px] uppercase tracking-[0.2em] sm:tracking-[0.3em] shadow-2xl shadow-primary/20 transform active:scale-95"
-                >
-                  <MessageCircle size={14} className="sm:w-4 sm:h-4" /> Order via WhatsApp
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 };

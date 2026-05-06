@@ -59,7 +59,7 @@ const AdminProducts = () => {
     <div className="min-h-screen flex bg-[#f8f9fa] font-sans">
       <AdminSidebar />
 
-      <div className="flex-1 p-10 overflow-y-auto">
+      <div className="flex-1 ml-64 p-10 overflow-y-auto">
         <div className="max-w-7xl mx-auto">
           <div className="flex justify-between items-end mb-10">
             <div>

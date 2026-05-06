@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { MessageCircle, CheckCircle2, ChevronRight, Wrench, Shield, ThumbsUp, Send, Phone, Mail, MapPin, X } from 'lucide-react';
+import { MessageCircle, CheckCircle2, ChevronRight, Wrench, Shield, ThumbsUp, Phone, Mail, MapPin } from 'lucide-react';
 import herobg from '../../assets/herobg.webp';
 import herobgg from '../../assets/herobgg.jpg';
 
@@ -52,7 +52,7 @@ const Home = () => {
       window.scrollTo({ top: offsetTop, behavior: 'smooth' });
     }
   };
-  const [selectedProduct, setSelectedProduct] = useState(null);
+
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -281,8 +281,8 @@ const Home = () => {
 
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-10">
             {products.map((product) => (
-              <div key={product._id} className="bg-[#0a0a0a] border border-white/5 overflow-hidden flex flex-col group p-2 shadow-xl transition-all duration-500">
-                <div className="relative aspect-square overflow-hidden bg-[#111]">
+              <div key={product._id} className="bg-[#fcfaf2] border border-[#e5e1d5] overflow-hidden flex flex-col group p-2 shadow-sm hover:shadow-md transition-all duration-500 rounded-xl">
+                <div className="relative aspect-square overflow-hidden bg-[#f4f1ea] rounded-lg">
                   <img
                     src={product.imageUrl}
                     alt={product.name}
@@ -296,10 +296,10 @@ const Home = () => {
                 </div>
                 <div className="p-3 sm:p-6 flex flex-col flex-grow">
                   <span className="text-gray-500 text-[7px] font-bold uppercase tracking-[0.2em] mb-1">{product.category}</span>
-                  <h3 className="text-sm sm:text-lg font-bold text-white mb-4 leading-tight group-hover:text-primary-light transition-colors uppercase tracking-tighter">{product.name}</h3>
+                  <h3 className="text-sm sm:text-lg font-bold text-gray-900 mb-4 leading-tight group-hover:text-primary transition-colors uppercase tracking-tighter">{product.name}</h3>
                   <button
-                    onClick={() => setSelectedProduct(product)}
-                    className="mt-auto w-full bg-white/5 hover:bg-white/10 text-white font-black py-2.5 px-2 transition-all border border-white/10 flex justify-center items-center gap-1 text-[8px] uppercase tracking-widest group/btn whitespace-nowrap"
+                    onClick={() => navigate(`/product/${product._id}`)}
+                    className="mt-auto w-full bg-gray-50 hover:bg-gray-100 text-gray-900 font-black py-2.5 px-2 transition-all border border-gray-200 flex justify-center items-center gap-1 text-[8px] uppercase tracking-widest group/btn whitespace-nowrap"
                   >
                     View Details <ChevronRight size={12} className="group-hover/btn:translate-x-1 transition-transform" />
                   </button>
@@ -391,42 +391,6 @@ const Home = () => {
           </div>
         </div>
       </section>
-
-      {/* 6. PRODUCT DETAILS MODAL */}
-      {selectedProduct && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 backdrop-blur-xl">
-          <div className="absolute inset-0 bg-black/60" onClick={() => setSelectedProduct(null)}></div>
-          <div className="bg-[#0d0d0d] w-full max-w-4xl rounded-[2.5rem] overflow-hidden relative z-10 animate-in fade-in zoom-in duration-300 border border-white/5 shadow-[0_0_50px_rgba(0,0,0,0.5)]">
-            <button onClick={() => setSelectedProduct(null)} className="absolute top-6 right-6 z-20 w-10 h-10 bg-white/5 hover:bg-primary text-white rounded-full flex items-center justify-center transition-all backdrop-blur-md">
-              <X size={20} />
-            </button>
-
-            <div className="flex flex-row">
-              <div className="w-1/2 h-auto sm:h-[550px] overflow-hidden bg-black flex items-center justify-center p-2 sm:p-4 border-r border-white/5">
-                <img src={selectedProduct.imageUrl} alt={selectedProduct.name} className="w-full h-full object-contain" />
-              </div>
-              <div className="w-1/2 p-4 sm:p-12 flex flex-col justify-center">
-                <span className="text-primary font-black uppercase tracking-[0.4em] text-[9px] mb-3 block">{selectedProduct.category}</span>
-                <h2 className="text-2xl sm:text-5xl font-black text-white mb-2 uppercase leading-[0.9] tracking-tighter">{selectedProduct.name}</h2>
-                <p className="text-gray-500 font-bold uppercase tracking-[0.2em] text-[8px] sm:text-[9px] mb-8">{selectedProduct.brand || 'SR SIGNATURE'}</p>
-
-                <div className="bg-[#151515] p-6 rounded-[1.5rem] mb-10 border border-white/5">
-                  <h4 className="font-bold text-gray-500 mb-3 text-[8px] uppercase tracking-widest">Specifications</h4>
-                  <p className="text-gray-400 leading-relaxed text-xs md:text-sm font-medium line-clamp-6">
-                    {selectedProduct.description || "Designed for high-performance culinary environments. This unit features industrial-grade suction power, fingerprint-resistant finishes, and intelligent heat-sync technology."}
-                  </p>
-                </div>
-                <button
-                  onClick={() => handleWhatsApp(selectedProduct)}
-                  className="w-full bg-primary hover:bg-primary-light text-white font-black py-2.5 sm:py-4 rounded-xl transition-all flex justify-center items-center gap-2 text-[9px] sm:text-[10px] uppercase tracking-[0.3em] shadow-2xl shadow-primary/20 transform hover:-translate-y-1 active:scale-95"
-                >
-                  <MessageCircle size={14} className="sm:w-4 sm:h-4" /> Order via WhatsApp
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
 
     </div>
   );

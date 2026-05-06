@@ -19,7 +19,7 @@ const AdminSidebar = () => {
   };
 
   return (
-    <div className="w-64 bg-secondary text-white h-screen sticky top-0 flex flex-col shadow-2xl p-6 z-[50]">
+    <div className="w-64 bg-secondary text-white h-screen fixed left-0 top-0 flex flex-col shadow-2xl p-6 z-[50]">
       <div className="mb-12">
         <h2 className="text-2xl font-black text-primary tracking-tighter uppercase ">SR ADMIN</h2>
         <p className="text-[10px] text-gray-500 font-bold tracking-[0.3em] uppercase mt-1">Management Suite</p>

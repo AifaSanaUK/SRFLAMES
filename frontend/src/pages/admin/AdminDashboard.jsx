@@ -34,7 +34,7 @@ const AdminDashboard = () => {
     <div className="min-h-screen bg-[#f8f9fa] flex font-sans">
       <AdminSidebar />
 
-      <div className="flex-1 p-10 overflow-y-auto">
+      <div className="flex-1 ml-64 p-10 overflow-y-auto">
         <div className="max-w-7xl mx-auto">
           <div className="mb-12">
             <h1 className="text-4xl font-black text-secondary tracking-tighter uppercase  leading-none mb-2">Showroom Pulse</h1>
