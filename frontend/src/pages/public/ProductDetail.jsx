@@ -201,7 +201,7 @@ Hello SR Flames! I am interested in this precision appliance from your showroom:
             </div>
           </div>
         </div>
-
+      </div>
     </div>
   );
 };
