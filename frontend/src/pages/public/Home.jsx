@@ -130,13 +130,19 @@ const Home = () => {
             key={img}
             className="absolute inset-0 transition-opacity duration-[1500ms] ease-in-out"
             style={{
-              backgroundImage: `linear-gradient(to right, rgba(20, 10, 5, 0.85) 0%, rgba(143, 91, 52, 0.25) 50%, rgba(20, 10, 5, 0.85) 100%), url('${img}')`,
-              backgroundSize: 'cover',
-              backgroundPosition: 'center',
               opacity: currentImage === index ? 1 : 0,
               zIndex: 1
             }}
-          />
+          >
+            <div className="absolute inset-0 bg-gradient-to-r from-[rgba(20,10,5,0.85)] via-[rgba(143,91,52,0.25)] to-[rgba(20,10,5,0.85)] z-10" />
+            <img 
+              src={img} 
+              alt={`SR Flames ${index + 1}`}
+              className="w-full h-full object-cover"
+              loading="eager"
+              fetchpriority="high"
+            />
+          </div>
         ))}
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full pt-[60px] sm:pt-[80px]">
@@ -203,6 +209,7 @@ const Home = () => {
                     src="/kitchen-about.png"
                     alt="Luxury SR Flames Kitchen"
                     className="w-full object-cover h-[550px] transform transition-transform duration-[2s] group-hover:scale-110"
+                    loading="lazy"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
 
@@ -287,6 +294,7 @@ const Home = () => {
                     src={product.imageUrl}
                     alt={product.name}
                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                    loading="eager"
                   />
                   {product.badge && (
                     <div className="absolute top-4 right-4 bg-primary text-white text-[7px] font-black px-2 py-1 uppercase tracking-[0.2em]">
