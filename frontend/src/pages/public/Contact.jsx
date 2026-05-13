@@ -19,33 +19,40 @@ const Contact = () => {
           {/* Info Side */}
           <div>
             <h2 className="text-3xl font-black text-secondary mb-12 uppercase tracking-tight">Our <span className="text-primary">Locations</span></h2>
-            
+
             <div className="space-y-12 mb-16">
-               {[
-                 { icon: MapPin, label: 'Main Showroom', value: '123 Industrial Area, Calicut, Kerala, India' },
-                 { icon: Phone, label: 'Prime Hotline', value: '+91 97453 07450' },
-                 { icon: Mail, label: 'Email Enquiries', value: 'info@srflames.com' }
-               ].map((item, i) => (
-                 <div key={i} className="flex items-center gap-8 group">
-                   <div className="w-16 h-16 bg-primary text-white shadow-xl shadow-primary/20 rounded-[1.5rem] flex items-center justify-center shrink-0 group-hover:scale-110 transition-all duration-500">
-                     <item.icon size={26} />
-                   </div>
-                   <div>
-                     <h5 className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1">{item.label}</h5>
-                     <p className="text-secondary font-black text-xl tracking-tight leading-none">{item.value}</p>
-                   </div>
-                 </div>
-               ))}
+              {[
+                { icon: MapPin, label: 'Main Office', value: 'Koottanad, Palakkad, Kerala, India' },
+                { icon: Phone, label: 'Prime Hotline', value: '+91 98478 14033' },
+                { icon: Mail, label: 'Email Enquiries', value: 'aquap0334@gmail.com' }
+              ].map((item, i) => (
+                <div key={i} className="flex items-center gap-8 group">
+                  <div className="w-16 h-16 bg-primary text-white shadow-xl shadow-primary/20 rounded-[1.5rem] flex items-center justify-center shrink-0 group-hover:scale-110 transition-all duration-500">
+                    <item.icon size={26} />
+                  </div>
+                  <div>
+                    <h5 className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1">{item.label}</h5>
+                    <p className="text-secondary font-black text-xl tracking-tight leading-none">{item.value}</p>
+                  </div>
+                </div>
+              ))}
             </div>
 
-            <div className="bg-white p-8 rounded-[2.5rem] border border-gray-100 shadow-xl flex items-center justify-between group">
-               <div>
-                 <p className="text-[10px] font-black text-primary uppercase tracking-widest mb-1">Open Hours</p>
-                 <p className="text-secondary font-bold">Mon - Sat: 9:30 AM - 7:30 PM</p>
-               </div>
-               <div className="w-12 h-12 bg-bg-light rounded-full flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all">
-                 <ChevronRight />
-               </div>
+            <div className="bg-white p-8 rounded-[2.5rem] border border-gray-100 shadow-xl mb-8 flex items-center justify-between group">
+              <div>
+                <p className="text-[10px] font-black text-primary uppercase tracking-widest mb-1">Open Hours</p>
+                <p className="text-secondary font-bold">Mon - Sat: 9:00 AM - 7:00 PM</p>
+              </div>
+              <div className="w-12 h-12 bg-bg-light rounded-full flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all">
+                <ChevronRight />
+              </div>
+            </div>
+
+            <div className="bg-secondary/5 p-8 rounded-[2.5rem] border border-primary/10">
+              <p className="text-[10px] font-black text-primary uppercase tracking-widest mb-3">Service Areas</p>
+              <p className="text-secondary/70 text-sm font-medium leading-relaxed">
+                We provide expert installation and service across <span className="text-secondary font-bold">Kerala</span>, including <span className="text-secondary font-bold">Koottanad, Pattambi, Valanchery, Thrissur, and Guruvayoor</span>.
+              </p>
             </div>
           </div>
 

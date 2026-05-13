@@ -45,15 +45,19 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* Services */}
+          {/* Services & Areas */}
           <div>
             <h3 className="text-white font-bold text-lg mb-8 relative inline-block after:content-[''] after:-bottom-2 after:absolute after:left-0 after:w-1/2 after:h-0.5 after:bg-primary after:rounded">Our Services</h3>
-            <ul className="space-y-4 text-sm font-medium">
+            <ul className="space-y-4 text-sm font-medium mb-8">
               <li><a href="#" className="hover:text-primary transition-all flex items-center gap-2 group"><span className="text-primary opacity-0 group-hover:opacity-100 transition-all">-</span> Chimney Installation</a></li>
               <li><a href="#" className="hover:text-primary transition-all flex items-center gap-2 group"><span className="text-primary opacity-0 group-hover:opacity-100 transition-all">-</span> Stove Repairing</a></li>
               <li><a href="#" className="hover:text-primary transition-all flex items-center gap-2 group"><span className="text-primary opacity-0 group-hover:opacity-100 transition-all">-</span> Annual Maintenance</a></li>
-              <li><a href="#" className="hover:text-primary transition-all flex items-center gap-2 group"><span className="text-primary opacity-0 group-hover:opacity-100 transition-all">-</span> Kitchen Consulting</a></li>
             </ul>
+            
+            <h3 className="text-white font-bold text-lg mb-6 relative inline-block after:content-[''] after:-bottom-2 after:absolute after:left-0 after:w-1/2 after:h-0.5 after:bg-primary after:rounded">Service Areas</h3>
+            <p className="text-xs text-gray-400 leading-relaxed">
+              We proudly serve customers across <span className="text-white">Kerala</span>, specifically in <span className="text-white">Koottanad</span>, <span className="text-white">Pattambi</span>, <span className="text-white">Valanchery</span>, <span className="text-white">Thrissur</span>, <span className="text-white">Guruvayoor</span>, and nearby locations.
+            </p>
           </div>
 
           {/* Contact Details */}
