@@ -368,8 +368,16 @@ const Home = () => {
               <div className="grid grid-cols-3 sm:grid-cols-1 gap-2 sm:gap-10">
                 {[
                   { icon: MapPin, label: 'Address', value: 'Koottanad, Palakkad' },
-                  { icon: Phone, label: 'Hotline', value: '+91 98478 14033, +91 86065 17947' },
-                  { icon: Mail, label: 'Email', value: 'aquap0334@gmail.com' }
+                  { 
+                    icon: Phone, 
+                    label: 'Hotline', 
+                    value: '+91 98478 14033, +91 86065 17947',
+                    links: [
+                      { text: '+91 98478 14033', href: 'tel:+919847814033' },
+                      { text: '+91 86065 17947', href: 'tel:+918606517947' }
+                    ]
+                  },
+                  { icon: Mail, label: 'Email', value: 'aquap0334@gmail.com', href: 'mailto:aquap0334@gmail.com' }
                 ].map((item, index) => (
                   <div key={index} className="flex flex-col items-center gap-2 sm:gap-6 group text-center">
                     <div className="w-8 h-8 md:w-14 md:h-14 bg-primary text-white shadow-lg shadow-primary/20 rounded-lg md:rounded-2xl flex items-center justify-center shrink-0 group-hover:scale-110 transition-all duration-300">
@@ -377,7 +385,21 @@ const Home = () => {
                     </div>
                     <div>
                       <h5 className="text-[6px] md:text-[10px] font-black text-gray-400 uppercase tracking-widest mb-0.5 md:mb-1">{item.label}</h5>
-                      <p className="text-secondary font-black text-[7px] md:text-lg tracking-tight leading-tight break-all">{item.value}</p>
+                      {item.links ? (
+                        <div className="flex flex-col gap-1">
+                          {item.links.map((link, lIdx) => (
+                            <a key={lIdx} href={link.href} className="text-secondary font-black text-[7px] md:text-lg tracking-tight leading-tight hover:text-primary transition-colors">
+                              {link.text}
+                            </a>
+                          ))}
+                        </div>
+                      ) : item.href ? (
+                        <a href={item.href} className="text-secondary font-black text-[7px] md:text-lg tracking-tight leading-tight hover:text-primary transition-colors break-all">
+                          {item.value}
+                        </a>
+                      ) : (
+                        <p className="text-secondary font-black text-[7px] md:text-lg tracking-tight leading-tight break-all">{item.value}</p>
+                      )}
                     </div>
                   </div>
                 ))}

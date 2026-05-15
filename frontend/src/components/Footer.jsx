@@ -11,7 +11,7 @@ const Footer = () => {
           {/* Brand Info */}
           <div className="col-span-1 md:col-span-1">
             <div className="mb-8">
-              <img src="/Srlogonavbar.webp" alt="SR Flames Footer Logo" className="h-16 w-auto object-contain" />
+              <img src="/srfooterlogo.webp" alt="SR Flames Footer Logo" className="h-16 w-auto object-contain" />
             </div>
             <p className="text-sm leading-relaxed mb-8 text-gray-400">
               Premium chimney and stove solutions for modern kitchens. We deliver high-quality, reliable, and energy-efficient appliances to transform your cooking experience.
@@ -45,19 +45,15 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* Services & Areas */}
+          {/* Services */}
           <div>
             <h3 className="text-white font-bold text-lg mb-8 relative inline-block after:content-[''] after:-bottom-2 after:absolute after:left-0 after:w-1/2 after:h-0.5 after:bg-primary after:rounded">Our Services</h3>
-            <ul className="space-y-4 text-sm font-medium mb-8">
+            <ul className="space-y-4 text-sm font-medium">
               <li><a href="#" className="hover:text-primary transition-all flex items-center gap-2 group"><span className="text-primary opacity-0 group-hover:opacity-100 transition-all">-</span> Chimney Installation</a></li>
               <li><a href="#" className="hover:text-primary transition-all flex items-center gap-2 group"><span className="text-primary opacity-0 group-hover:opacity-100 transition-all">-</span> Stove Repairing</a></li>
               <li><a href="#" className="hover:text-primary transition-all flex items-center gap-2 group"><span className="text-primary opacity-0 group-hover:opacity-100 transition-all">-</span> Annual Maintenance</a></li>
+              <li><a href="#" className="hover:text-primary transition-all flex items-center gap-2 group"><span className="text-primary opacity-0 group-hover:opacity-100 transition-all">-</span> Kitchen Consulting</a></li>
             </ul>
-            
-            <h3 className="text-white font-bold text-lg mb-6 relative inline-block after:content-[''] after:-bottom-2 after:absolute after:left-0 after:w-1/2 after:h-0.5 after:bg-primary after:rounded">Service Areas</h3>
-            <p className="text-xs text-gray-400 leading-relaxed">
-              We proudly serve customers across <span className="text-white">Kerala</span>, specifically in <span className="text-white">Koottanad</span>, <span className="text-white">Pattambi</span>, <span className="text-white">Valanchery</span>, <span className="text-white">Thrissur</span>, <span className="text-white">Guruvayoor</span>, and nearby locations.
-            </p>
           </div>
 
           {/* Contact Details */}
@@ -75,15 +71,15 @@ const Footer = () => {
                   <Phone className="text-primary" size={18} />
                 </div>
                 <div className="flex flex-col gap-1">
-                  <span>+91 98478 14033</span>
-                  <span>+91 86065 17947</span>
+                  <a href="tel:+919847814033" className="hover:text-primary transition-colors">+91 98478 14033</a>
+                  <a href="tel:+918606517947" className="hover:text-primary transition-colors">+91 86065 17947</a>
                 </div>
               </li>
               <li className="flex items-center gap-4">
                 <div className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center shrink-0">
                   <Mail className="text-primary" size={18} />
                 </div>
-                <span>aquap0334@gmail.com</span>
+                <a href="mailto:aquap0334@gmail.com" className="hover:text-primary transition-colors">aquap0334@gmail.com</a>
               </li>
             </ul>
           </div>
