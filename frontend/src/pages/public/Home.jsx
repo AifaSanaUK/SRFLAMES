@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { MessageCircle, CheckCircle2, ChevronRight, Wrench, Shield, ThumbsUp, Phone, Mail, MapPin } from 'lucide-react';
-import herobgg from '../../assets/srflames.jpeg';
+import banner1 from '../../assets/banner1.png';
+import banner2 from '../../assets/banner2.png';
+import banner3 from '../../assets/banner3.png';
 
 const CountUp = ({ end, duration = 2000 }) => {
   const [count, setCount] = useState(0);
@@ -103,8 +105,9 @@ const Home = () => {
 
   const [currentImage, setCurrentImage] = useState(0);
   const heroImages = [
-
-    herobgg
+    banner1,
+    banner2,
+    banner3,
   ];
 
   useEffect(() => {
@@ -120,7 +123,8 @@ const Home = () => {
       {/* 1. HERO SECTION - SUNBIRD STYLE SLIDESHOW */}
       <section
         id="home"
-        className="relative h-screen min-h-[700px] flex items-center overflow-hidden bg-black"
+        className="relative flex items-center overflow-hidden bg-black"
+        style={{ minHeight: '100svh' }}
       >
         {/* Slideshow Layers */}
         {heroImages.map((img, index) => (
@@ -137,6 +141,7 @@ const Home = () => {
               src={img}
               alt={`SR Flames ${index + 1}`}
               className="w-full h-full object-cover"
+              style={{ objectPosition: '85% center' }}
               loading="eager"
               fetchpriority="high"
             />
