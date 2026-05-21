@@ -141,7 +141,7 @@ const Home = () => {
               src={img}
               alt={`SR Flames ${index + 1}`}
               className="w-full h-full object-cover"
-              style={{ objectPosition: '85% center' }}
+              style={{ objectPosition: '95% center' }}
               loading="eager"
               fetchpriority="high"
             />
