@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { MessageCircle, CheckCircle2, ChevronRight, Wrench, Shield, ThumbsUp, Phone, Mail, MapPin } from 'lucide-react';
-import herobg from '../../assets/herobg.webp';
-import herobgg from '../../assets/herobgg.jpg';
+import herobgg from '../../assets/srflames.jpeg';
 
 const CountUp = ({ end, duration = 2000 }) => {
   const [count, setCount] = useState(0);
@@ -104,8 +103,7 @@ const Home = () => {
 
   const [currentImage, setCurrentImage] = useState(0);
   const heroImages = [
-    'https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&q=80',
-    herobg,
+
     herobgg
   ];
 
@@ -135,8 +133,8 @@ const Home = () => {
             }}
           >
             <div className="absolute inset-0 bg-gradient-to-r from-[rgba(20,10,5,0.85)] via-[rgba(143,91,52,0.25)] to-[rgba(20,10,5,0.85)] z-10" />
-            <img 
-              src={img} 
+            <img
+              src={img}
               alt={`SR Flames ${index + 1}`}
               className="w-full h-full object-cover"
               loading="eager"
@@ -368,9 +366,9 @@ const Home = () => {
               <div className="grid grid-cols-3 sm:grid-cols-1 gap-2 sm:gap-10">
                 {[
                   { icon: MapPin, label: 'Address', value: 'Koottanad, Palakkad' },
-                  { 
-                    icon: Phone, 
-                    label: 'Hotline', 
+                  {
+                    icon: Phone,
+                    label: 'Hotline',
                     value: '+91 98478 14033, +91 86065 17947',
                     links: [
                       { text: '+91 98478 14033', href: 'tel:+919847814033' },

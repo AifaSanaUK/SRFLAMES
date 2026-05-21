@@ -8,7 +8,6 @@ const ProductDetail = () => {
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const [imageTransitioning, setImageTransitioning] = useState(false);
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -53,11 +52,7 @@ Hello SR Flames! I am interested in this precision appliance from your showroom:
   };
 
   const handleImageChange = (newIndex) => {
-    setImageTransitioning(true);
-    setTimeout(() => {
-      setCurrentImageIndex(newIndex);
-      setImageTransitioning(false);
-    }, 200);
+    setCurrentImageIndex(newIndex);
   };
 
   const nextImage = () => {
@@ -106,14 +101,21 @@ Hello SR Flames! I am interested in this precision appliance from your showroom:
         <div className="bg-[#fcfaf2] rounded-[2.5rem] overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.05)] border border-[#e5e1d5] animate-in fade-in slide-in-from-bottom-10 duration-1000">
           <div className="flex flex-col md:flex-row">
             {/* Left Side: Image Carousel */}
-            <div className="w-full md:w-1/2 relative bg-white/50 border-b md:border-b-0 md:border-r border-[#e5e1d5] aspect-square md:aspect-auto flex flex-col items-center justify-center p-6 sm:p-12">
+            <div className="w-full md:w-1/2 relative bg-white/50 border-b md:border-b-0 md:border-r border-[#e5e1d5] aspect-square md:aspect-auto flex flex-col items-center justify-center p-6 sm:p-12 min-h-[350px] sm:min-h-[500px]">
               {/* Main Image View */}
-              <div className={`relative w-full h-full max-h-[500px] flex items-center justify-center transition-all duration-300 ${imageTransitioning ? 'opacity-0 scale-95' : 'opacity-100 scale-100'}`}>
-                <img
-                  src={images[currentImageIndex]}
-                  alt={`${product.name}`}
-                  className="w-full h-full object-contain drop-shadow-2xl"
-                />
+              <div className="relative w-full h-full max-h-[500px] min-h-[300px] flex items-center justify-center">
+                {images.map((imgUrl, idx) => (
+                  <img
+                    key={idx}
+                    src={imgUrl}
+                    alt={`${product.name} ${idx + 1}`}
+                    className={`absolute w-full h-full object-contain drop-shadow-2xl transition-all duration-300 ease-in-out ${
+                      idx === currentImageIndex 
+                        ? 'opacity-100 scale-100 pointer-events-auto z-10' 
+                        : 'opacity-0 scale-95 pointer-events-none z-0'
+                    }`}
+                  />
+                ))}
               </div>
 
               {/* Navigation Arrows */}

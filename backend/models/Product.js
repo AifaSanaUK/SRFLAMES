@@ -7,6 +7,8 @@ const productSchema = new mongoose.Schema({
   stock: { type: Number, default: 0 },
   description: { type: String },
   imageUrl: { type: String, required: true }, // AWS S3 URL
+  imageUrl2: { type: String, default: "" },
+  imageUrl3: { type: String, default: "" },
   badge: { type: String, default: "" }, // NEW ARRIVAL, BEST SELLER, etc.
   brand: { type: String, default: "SR SIGNATURE" },
 }, { timestamps: true });

@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
 const multer = require('multer');
-const sharp = require('sharp');
 const { S3Client, PutObjectCommand } = require('@aws-sdk/client-s3');
 const crypto = require('crypto');
 const Product = require('../models/Product');
@@ -19,36 +18,44 @@ const s3 = new S3Client({
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 
+// Helper function to upload an image buffer directly to S3
+async function uploadToS3(file) {
+  const fileExt = file.originalname.split('.').pop() || 'jpg';
+  const fileName = `products/${crypto.randomBytes(16).toString('hex')}.${fileExt}`;
+  await s3.send(new PutObjectCommand({
+    Bucket: process.env.AWS_BUCKET_NAME,
+    Key: fileName,
+    Body: file.buffer,
+    ContentType: file.mimetype,
+  }));
+  return `https://${process.env.AWS_BUCKET_NAME}.s3.${process.env.AWS_REGION}.amazonaws.com/${fileName}`;
+}
+
+const productUploadFields = [
+  { name: 'image', maxCount: 1 },
+  { name: 'image2', maxCount: 1 },
+  { name: 'image3', maxCount: 1 }
+];
+
 // POST: Add new product with image upload
-router.post('/add', upload.single('image'), async (req, res) => {
+router.post('/add', upload.fields(productUploadFields), async (req, res) => {
   try {
     const { name, price, category, stock, description, badge, brand } = req.body;
     
-    if (!req.file) {
-      return res.status(400).json({ message: 'Product image is required' });
+    if (!req.files || !req.files['image']) {
+      return res.status(400).json({ message: 'Main product image is required' });
     }
 
-    // Convert image to WebP using sharp
-    const webpBuffer = await sharp(req.file.buffer)
-      .webp({ quality: 80 })
-      .toBuffer();
+    const imageUrl = await uploadToS3(req.files['image'][0]);
+    let imageUrl2 = "";
+    let imageUrl3 = "";
 
-    // Generate unique filename
-    const randomName = crypto.randomBytes(16).toString('hex');
-    const fileName = `products/${randomName}.webp`;
-
-    // Upload to S3
-    const uploadParams = {
-      Bucket: process.env.AWS_BUCKET_NAME,
-      Key: fileName,
-      Body: webpBuffer,
-      ContentType: 'image/webp',
-    };
-
-    await s3.send(new PutObjectCommand(uploadParams));
-
-    // Construct public URL
-    const imageUrl = `https://${process.env.AWS_BUCKET_NAME}.s3.${process.env.AWS_REGION}.amazonaws.com/${fileName}`;
+    if (req.files['image2']) {
+      imageUrl2 = await uploadToS3(req.files['image2'][0]);
+    }
+    if (req.files['image3']) {
+      imageUrl3 = await uploadToS3(req.files['image3'][0]);
+    }
 
     // Save product to database
     const newProduct = new Product({
@@ -58,6 +65,8 @@ router.post('/add', upload.single('image'), async (req, res) => {
       stock: stock ? Number(stock) : 0,
       description,
       imageUrl,
+      imageUrl2,
+      imageUrl3,
       badge: badge || "",
       brand: brand || "SR SIGNATURE"
     });
@@ -72,7 +81,7 @@ router.post('/add', upload.single('image'), async (req, res) => {
 });
 
 // PUT: Update full product (used for edit page)
-router.put('/:id', upload.single('image'), async (req, res) => {
+router.put('/:id', upload.fields(productUploadFields), async (req, res) => {
   try {
     const { name, price, category, stock, description, badge, brand } = req.body;
     let updateData = {
@@ -85,21 +94,22 @@ router.put('/:id', upload.single('image'), async (req, res) => {
       brand
     };
 
-    if (req.file) {
-      const webpBuffer = await sharp(req.file.buffer).webp({ quality: 80 }).toBuffer();
-      const fileName = `products/${crypto.randomBytes(16).toString('hex')}.webp`;
-      await s3.send(new PutObjectCommand({
-        Bucket: process.env.AWS_BUCKET_NAME,
-        Key: fileName,
-        Body: webpBuffer,
-        ContentType: 'image/webp',
-      }));
-      updateData.imageUrl = `https://${process.env.AWS_BUCKET_NAME}.s3.${process.env.AWS_REGION}.amazonaws.com/${fileName}`;
+    if (req.files) {
+      if (req.files['image']) {
+        updateData.imageUrl = await uploadToS3(req.files['image'][0]);
+      }
+      if (req.files['image2']) {
+        updateData.imageUrl2 = await uploadToS3(req.files['image2'][0]);
+      }
+      if (req.files['image3']) {
+        updateData.imageUrl3 = await uploadToS3(req.files['image3'][0]);
+      }
     }
 
     const updatedProduct = await Product.findByIdAndUpdate(req.params.id, updateData, { new: true });
     res.json(updatedProduct);
   } catch (error) {
+    console.error('Error updating product:', error);
     res.status(500).json({ message: 'Error updating product' });
   }
 });
