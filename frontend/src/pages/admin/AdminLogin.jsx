@@ -24,7 +24,7 @@ const AdminLogin = () => {
       const data = await res.json();
 
       if (!res.ok) {
-        throw new Error(data.message || 'Login failed');
+        throw new Error(data.error ? `${data.message} (${data.error})` : (data.message || 'Login failed'));
       }
 
       // Save token and redirect
@@ -32,6 +32,7 @@ const AdminLogin = () => {
       navigate('/admin/dashboard');
 
     } catch (err) {
+      console.error('Login error details:', err);
       setError(err.message);
     } finally {
       setLoading(false);
