@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { MessageCircle, X, ChevronLeft, ChevronRight } from 'lucide-react';
+import { MessageCircle, X, ChevronLeft, ChevronRight, Phone } from 'lucide-react';
 
 const ProductDetail = () => {
   const { id } = useParams();
@@ -109,11 +109,10 @@ Hello SR Flames! I am interested in this precision appliance from your showroom:
                     key={idx}
                     src={imgUrl}
                     alt={`${product.name} ${idx + 1}`}
-                    className={`absolute w-full h-full object-contain drop-shadow-2xl transition-all duration-300 ease-in-out ${
-                      idx === currentImageIndex 
-                        ? 'opacity-100 scale-100 pointer-events-auto z-10' 
-                        : 'opacity-0 scale-95 pointer-events-none z-0'
-                    }`}
+                    className={`absolute w-full h-full object-contain drop-shadow-2xl transition-all duration-300 ease-in-out ${idx === currentImageIndex
+                      ? 'opacity-100 scale-100 pointer-events-auto z-10'
+                      : 'opacity-0 scale-95 pointer-events-none z-0'
+                      }`}
                   />
                 ))}
               </div>
@@ -121,13 +120,13 @@ Hello SR Flames! I am interested in this precision appliance from your showroom:
               {/* Navigation Arrows */}
               {images.length > 1 && (
                 <>
-                  <button 
+                  <button
                     onClick={prevImage}
                     className="absolute left-6 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/90 hover:bg-white text-gray-800 rounded-full flex items-center justify-center shadow-xl transition-all z-10 hover:scale-110 active:scale-95"
                   >
                     <ChevronLeft size={24} />
                   </button>
-                  <button 
+                  <button
                     onClick={nextImage}
                     className="absolute right-6 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/90 hover:bg-white text-gray-800 rounded-full flex items-center justify-center shadow-xl transition-all z-10 hover:scale-110 active:scale-95"
                   >
@@ -168,7 +167,7 @@ Hello SR Flames! I am interested in this precision appliance from your showroom:
                 <div className="h-px flex-grow bg-[#e5e1d5]"></div>
               </div>
 
-              <h1 className="text-4xl sm:text-5xl md:text-6xl font-black text-secondary mb-3 uppercase leading-[0.85] tracking-tighter">
+              <h1 className="text-3xl sm:text-3xl md:text-4xl font-black text-secondary mb-3 uppercase leading-[0.85] tracking-tighter">
                 {product.name}
               </h1>
               <p className="text-gray-400 font-bold uppercase tracking-[0.3em] text-[10px] mb-10">
@@ -179,27 +178,55 @@ Hello SR Flames! I am interested in this precision appliance from your showroom:
               <div className="relative mb-12">
                 <div className="absolute -left-6 top-0 bottom-0 w-1 bg-primary/10 rounded-full"></div>
                 <h4 className="text-[10px] font-black text-primary uppercase tracking-[0.2em] mb-4">Product Philosophy</h4>
-                <p className="text-gray-600 text-sm sm:text-base leading-relaxed font-medium">
-                  {product.description || "Designed for high-performance culinary environments. This unit features industrial-grade suction power, fingerprint-resistant finishes, and intelligent heat-sync technology."}
-                </p>
+                <ul className="space-y-3">
+                  {(product.description
+                    ? product.description
+                      .split(/\s+\.\s+|\n+/)
+                      .map(p => p.trim().replace(/^\.+|\.+$/g, '').trim())
+                      .filter(Boolean)
+                    : [
+                      "Designed for high-performance culinary environments",
+                      "Features industrial-grade suction power",
+                      "Fingerprint-resistant premium finishes",
+                      "Intelligent heat-sync technology"
+                    ]
+                  ).map((point, idx) => (
+                    <li key={idx} className="flex items-start gap-3 text-gray-600 text-sm sm:text-base leading-relaxed font-medium">
+                      <span className="w-1.5 h-1.5 bg-primary rounded-full mt-2.5 flex-shrink-0"></span>
+                      <span>{point}</span>
+                    </li>
+                  ))}
+                </ul>
               </div>
 
-              {/* Order Button */}
-              <div className="mt-auto">
+              {/* Action Buttons */}
+              <div className="mt-auto flex flex-col sm:flex-row gap-4">
+                {/* Call Now Button */}
+                <a
+                  href="tel:+919847814033"
+                  className="w-full sm:w-1/2 group relative overflow-hidden border-2 border-secondary text-secondary hover:bg-secondary hover:text-white font-black py-5 rounded-2xl transition-all shadow-md hover:shadow-xl transform hover:-translate-y-0.5 active:scale-95 flex justify-center items-center gap-3 text-[11px] uppercase tracking-[0.2em] text-center"
+                >
+                  <Phone size={18} className="group-hover:rotate-12 transition-transform" />
+                  Call Now
+                </a>
+
+                {/* Order Now Button */}
                 <button
                   onClick={() => handleWhatsApp(product)}
-                  className="w-full group relative overflow-hidden bg-secondary text-white font-black py-5 sm:py-6 rounded-2xl transition-all shadow-2xl shadow-secondary/20 hover:shadow-primary/30 transform hover:-translate-y-1 active:scale-95"
+                  className="w-full sm:w-1/2 group relative overflow-hidden bg-secondary text-white font-black py-5 rounded-2xl transition-all shadow-xl shadow-secondary/20 hover:shadow-primary/30 transform hover:-translate-y-0.5 active:scale-95 flex justify-center items-center gap-3 text-[11px] uppercase tracking-[0.2em]"
                 >
                   <div className="absolute inset-0 bg-gradient-to-r from-primary to-secondary opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                  <span className="relative flex justify-center items-center gap-4 text-[11px] uppercase tracking-[0.4em]">
-                    <MessageCircle size={20} className="group-hover:rotate-12 transition-transform" /> 
-                    Reserve via WhatsApp
+                  <span className="relative flex justify-center items-center gap-3">
+                    <svg className="w-5 h-5 fill-[#25D366] group-hover:scale-110 transition-transform" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L0 24l6.335-1.662c1.746.953 3.71 1.455 5.703 1.456h.004c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+                    </svg>
+                    Order Now
                   </span>
                 </button>
-                <p className="text-center mt-6 text-[9px] text-gray-400 font-bold uppercase tracking-widest">
-                  Official SR Flames Showroom Warranty Included
-                </p>
               </div>
+              <p className="text-center mt-6 text-[9px] text-gray-400 font-bold uppercase tracking-widest">
+                Official SR Flames Showroom Warranty Included
+              </p>
             </div>
           </div>
         </div>

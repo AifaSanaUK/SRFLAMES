@@ -212,14 +212,18 @@ const AdminEditProduct = () => {
               </div>
 
               <div className="space-y-2">
-                <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-1">Technical Description</label>
+                <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-1">Product Philosophy / Technical Description (Point-by-Point)</label>
                 <textarea 
                   name="description" 
-                  rows="4" 
+                  rows="5" 
                   value={formData.description}
                   onChange={handleChange} 
-                  className="w-full bg-gray-50 border-none rounded-2xl px-6 py-4 focus:ring-2 focus:ring-primary/20 transition-all font-bold placeholder:text-gray-300"
+                  placeholder="e.g.&#10;3 Burner Layout with Jumbo Burner&#10;Toughened Black Glass Top&#10;Front-Mounted Metal Knobs"
+                  className="w-full bg-gray-50 border-none rounded-2xl px-6 py-4 focus:ring-2 focus:ring-primary/20 transition-all font-bold placeholder:text-gray-300 text-sm"
                 ></textarea>
+                <p className="text-[10px] text-gray-400 font-medium ml-1">
+                  Enter each product philosophy or feature point on a new line, or separate them with a dot (.).
+                </p>
               </div>
 
               <div className="space-y-4">
