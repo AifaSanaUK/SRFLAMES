@@ -54,7 +54,20 @@ const AdminAddProduct = () => {
   };
 
   const handleImageChange = (e, setter) => {
-    setter(e.target.files[0]);
+    const file = e.target.files[0];
+    if (file) {
+      const img = new Image();
+      img.src = URL.createObjectURL(file);
+      img.onload = () => {
+        const aspect = img.width / img.height;
+        if (aspect < 0.95 || aspect > 1.05) {
+          alert(`Recommendation: For the best layout presentation in the showroom, please upload square images (1:1 ratio). Your selected image is ${img.width}x${img.height} (ratio ${aspect.toFixed(2)}). Wide or tall images will display with empty whitespace on top/bottom or sides.`);
+        }
+      };
+      setter(file);
+    } else {
+      setter(null);
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -202,6 +215,9 @@ const AdminAddProduct = () => {
 
               <div className="space-y-4">
                 <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-1">Product Media (Up to 3 images)</label>
+                <p className="text-[10px] text-primary font-bold ml-1 uppercase tracking-wider">
+                  * Note: Upload square images (1:1 aspect ratio) to prevent empty white spaces in the showroom.
+                </p>
                 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                   {/* Image 1 (Main) */}

@@ -83,7 +83,7 @@ const Navbar = () => {
                     placeholder="SEARCH PRECISION APPLIANCES..."
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    className="w-full bg-transparent border-none focus:ring-0 text-[#2C1810] text-base sm:text-[10px] font-black tracking-widest placeholder:text-gray-400 uppercase"
+                    className="w-full bg-transparent border-none focus:ring-0 text-[#2C1810] text-[10px] font-black tracking-widest placeholder:text-gray-400 uppercase"
                   />
                 </form>
                 <button

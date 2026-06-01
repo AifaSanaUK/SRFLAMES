@@ -101,15 +101,15 @@ Hello SR Flames! I am interested in this precision appliance from your showroom:
         <div className="bg-[#fcfaf2] rounded-[2.5rem] overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.05)] border border-[#e5e1d5] animate-in fade-in slide-in-from-bottom-10 duration-1000">
           <div className="flex flex-col md:flex-row">
             {/* Left Side: Image Carousel */}
-            <div className="w-full md:w-1/2 relative bg-white/50 border-b md:border-b-0 md:border-r border-[#e5e1d5] aspect-square md:aspect-auto flex flex-col items-center justify-center p-2 sm:p-6 min-h-[350px] sm:min-h-[500px]">
+            <div className="w-full md:w-1/2 relative border-b md:border-b-0 md:border-r border-[#e5e1d5] aspect-square md:aspect-auto min-h-[350px] sm:min-h-[500px] overflow-hidden bg-[#f4f1ea]">
               {/* Main Image View */}
-              <div className="relative w-full h-full max-h-[500px] min-h-[300px] flex items-center justify-center">
+              <div className="absolute inset-0 w-full h-full">
                 {images.map((imgUrl, idx) => (
                   <img
                     key={idx}
                     src={imgUrl}
                     alt={`${product.name} ${idx + 1}`}
-                    className={`absolute w-full h-full object-contain drop-shadow-2xl transition-all duration-300 ease-in-out ${idx === currentImageIndex
+                    className={`absolute inset-0 w-full h-full object-cover transition-all duration-500 ease-in-out ${idx === currentImageIndex
                       ? 'opacity-100 scale-100 pointer-events-auto z-10'
                       : 'opacity-0 scale-95 pointer-events-none z-0'
                       }`}
@@ -122,13 +122,13 @@ Hello SR Flames! I am interested in this precision appliance from your showroom:
                 <>
                   <button
                     onClick={prevImage}
-                    className="absolute left-6 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/90 hover:bg-white text-gray-800 rounded-full flex items-center justify-center shadow-xl transition-all z-10 hover:scale-110 active:scale-95"
+                    className="absolute left-6 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/90 hover:bg-white text-gray-800 rounded-full flex items-center justify-center shadow-xl transition-all z-20 hover:scale-110 active:scale-95"
                   >
                     <ChevronLeft size={24} />
                   </button>
                   <button
                     onClick={nextImage}
-                    className="absolute right-6 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/90 hover:bg-white text-gray-800 rounded-full flex items-center justify-center shadow-xl transition-all z-10 hover:scale-110 active:scale-95"
+                    className="absolute right-6 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/90 hover:bg-white text-gray-800 rounded-full flex items-center justify-center shadow-xl transition-all z-20 hover:scale-110 active:scale-95"
                   >
                     <ChevronRight size={24} />
                   </button>

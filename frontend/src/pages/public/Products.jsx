@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { MessageCircle, Search, Filter } from 'lucide-react';
+import { MessageCircle, Search, Filter, ChevronDown } from 'lucide-react';
 
 const Products = () => {
   const location = useLocation();
@@ -15,6 +15,7 @@ const Products = () => {
   const [brandFilter, setBrandFilter] = useState('SELECT BRAND');
   const [categories, setCategories] = useState([]);
   const [brands, setBrands] = useState([]);
+  const [isFiltersOpen, setIsFiltersOpen] = useState(false);
 
   useEffect(() => {
     // Update search query if URL parameter changes
@@ -97,47 +98,56 @@ Hello SR Flames! I want to know about this precision appliance:
       {/* Header / Filter Bar */}
       <div className="bg-white border-b border-gray-200 py-6 sm:py-10 px-4 mb-8 sm:mb-12 shadow-sm">
         <div className="max-w-7xl mx-auto">
-          <div className="flex flex-col lg:flex-row gap-3 sm:gap-4 items-center">
-            {/* Search Input */}
-            <div className="relative flex-grow w-full">
-              <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500" size={16} />
-              <input
-                type="text"
-                placeholder="SEARCH PRECISION APPLIANCES..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full bg-gray-50 border border-gray-200 text-gray-900 text-base sm:text-xs font-bold tracking-widest pl-12 pr-4 py-3 sm:py-4 focus:outline-none focus:border-primary transition-colors uppercase placeholder:text-gray-400"
-              />
+          <div className="flex flex-col gap-4">
+            {/* Unified Search and Toggle Row */}
+            <div className="flex w-full border border-gray-200 bg-gray-50 rounded-xl overflow-hidden items-stretch shadow-sm">
+              <div className="relative flex-grow flex items-center">
+                <Search className="absolute left-4 text-gray-500" size={16} />
+                <input
+                  type="text"
+                  placeholder="SEARCH PRECISION APPLIANCES..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="w-full bg-transparent text-gray-900 text-[9px] sm:text-xs font-bold tracking-widest pl-12 pr-4 py-3.5 sm:py-4 focus:outline-none uppercase placeholder:text-gray-400 border-none focus:ring-0"
+                />
+              </div>
+              <button
+                onClick={() => setIsFiltersOpen(!isFiltersOpen)}
+                className="flex items-center gap-2 px-4 sm:px-6 border-l border-gray-200 bg-white text-gray-900 text-[9px] sm:text-xs font-black tracking-widest hover:bg-gray-50 transition-colors uppercase select-none shrink-0"
+              >
+                Filter <ChevronDown size={14} className={`transition-transform duration-300 ${isFiltersOpen ? 'rotate-180' : ''}`} />
+              </button>
             </div>
 
-            {/* Filters Row for Mobile */}
-            <div className="flex flex-col sm:flex-row gap-3 w-full lg:w-auto">
+            {/* Dropdown Filters (collapsed on mobile by default, always visible on desktop) */}
+            <div className={`flex-col sm:flex-row gap-3 w-full transition-all duration-300 ${isFiltersOpen ? 'flex' : 'hidden sm:flex'}`}>
               {/* Category Dropdown */}
-              <div className="w-full sm:w-48 lg:w-64">
-                <select
-                  value={categoryFilter}
-                  onChange={(e) => setCategoryFilter(e.target.value)}
-                  className="w-full bg-gray-50 border border-gray-200 text-gray-900 text-base sm:text-[9px] font-black tracking-widest px-4 py-3 sm:py-4 focus:outline-none focus:border-primary appearance-none cursor-pointer uppercase"
-                >
-                  {categories.map(cat => <option key={cat} value={cat}>{cat}</option>)}
-                </select>
+              <div className="w-full sm:flex-1">
+                <div className="relative">
+                  <select
+                    value={categoryFilter}
+                    onChange={(e) => setCategoryFilter(e.target.value)}
+                    className="w-full bg-gray-50 border border-gray-200 text-gray-900 text-[9px] font-black tracking-widest px-4 py-3.5 sm:py-4 focus:outline-none focus:border-primary appearance-none cursor-pointer uppercase rounded-xl"
+                  >
+                    {categories.map(cat => <option key={cat} value={cat}>{cat}</option>)}
+                  </select>
+                  <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 pointer-events-none" size={14} />
+                </div>
               </div>
 
               {/* Brand Dropdown */}
-              <div className="w-full sm:w-48 lg:w-64">
-                <select 
-                  value={brandFilter}
-                  onChange={(e) => setBrandFilter(e.target.value)}
-                  className="w-full bg-gray-50 border border-gray-200 text-gray-900 text-base sm:text-[9px] font-black tracking-widest px-4 py-3 sm:py-4 focus:outline-none focus:border-primary appearance-none cursor-pointer uppercase"
-                >
-                  {brands.map(brand => <option key={brand} value={brand}>{brand}</option>)}
-                </select>
+              <div className="w-full sm:flex-1">
+                <div className="relative">
+                  <select 
+                    value={brandFilter}
+                    onChange={(e) => setBrandFilter(e.target.value)}
+                    className="w-full bg-gray-50 border border-gray-200 text-gray-900 text-[9px] font-black tracking-widest px-4 py-3.5 sm:py-4 focus:outline-none focus:border-primary appearance-none cursor-pointer uppercase rounded-xl"
+                  >
+                    {brands.map(brand => <option key={brand} value={brand}>{brand}</option>)}
+                  </select>
+                  <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 pointer-events-none" size={14} />
+                </div>
               </div>
-
-              {/* Filter Button */}
-              <button className="bg-primary hover:bg-primary/90 text-white p-3 sm:p-3.5 transition-colors hidden sm:block">
-                <Filter size={16} />
-              </button>
             </div>
           </div>
         </div>
