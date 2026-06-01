@@ -106,7 +106,7 @@ Hello SR Flames! I want to know about this precision appliance:
                 placeholder="SEARCH PRECISION APPLIANCES..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full bg-gray-50 border border-gray-200 text-gray-900 text-[9px] sm:text-xs font-bold tracking-widest pl-12 pr-4 py-3 sm:py-4 focus:outline-none focus:border-primary transition-colors uppercase placeholder:text-gray-400"
+                className="w-full bg-gray-50 border border-gray-200 text-gray-900 text-base sm:text-xs font-bold tracking-widest pl-12 pr-4 py-3 sm:py-4 focus:outline-none focus:border-primary transition-colors uppercase placeholder:text-gray-400"
               />
             </div>
 
@@ -117,7 +117,7 @@ Hello SR Flames! I want to know about this precision appliance:
                 <select
                   value={categoryFilter}
                   onChange={(e) => setCategoryFilter(e.target.value)}
-                  className="w-full bg-gray-50 border border-gray-200 text-gray-900 text-[9px] font-black tracking-widest px-4 py-3 sm:py-4 focus:outline-none focus:border-primary appearance-none cursor-pointer uppercase"
+                  className="w-full bg-gray-50 border border-gray-200 text-gray-900 text-base sm:text-[9px] font-black tracking-widest px-4 py-3 sm:py-4 focus:outline-none focus:border-primary appearance-none cursor-pointer uppercase"
                 >
                   {categories.map(cat => <option key={cat} value={cat}>{cat}</option>)}
                 </select>
@@ -128,7 +128,7 @@ Hello SR Flames! I want to know about this precision appliance:
                 <select 
                   value={brandFilter}
                   onChange={(e) => setBrandFilter(e.target.value)}
-                  className="w-full bg-gray-50 border border-gray-200 text-gray-900 text-[9px] font-black tracking-widest px-4 py-3 sm:py-4 focus:outline-none focus:border-primary appearance-none cursor-pointer uppercase"
+                  className="w-full bg-gray-50 border border-gray-200 text-gray-900 text-base sm:text-[9px] font-black tracking-widest px-4 py-3 sm:py-4 focus:outline-none focus:border-primary appearance-none cursor-pointer uppercase"
                 >
                   {brands.map(brand => <option key={brand} value={brand}>{brand}</option>)}
                 </select>
