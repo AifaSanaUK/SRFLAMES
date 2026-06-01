@@ -30,7 +30,7 @@ const Products = () => {
         const res = await fetch(`${API_URL}/api/products`);
         const data = await res.json();
         setProducts(data);
-        
+
         // Extract unique categories and brands from data
         const uniqueCats = ['ALL CATEGORIES', ...new Set(data.map(p => p.category.toUpperCase()))];
         const uniqueBrands = ['SELECT BRAND', ...new Set(data.map(p => (p.brand || 'SR Signature').toUpperCase()))];
@@ -74,16 +74,17 @@ Hello SR Flames! I want to know about this precision appliance:
           <div className="w-16 h-16 border-2 border-primary/20 rounded-full"></div>
           <div className="absolute top-0 left-0 w-16 h-16 border-t-2 border-primary rounded-full animate-spin"></div>
           <div className="absolute inset-0 flex items-center justify-center">
-             <div className="w-1 h-1 bg-primary rounded-full animate-pulse"></div>
+            <div className="w-1 h-1 bg-primary rounded-full animate-pulse"></div>
           </div>
         </div>
         <div className="flex flex-col items-center gap-2">
           <p className="text-primary font-black uppercase tracking-[0.5em] text-[10px] animate-pulse">Loading Catalog</p>
           <div className="w-32 h-[1px] bg-white/5 overflow-hidden">
-             <div className="w-full h-full bg-primary/40 -translate-x-full animate-[progress_2s_infinite]"></div>
+            <div className="w-full h-full bg-primary/40 -translate-x-full animate-[progress_2s_infinite]"></div>
           </div>
         </div>
-        <style dangerouslySetInnerHTML={{ __html: `
+        <style dangerouslySetInnerHTML={{
+          __html: `
           @keyframes progress {
             0% { transform: translateX(-100%); }
             100% { transform: translateX(100%); }
@@ -96,59 +97,74 @@ Hello SR Flames! I want to know about this precision appliance:
   return (
     <div className="bg-[#f4f1ea] min-h-screen font-sans pb-20 pt-[80px] sm:pt-[100px]">
       {/* Header / Filter Bar */}
-      <div className="bg-white border-b border-gray-200 py-6 sm:py-10 px-4 mb-8 sm:mb-12 shadow-sm">
+      <div className="bg-white border-b border-gray-200 py-4 sm:py-6 px-4 mb-8 sm:mb-12 shadow-sm">
         <div className="max-w-7xl mx-auto">
-          <div className="flex flex-col gap-4">
-            {/* Unified Search and Toggle Row */}
-            <div className="flex w-full border border-gray-200 bg-gray-50 rounded-xl overflow-hidden items-stretch shadow-sm">
-              <div className="relative flex-grow flex items-center">
-                <Search className="absolute left-4 text-gray-500" size={16} />
-                <input
-                  type="text"
-                  placeholder="SEARCH PRECISION APPLIANCES..."
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full bg-transparent text-gray-900 text-[9px] sm:text-xs font-bold tracking-widest pl-12 pr-4 py-3.5 sm:py-4 focus:outline-none uppercase placeholder:text-gray-400 border-none focus:ring-0"
-                />
-              </div>
-              <button
-                onClick={() => setIsFiltersOpen(!isFiltersOpen)}
-                className="flex items-center gap-2 px-4 sm:px-6 border-l border-gray-200 bg-white text-gray-900 text-[9px] sm:text-xs font-black tracking-widest hover:bg-gray-50 transition-colors uppercase select-none shrink-0"
-              >
-                Filter <ChevronDown size={14} className={`transition-transform duration-300 ${isFiltersOpen ? 'rotate-180' : ''}`} />
-              </button>
+          {/* Search + Filter button row */}
+          <div className="relative flex w-full border border-gray-200 bg-gray-50 rounded-xl overflow-visible items-stretch shadow-sm">
+            <div className="relative flex-grow flex items-center">
+              <Search className="absolute left-4 text-gray-500" size={16} />
+              <input
+                type="text"
+                placeholder="SEARCH PRECISION APPLIANCES..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-full bg-transparent text-gray-900 text-[9px] sm:text-xs font-bold tracking-widest pl-12 pr-4 py-3.5 sm:py-4 focus:outline-none uppercase placeholder:text-gray-400 border-none focus:ring-0"
+              />
             </div>
+            <button
+              onClick={() => setIsFiltersOpen(!isFiltersOpen)}
+              className="flex items-center gap-2 px-4 sm:px-6 border-l border-gray-200 bg-white text-gray-900 text-[9px] sm:text-xs font-black tracking-widest hover:bg-gray-50 transition-colors uppercase select-none shrink-0 rounded-r-xl"
+            >
+              <Filter size={14} />
+              Filter <ChevronDown size={14} className={`transition-transform duration-300 ${isFiltersOpen ? 'rotate-180' : ''}`} />
+            </button>
 
-            {/* Dropdown Filters (collapsed on mobile by default, always visible on desktop) */}
-            <div className={`flex-col sm:flex-row gap-3 w-full transition-all duration-300 ${isFiltersOpen ? 'flex' : 'hidden sm:flex'}`}>
-              {/* Category Dropdown */}
-              <div className="w-full sm:flex-1">
-                <div className="relative">
-                  <select
-                    value={categoryFilter}
-                    onChange={(e) => setCategoryFilter(e.target.value)}
-                    className="w-full bg-gray-50 border border-gray-200 text-gray-900 text-[9px] font-black tracking-widest px-4 py-3.5 sm:py-4 focus:outline-none focus:border-primary appearance-none cursor-pointer uppercase rounded-xl"
-                  >
-                    {categories.map(cat => <option key={cat} value={cat}>{cat}</option>)}
-                  </select>
-                  <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 pointer-events-none" size={14} />
-                </div>
-              </div>
+            {/* Floating filter dropdown panel */}
+            {isFiltersOpen && (
+              <div className="absolute top-full right-0 mt-2 z-50 bg-white border border-gray-200 rounded-2xl shadow-2xl p-4 flex flex-col gap-3 min-w-[260px] sm:min-w-[360px]">
+                <p className="text-[9px] font-black text-gray-400 uppercase tracking-widest mb-1">Filter By</p>
 
-              {/* Brand Dropdown */}
-              <div className="w-full sm:flex-1">
-                <div className="relative">
-                  <select 
-                    value={brandFilter}
-                    onChange={(e) => setBrandFilter(e.target.value)}
-                    className="w-full bg-gray-50 border border-gray-200 text-gray-900 text-[9px] font-black tracking-widest px-4 py-3.5 sm:py-4 focus:outline-none focus:border-primary appearance-none cursor-pointer uppercase rounded-xl"
-                  >
-                    {brands.map(brand => <option key={brand} value={brand}>{brand}</option>)}
-                  </select>
-                  <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 pointer-events-none" size={14} />
+                {/* Category */}
+                <div className="flex flex-col gap-1">
+                  <span className="text-[8px] font-black text-gray-400 uppercase tracking-widest">Category</span>
+                  <div className="relative">
+                    <select
+                      value={categoryFilter}
+                      onChange={(e) => setCategoryFilter(e.target.value)}
+                      className="w-full bg-gray-50 border border-gray-200 text-gray-900 text-[9px] font-black tracking-widest px-4 py-3 focus:outline-none focus:border-primary appearance-none cursor-pointer uppercase rounded-xl"
+                    >
+                      {categories.map(cat => <option key={cat} value={cat}>{cat}</option>)}
+                    </select>
+                    <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" size={13} />
+                  </div>
                 </div>
+
+                {/* Brand */}
+                <div className="flex flex-col gap-1">
+                  <span className="text-[8px] font-black text-gray-400 uppercase tracking-widest">Brand</span>
+                  <div className="relative">
+                    <select
+                      value={brandFilter}
+                      onChange={(e) => setBrandFilter(e.target.value)}
+                      className="w-full bg-gray-50 border border-gray-200 text-gray-900 text-[9px] font-black tracking-widest px-4 py-3 focus:outline-none focus:border-primary appearance-none cursor-pointer uppercase rounded-xl"
+                    >
+                      {brands.map(brand => <option key={brand} value={brand}>{brand}</option>)}
+                    </select>
+                    <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" size={13} />
+                  </div>
+                </div>
+
+                {/* Active filters + clear */}
+                {(categoryFilter !== 'ALL CATEGORIES' || brandFilter !== 'SELECT BRAND') && (
+                  <button
+                    onClick={() => { setCategoryFilter('ALL CATEGORIES'); setBrandFilter('SELECT BRAND'); }}
+                    className="text-[8px] font-black uppercase tracking-widest text-primary hover:text-primary/70 transition-colors text-left mt-1"
+                  >
+                    ✕ Clear Filters
+                  </button>
+                )}
               </div>
-            </div>
+            )}
           </div>
         </div>
       </div>
@@ -159,7 +175,7 @@ Hello SR Flames! I want to know about this precision appliance:
           {filteredProducts.map((product, i) => (
             <div key={product._id} className="bg-[#fcfaf2] border border-[#e5e1d5] overflow-hidden flex flex-col group rounded-xl shadow-sm hover:shadow-md transition-shadow">
               {/* Product Image */}
-              <div className="relative aspect-square overflow-hidden bg-[#f4f1ea] p-4">
+              <div className="relative aspect-square overflow-hidden bg-[#f4f1ea]">
                 <img
                   src={product.imageUrl}
                   alt={product.name}

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import AdminSidebar from '../../components/AdminSidebar';
+import ImageCropperModal from '../../components/ImageCropperModal';
 
 const AdminAddProduct = () => {
   const navigate = useNavigate();
@@ -19,6 +20,7 @@ const AdminAddProduct = () => {
   const [image3, setImage3] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [cropTarget, setCropTarget] = useState(null); // { file, src, key }
 
   useEffect(() => {
     const fetchData = async () => {
@@ -53,21 +55,33 @@ const AdminAddProduct = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleImageChange = (e, setter) => {
+  const handleImageChange = (e, key) => {
     const file = e.target.files[0];
     if (file) {
-      const img = new Image();
-      img.src = URL.createObjectURL(file);
-      img.onload = () => {
-        const aspect = img.width / img.height;
-        if (aspect < 0.95 || aspect > 1.05) {
-          alert(`Recommendation: For the best layout presentation in the showroom, please upload square images (1:1 ratio). Your selected image is ${img.width}x${img.height} (ratio ${aspect.toFixed(2)}). Wide or tall images will display with empty whitespace on top/bottom or sides.`);
-        }
-      };
-      setter(file);
-    } else {
-      setter(null);
+      const src = URL.createObjectURL(file);
+      setCropTarget({ file, src, key });
     }
+  };
+
+  const handleCropComplete = (blob) => {
+    if (!cropTarget) return;
+    const croppedFile = new File([blob], cropTarget.file.name, { type: 'image/jpeg' });
+
+    if (cropTarget.key === 'image') setImage(croppedFile);
+    if (cropTarget.key === 'image2') setImage2(croppedFile);
+    if (cropTarget.key === 'image3') setImage3(croppedFile);
+
+    setCropTarget(null);
+  };
+
+  const handleCropCancel = () => {
+    if (!cropTarget) return;
+    // Set to original file (making cropping optional)
+    if (cropTarget.key === 'image') setImage(cropTarget.file);
+    if (cropTarget.key === 'image2') setImage2(cropTarget.file);
+    if (cropTarget.key === 'image3') setImage3(cropTarget.file);
+
+    setCropTarget(null);
   };
 
   const handleSubmit = async (e) => {
@@ -215,10 +229,8 @@ const AdminAddProduct = () => {
 
               <div className="space-y-4">
                 <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-1">Product Media (Up to 3 images)</label>
-                <p className="text-[10px] text-primary font-bold ml-1 uppercase tracking-wider">
-                  * Note: Upload square images (1:1 aspect ratio) to prevent empty white spaces in the showroom.
-                </p>
-                
+
+
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                   {/* Image 1 (Main) */}
                   <div className="relative group">
@@ -226,13 +238,20 @@ const AdminAddProduct = () => {
                     <input
                       type="file"
                       accept="image/*"
-                      onChange={(e) => handleImageChange(e, setImage)}
-                      required
+                      onChange={(e) => handleImageChange(e, 'image')}
+                      required={!image}
                       className="w-full bg-gray-50 border-2 border-dashed border-gray-200 rounded-2xl px-6 py-6 text-center cursor-pointer group-hover:border-primary/50 transition-all text-xs"
                     />
                     {image && (
-                      <div className="mt-2">
+                      <div className="mt-2 flex items-center gap-2">
                         <img src={URL.createObjectURL(image)} alt="Preview 1" className="h-20 w-20 object-cover rounded-lg border border-gray-200" />
+                        <button
+                          type="button"
+                          onClick={() => setCropTarget({ file: image, src: URL.createObjectURL(image), key: 'image' })}
+                          className="bg-secondary hover:bg-secondary/90 text-white text-[8px] font-black uppercase tracking-widest px-2.5 py-1.5 rounded-lg transition-colors"
+                        >
+                          Crop/Adjust
+                        </button>
                       </div>
                     )}
                   </div>
@@ -243,12 +262,19 @@ const AdminAddProduct = () => {
                     <input
                       type="file"
                       accept="image/*"
-                      onChange={(e) => handleImageChange(e, setImage2)}
+                      onChange={(e) => handleImageChange(e, 'image2')}
                       className="w-full bg-gray-50 border-2 border-dashed border-gray-200 rounded-2xl px-6 py-6 text-center cursor-pointer group-hover:border-primary/50 transition-all text-xs"
                     />
                     {image2 && (
-                      <div className="mt-2">
+                      <div className="mt-2 flex items-center gap-2">
                         <img src={URL.createObjectURL(image2)} alt="Preview 2" className="h-20 w-20 object-cover rounded-lg border border-gray-200" />
+                        <button
+                          type="button"
+                          onClick={() => setCropTarget({ file: image2, src: URL.createObjectURL(image2), key: 'image2' })}
+                          className="bg-secondary hover:bg-secondary/90 text-white text-[8px] font-black uppercase tracking-widest px-2.5 py-1.5 rounded-lg transition-colors"
+                        >
+                          Crop/Adjust
+                        </button>
                       </div>
                     )}
                   </div>
@@ -259,12 +285,19 @@ const AdminAddProduct = () => {
                     <input
                       type="file"
                       accept="image/*"
-                      onChange={(e) => handleImageChange(e, setImage3)}
+                      onChange={(e) => handleImageChange(e, 'image3')}
                       className="w-full bg-gray-50 border-2 border-dashed border-gray-200 rounded-2xl px-6 py-6 text-center cursor-pointer group-hover:border-primary/50 transition-all text-xs"
                     />
                     {image3 && (
-                      <div className="mt-2">
+                      <div className="mt-2 flex items-center gap-2">
                         <img src={URL.createObjectURL(image3)} alt="Preview 3" className="h-20 w-20 object-cover rounded-lg border border-gray-200" />
+                        <button
+                          type="button"
+                          onClick={() => setCropTarget({ file: image3, src: URL.createObjectURL(image3), key: 'image3' })}
+                          className="bg-secondary hover:bg-secondary/90 text-white text-[8px] font-black uppercase tracking-widest px-2.5 py-1.5 rounded-lg transition-colors"
+                        >
+                          Crop/Adjust
+                        </button>
                       </div>
                     )}
                   </div>
@@ -284,6 +317,13 @@ const AdminAddProduct = () => {
           </div>
         </div>
       </div>
+      {cropTarget && (
+        <ImageCropperModal
+          src={cropTarget.src}
+          onCrop={handleCropComplete}
+          onClose={handleCropCancel}
+        />
+      )}
     </div>
   );
 };
