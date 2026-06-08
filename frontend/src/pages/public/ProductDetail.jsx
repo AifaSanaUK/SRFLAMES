@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { MessageCircle, X, ChevronLeft, ChevronRight, Phone } from 'lucide-react';
+import { X, ChevronLeft, ChevronRight, Phone } from 'lucide-react';
 
 const ProductDetail = () => {
   const { id } = useParams();
