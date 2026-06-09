@@ -7,6 +7,15 @@ const app = express();
 
 // Middleware
 app.use(cors());
+
+// Handle subfolder routing (like /srflames) when deployed on cPanel
+app.use((req, res, next) => {
+  if (req.url.startsWith('/srflames')) {
+    req.url = req.url.substring('/srflames'.length) || '/';
+  }
+  next();
+});
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
