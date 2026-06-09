@@ -55,16 +55,16 @@ const ImageCropperModal = ({ src, onCrop, onClose }) => {
     const img = e.target;
     const aspect = img.naturalWidth / img.naturalHeight;
     if (aspect > 1) {
-      // Landscape: height matches container
-      setImageSize({
-        height: 320,
-        width: 320 * aspect
-      });
-    } else {
-      // Portrait or square: width matches container
+      // Landscape: fit width to container
       setImageSize({
         width: 320,
         height: 320 / aspect
+      });
+    } else {
+      // Portrait or square: fit height to container
+      setImageSize({
+        height: 320,
+        width: 320 * aspect
       });
     }
   };
@@ -97,20 +97,16 @@ const ImageCropperModal = ({ src, onCrop, onClose }) => {
     const visualLeft = centerX - visualWidth / 2;
     const visualTop = centerY - visualHeight / 2;
 
-    // Scaling ratio between natural image dimensions and visual dimensions
-    const scale = img.naturalWidth / visualWidth;
+    // Scale factor between visual 320px scale and output 800px scale
+    const factor = outputSize / 320;
 
-    // Source crop coordinates on natural image
-    const sX = -visualLeft * scale;
-    const sY = -visualTop * scale;
-    const sWidth = 320 * scale;
-    const sHeight = 320 * scale;
-
-    // Draw the crop region onto output canvas
+    // Draw the visual region onto output canvas
     ctx.drawImage(
       img,
-      sX, sY, sWidth, sHeight,
-      0, 0, outputSize, outputSize
+      visualLeft * factor,
+      visualTop * factor,
+      visualWidth * factor,
+      visualHeight * factor
     );
 
     canvas.toBlob((blob) => {
@@ -141,7 +137,7 @@ const ImageCropperModal = ({ src, onCrop, onClose }) => {
         {/* Crop Area */}
         <div className="p-6 flex flex-col items-center gap-6">
           <div 
-            className="w-[320px] h-[320px] relative overflow-hidden bg-gray-100 border border-gray-200 rounded-2xl cursor-move select-none shadow-inner"
+            className="w-[320px] h-[320px] relative overflow-hidden bg-white border border-gray-200 rounded-2xl cursor-move select-none shadow-inner"
             onMouseDown={handleMouseDown}
             onMouseMove={handleMouseMove}
             onMouseUp={handleMouseUp}

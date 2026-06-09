@@ -292,7 +292,7 @@ const Home = () => {
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-10">
             {products.slice(0, 8).map((product) => (
               <div key={product._id} className="bg-[#fcfaf2] border border-[#e5e1d5] overflow-hidden flex flex-col group p-2 shadow-sm hover:shadow-md transition-all duration-500 rounded-xl">
-                <div 
+                <div
                   onClick={() => navigate(`/product/${product._id}`)}
                   className="relative aspect-square overflow-hidden bg-[#f4f1ea] rounded-lg cursor-pointer"
                 >
