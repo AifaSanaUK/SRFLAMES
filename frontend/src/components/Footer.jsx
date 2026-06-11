@@ -72,6 +72,8 @@ const Footer = () => {
                 </div>
                 <div className="flex flex-col gap-1">
                   <a href="tel:+919847814033" className="hover:text-primary transition-colors">+91 98478 14033</a>
+                  <a href="tel:+918606517947" className="hover:text-primary transition-colors">+91 97479 00014</a>
+
                   <a href="tel:+918606517947" className="hover:text-primary transition-colors">+91 86065 17947</a>
                 </div>
               </li>

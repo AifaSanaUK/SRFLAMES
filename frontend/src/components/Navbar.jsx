@@ -58,8 +58,8 @@ const Navbar = () => {
         <div className="bg-[#8F5B34] text-white py-2 px-4">
           <div className="max-w-7xl mx-auto flex flex-col sm:flex-row justify-center items-center gap-3 sm:gap-10 text-[9px] sm:text-[10px] font-bold tracking-[0.2em] text-center">
             <div className="flex gap-6">
-              <a href="tel:+919847814033" className="hover:text-white/80 transition-colors flex items-center gap-2">
-                <Phone size={10} /> +91 98478 14033
+              <a href="tel:+919747900014" className="hover:text-white/80 transition-colors flex items-center gap-2">
+                <Phone size={10} />  +91 97479 00014
               </a>
               <a href="mailto:aquap0334@gmail.com" className="hover:text-white/80 transition-colors flex items-center gap-2">
                 <Mail size={10} /> aquap0334@gmail.com
