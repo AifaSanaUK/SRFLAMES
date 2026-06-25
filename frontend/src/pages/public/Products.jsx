@@ -16,6 +16,18 @@ const Products = () => {
   const [categories, setCategories] = useState([]);
   const [brands, setBrands] = useState([]);
   const [isFiltersOpen, setIsFiltersOpen] = useState(false);
+  const [navHeight, setNavHeight] = useState(110);
+
+  // Measure the real navbar height so the sticky bar sits flush with zero gap
+  useEffect(() => {
+    const measure = () => {
+      const nav = document.querySelector('nav');
+      if (nav) setNavHeight(nav.getBoundingClientRect().height);
+    };
+    measure();
+    window.addEventListener('resize', measure);
+    return () => window.removeEventListener('resize', measure);
+  }, []);
 
   useEffect(() => {
     // Update search query if URL parameter changes
@@ -95,33 +107,35 @@ Hello SR Flames! I want to know about this precision appliance:
   }
 
   return (
-    <div className="bg-[#f4f1ea] min-h-screen font-sans pb-20 pt-[80px] sm:pt-[100px]">
-      {/* Header / Filter Bar */}
-      <div className="bg-white border-b border-gray-200 py-4 sm:py-6 px-4 mb-8 sm:mb-12 shadow-sm">
-        <div className="max-w-7xl mx-auto">
-          {/* Search + Filter button row */}
-          <div className="relative flex w-full border border-gray-200 bg-gray-50 rounded-xl overflow-visible items-stretch shadow-sm">
-            <div className="relative flex-grow flex items-center">
-              <Search className="absolute left-4 text-gray-500" size={16} />
-              <input
-                type="text"
-                placeholder="SEARCH PRECISION APPLIANCES..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full bg-transparent text-gray-900 text-[9px] sm:text-xs font-bold tracking-widest pl-12 pr-4 py-3.5 sm:py-4 focus:outline-none uppercase placeholder:text-gray-400 border-none focus:ring-0"
-              />
-            </div>
+    <div className="bg-[#f4f1ea] min-h-screen font-sans pb-20" style={{ paddingTop: navHeight }}>
+      {/* Search / Filter Bar */}
+      <div className="sticky z-40 bg-[#f4f1ea] border-b border-gray-300" style={{ top: navHeight }}>
+        <div className="relative flex items-stretch w-full">
+          {/* Search Icon */}
+          <div className="flex items-center pl-4 sm:pl-6 text-gray-500 shrink-0">
+            <Search size={15} />
+          </div>
+          {/* Input */}
+          <input
+            type="text"
+            placeholder="SEARCH PRECISION APPLIANCES..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="flex-grow bg-transparent text-gray-800 text-[9px] sm:text-[11px] font-bold tracking-widest px-3 sm:px-4 py-3 sm:py-3.5 focus:outline-none uppercase placeholder:text-gray-400 border-none focus:ring-0"
+          />
+          {/* Filter Button */}
+          <div className="relative shrink-0">
             <button
               onClick={() => setIsFiltersOpen(!isFiltersOpen)}
-              className="flex items-center gap-2 px-4 sm:px-6 border-l border-gray-200 bg-white text-gray-900 text-[9px] sm:text-xs font-black tracking-widest hover:bg-gray-50 transition-colors uppercase select-none shrink-0 rounded-r-xl"
+              className="flex items-center gap-1.5 px-4 sm:px-6 h-full border-l border-gray-300 text-gray-700 text-[9px] sm:text-[11px] font-black tracking-widest hover:bg-black/5 transition-colors uppercase"
             >
-              <Filter size={14} />
-              Filter <ChevronDown size={14} className={`transition-transform duration-300 ${isFiltersOpen ? 'rotate-180' : ''}`} />
+              <Filter size={13} />
+              Filter <ChevronDown size={13} className={`transition-transform duration-300 ${isFiltersOpen ? 'rotate-180' : ''}`} />
             </button>
 
             {/* Floating filter dropdown panel */}
             {isFiltersOpen && (
-              <div className="absolute top-full right-0 mt-2 z-50 bg-white border border-gray-200 rounded-2xl shadow-2xl p-4 flex flex-col gap-3 min-w-[260px] sm:min-w-[360px]">
+              <div className="absolute top-full right-0 mt-1 z-50 bg-white border border-gray-200 rounded-2xl shadow-2xl p-4 flex flex-col gap-3 min-w-[260px] sm:min-w-[360px]">
                 <p className="text-[9px] font-black text-gray-400 uppercase tracking-widest mb-1">Filter By</p>
 
                 {/* Category */}
@@ -170,7 +184,7 @@ Hello SR Flames! I want to know about this precision appliance:
       </div>
 
       {/* Product Grid */}
-      <div className="max-w-7xl mx-auto px-4">
+      <div className="max-w-7xl mx-auto px-4 mt-8 sm:mt-12">
         <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8">
           {filteredProducts.map((product, i) => (
             <div key={product._id} className="bg-[#fcfaf2] border border-[#e5e1d5] overflow-hidden flex flex-col group rounded-xl shadow-sm hover:shadow-md transition-shadow">
