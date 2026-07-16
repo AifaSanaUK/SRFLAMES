@@ -5,8 +5,29 @@ require('dotenv').config();
 
 const app = express();
 
-// Middleware
-app.use(cors());
+// ─── CORS — must be FIRST before any other middleware ───────────────────────
+const allowedOrigins = [
+  'https://www.srflames.com',
+  'https://srflames.com',
+  'http://localhost:5173',
+  'http://localhost:5174',
+  'http://localhost:3000',
+];
+
+app.use(cors({
+  origin: (origin, callback) => {
+    // Allow requests with no origin (mobile apps, curl, Postman)
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.includes(origin)) return callback(null, true);
+    callback(new Error('Not allowed by CORS: ' + origin));
+  },
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+}));
+
+// Handle preflight requests
+app.options('*', cors());
 
 // Handle subfolder routing (like /srflames) when deployed on cPanel
 app.use((req, res, next) => {
