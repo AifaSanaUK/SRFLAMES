@@ -79,32 +79,29 @@ Hello SR Flames! I want to know about this precision appliance:
     return matchesSearch && matchesCategory && matchesBrand;
   });
 
-  if (loading) {
-    return (
-      <div className="min-h-screen bg-[#f4f1ea] flex flex-col items-center justify-center gap-8 text-gray-900">
-        <div className="relative">
-          <div className="w-16 h-16 border-2 border-primary/20 rounded-full"></div>
-          <div className="absolute top-0 left-0 w-16 h-16 border-t-2 border-primary rounded-full animate-spin"></div>
-          <div className="absolute inset-0 flex items-center justify-center">
-            <div className="w-1 h-1 bg-primary rounded-full animate-pulse"></div>
-          </div>
+  // ── Skeleton card – matches exact shape of a real product card ──
+  const ProductSkeletonCard = () => (
+    <div className="bg-[#fcfaf2] border border-[#e5e1d5] overflow-hidden flex flex-col rounded-xl shadow-sm">
+      {/* Image placeholder – same aspect-square */}
+      <div className="skeleton-shimmer aspect-square w-full rounded-none" />
+
+      {/* Details area */}
+      <div className="p-3 sm:p-6 flex flex-col gap-2">
+        {/* Category line */}
+        <div className="skeleton-shimmer h-2.5 w-16 rounded" />
+        {/* Title line */}
+        <div className="skeleton-shimmer h-4 w-4/5 rounded mt-0.5" />
+        {/* Brand line */}
+        <div className="skeleton-shimmer h-2.5 w-24 rounded mt-0.5" />
+
+        {/* Buttons area */}
+        <div className="grid grid-cols-1 gap-1.5 sm:gap-2 mt-4 sm:mt-6">
+          <div className="skeleton-shimmer h-9 sm:h-11 w-full rounded" />
+          <div className="skeleton-shimmer h-9 sm:h-11 w-full rounded" />
         </div>
-        <div className="flex flex-col items-center gap-2">
-          <p className="text-primary font-black uppercase tracking-[0.5em] text-[10px] animate-pulse">Loading Catalog</p>
-          <div className="w-32 h-[1px] bg-white/5 overflow-hidden">
-            <div className="w-full h-full bg-primary/40 -translate-x-full animate-[progress_2s_infinite]"></div>
-          </div>
-        </div>
-        <style dangerouslySetInnerHTML={{
-          __html: `
-          @keyframes progress {
-            0% { transform: translateX(-100%); }
-            100% { transform: translateX(100%); }
-          }
-        `}} />
       </div>
-    );
-  }
+    </div>
+  );
 
   return (
     <div className="bg-[#f4f1ea] min-h-screen font-sans pb-20" style={{ paddingTop: navHeight }}>
@@ -186,7 +183,9 @@ Hello SR Flames! I want to know about this precision appliance:
       {/* Product Grid */}
       <div className="max-w-7xl mx-auto px-4 mt-8 sm:mt-12">
         <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8">
-          {filteredProducts.map((product, i) => (
+          {loading
+            ? Array.from({ length: 6 }).map((_, i) => <ProductSkeletonCard key={i} />)
+            : filteredProducts.map((product, i) => (
             <div key={product._id} className="bg-[#fcfaf2] border border-[#e5e1d5] overflow-hidden flex flex-col group rounded-xl shadow-sm hover:shadow-md transition-shadow">
               {/* Product Image */}
               <div
@@ -237,7 +236,7 @@ Hello SR Flames! I want to know about this precision appliance:
           ))}
         </div>
 
-        {filteredProducts.length === 0 && (
+        {!loading && filteredProducts.length === 0 && (
           <div className="text-center py-40 border border-gray-200 bg-white rounded-xl">
             <p className="text-gray-500 font-bold uppercase tracking-widest text-sm">No precision appliances matched your search.</p>
           </div>

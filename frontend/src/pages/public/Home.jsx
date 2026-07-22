@@ -43,6 +43,7 @@ const CountUp = ({ end, duration = 2000 }) => {
 const Home = () => {
   const navigate = useNavigate();
   const [products, setProducts] = useState([]);
+  const [productsLoading, setProductsLoading] = useState(true);
 
   const handleNavClick = (hash) => {
     const id = hash.replace('#', '');
@@ -64,6 +65,8 @@ const Home = () => {
         setProducts(data.slice(0, 8));
       } catch (err) {
         console.error('Failed to fetch products:', err);
+      } finally {
+        setProductsLoading(false);
       }
     };
     fetchProducts();
@@ -290,7 +293,24 @@ const Home = () => {
           </div>
 
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-10">
-            {products.slice(0, 8).map((product) => (
+            {productsLoading
+              ? Array.from({ length: 8 }).map((_, i) => (
+                  // ── Skeleton card – matches exact shape of home product card ──
+                  <div key={i} className="bg-[#fcfaf2] border border-[#e5e1d5] overflow-hidden flex flex-col p-2 rounded-xl shadow-sm">
+                    {/* Square image placeholder */}
+                    <div className="skeleton-shimmer aspect-square w-full rounded-lg" />
+                    {/* Details */}
+                    <div className="p-3 sm:p-6 flex flex-col flex-grow gap-2">
+                      {/* Category line */}
+                      <div className="skeleton-shimmer h-2 w-14" />
+                      {/* Title line */}
+                      <div className="skeleton-shimmer h-4 w-4/5 mt-1" />
+                      {/* Button placeholder */}
+                      <div className="skeleton-shimmer h-9 w-full mt-auto rounded" />
+                    </div>
+                  </div>
+                ))
+              : products.slice(0, 8).map((product) => (
               <div key={product._id} className="bg-[#fcfaf2] border border-[#e5e1d5] overflow-hidden flex flex-col group p-2 shadow-sm hover:shadow-md transition-all duration-500 rounded-xl">
                 <div
                   onClick={() => navigate(`/product/${product._id}`)}
